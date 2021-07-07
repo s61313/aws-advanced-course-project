@@ -1,0 +1,65 @@
+<html>
+<head>
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/styles/login.css">
+    <!-- JavsScript -->
+    <script src='/js/auth.js'></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+</head>
+<body>
+
+    <!-- Register Popup Message -->
+    <div class="modal fade" id="register-msg" tabindex="-1" role="dialog" aria-labelledby="register-msg-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modal-long-title">New User?</h3>
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> -->
+                </div>
+                <div class="modal-body">
+                    Create new account?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btn-create-user">OK</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container login-container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 login-form-2">
+                <h2>Join Community</h2>
+                <form id="lgform">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="username" placeholder="Username" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password" placeholder="Password" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btnSubmit" name="submit" id="submitBtn">Join Community</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="alert alert-warning" id="warning-msg" role="alert">
+            <!-- Username/Password cannot be empty! -->
+        </div>
+    </div>
+
+</body>
+</html>

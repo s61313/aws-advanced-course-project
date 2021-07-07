@@ -1,0 +1,64 @@
+  
+body{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background: #0062cc;
+}
+.login-container{
+    margin-top:50%;
+    margin-bottom:50%;
+}
+.login-form-2{
+    padding: 5%;
+    background: #0062cc;
+    /* box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19); */
+}
+.login-form-2 h1{
+    text-align: center;
+    color: #fff;
+}
+.login-form-2 h2{
+    text-align: center;
+    color: #fff;
+}
+.login-container form{
+    padding: 10%;
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 0.5rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+
+.login-form-2 .btnSubmit{
+    margin-left:25%;
+    margin-top: 5%;
+    font-weight: 600;
+    color:#0062cc;
+    background-color: #fff;
+}
+.login-form-2 .ForgetPwd{
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+/* refer to css animation */
+#warning-msg {
+    opacity: 0;
+    margin-top: 5px;
+    text-align: center;
+    -webkit-transition: opacity 1s ease-in;
+       -moz-transition: opacity 1s ease-in;
+        -ms-transition: opacity 1s ease-in;
+         -o-transition: opacity 1s ease-in;
+            transition: opacity 1s ease-in;
+}
+#warning-msg.fade-in{
+    opacity: 1;
+}
+#join-btn{
+    margin-top: 10%;
+    margin-left:25%;
+}
