@@ -1,4 +1,6 @@
 SET @@auto_increment_increment=1;
+CREATE DATABASE demo_db;
+USE demo_db;
 CREATE TABLE user (
     userid int AUTO_INCREMENT NOT NULL PRIMARY KEY,
     username varchar(255) UNIQUE,
@@ -53,7 +55,7 @@ CREATE TABLE activityuser (
     activityid varchar(255),
     username varchar(255),
     ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-}
+);
 
 CREATE TABLE firereport (
     fireReportId int AUTO_INCREMENT NOT NULL PRIMARY KEY,
