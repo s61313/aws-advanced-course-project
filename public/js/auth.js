@@ -33,7 +33,7 @@ $(document).ready(() => {
                 if (loginRes.resCode === "loginSuccessful") {
                   sessionStorage.setItem("username", $("#username").val());
                   sessionStorage.setItem("userstatus", loginRes.data.userstatus);
-                  window.location.href = window.location.origin + "/esnDir";
+                  window.location.href = window.location.origin + "/cloudwatch";
                 } else {
                   showWarning(loginRes.resMsg);
                 }
@@ -62,7 +62,7 @@ $(document).ready(() => {
         if (res.resCode === "userCreated") {
           sessionStorage.setItem("username", $("#username").val());
           $("#register-msg").modal("hide");
-          window.location.href = window.location.origin + "/esnDir";
+          window.location.href = window.location.origin + "/cloudwatch";
         }
       },
     });

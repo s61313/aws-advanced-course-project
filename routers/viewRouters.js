@@ -28,8 +28,8 @@ router.get("/status", (req, res) => {
   res.render("status");
 });
 
-router.get("/esnDir", (req, res) => {
-  res.render("esnDir");
+router.get("/cloudwatch", (req, res) => {
+  res.render("cloudwatch");
 });
 
 router.get("/admin", (req, res) => {

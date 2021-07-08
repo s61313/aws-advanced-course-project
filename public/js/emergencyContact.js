@@ -33,7 +33,7 @@ $("#emform").on("submit", (e) => {
         ) {
             console.log(res);
             //go back to previous page
-            window.location.href = window.location.origin + "/esnDir";
+            window.location.href = window.location.origin + "/cloudwatch";
             
         },
     });

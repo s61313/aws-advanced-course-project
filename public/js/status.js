@@ -33,7 +33,7 @@ $("#send-status").on("submit", (e) => {
     userStatus = numToText(userStatus);
     
     sessionStorage.setItem('userstatus', userStatus);
-    window.location.href = window.location.origin + "/esnDir";
+    window.location.href = window.location.origin + "/cloudwatch";
 
 });
 
