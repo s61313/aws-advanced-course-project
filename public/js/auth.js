@@ -62,7 +62,7 @@ $(document).ready(() => {
         if (res.resCode === "userCreated") {
           sessionStorage.setItem("username", $("#username").val());
           $("#register-msg").modal("hide");
-          window.location.href = window.location.origin + "/welcome";
+          window.location.href = window.location.origin + "/esnDir";
         }
       },
     });
