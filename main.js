@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //Establish router
 //app.use("/", main_router); /*replace index with name of router,js*/
+app.use("/api", require("./routers/cloudwatchRouter.js"));
 app.use("/api", require("./routers/registrationRouter.js"));
 app.use("/api", require("./routers/userRouter.js"));
 app.use("/api", require("./routers/publicChatRouter.js"));

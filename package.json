@@ -41,6 +41,7 @@
   },
   "homepage": "https://github.com/cmusv-fse/s21-ESN-SB1#readme",
   "dependencies": {
+    "aws-sdk": "^2.962.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "bootstrap-input-spinner": "^2.0.9",
