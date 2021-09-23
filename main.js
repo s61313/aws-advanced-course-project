@@ -30,6 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 //Establish router
 //app.use("/", main_router); /*replace index with name of router,js*/
 app.use("/api", require("./routers/cloudwatchRouter.js"));
+app.use("/api", require("./routers/elbRouter.js"));
 app.use("/", require("./routers/viewRouters.js"));
 
 // Socketio set up 

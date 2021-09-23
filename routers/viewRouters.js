@@ -25,8 +25,12 @@ router.get("/cloudwatch", (req, res) => {
   res.render("cloudwatch");
 });
 
+router.get("/elb", (req, res) => {
+  res.render("elb");
+});
 
-router.use(registerController.verifyJwtToken); // jwt validation middle ware
+
+// router.use(registerController.verifyJwtToken); // jwt validation middle ware
 
 router.get("/status", (req, res) => {
   res.render("status");

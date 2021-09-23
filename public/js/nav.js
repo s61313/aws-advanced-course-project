@@ -469,7 +469,7 @@ function getNavbar() {
         <nav class="navbar navbar-dark">
           <div class="mr-auto d-inline-flex">
               <a class="nav-link nav-txt" href="/cloudwatch" id="dir-btn"><em class="fas fa-eye" aria-hidden="true"></em></a>
-              <a class="nav-link nav-txt" href="/announcement" id="announcement-btn"><em class="fa fa-bullhorn" aria-hidden="true"></em></a>
+              <a class="nav-link nav-txt" href="/elb" id="announcement-btn"><em class="fas fa-balance-scale" aria-hidden="true"></em></a>
               <a class="nav-link nav-txt" href="/chatroom" id="public-chat-btn"><em class="fa fa-comments" aria-hidden="true"></em></a>
               <a class="nav-link nav-txt" href="/privateMsgs" id="inbox-btn"><em class="fas fa-envelope" aria-hidden="true"></em></a>
               <a class="nav-link nav-txt" href="/status" id="status-btn"><em class="fa fa-medkit" aria-hidden="true"></em></a>
