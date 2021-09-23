@@ -21,15 +21,15 @@ router.get("/activity", (req, res) => {
   res.render("activity");
 });
 
+router.get("/cloudwatch", (req, res) => {
+  res.render("cloudwatch");
+});
+
 
 router.use(registerController.verifyJwtToken); // jwt validation middle ware
 
 router.get("/status", (req, res) => {
   res.render("status");
-});
-
-router.get("/cloudwatch", (req, res) => {
-  res.render("cloudwatch");
 });
 
 router.get("/admin", (req, res) => {

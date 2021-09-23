@@ -11,7 +11,8 @@ router.get("/cloudwatch/metrics", async function (req, res) {
   const bucketResult = await awsS3.listBuckets();
   console.log("bucketResult: ", bucketResult);
   // var resMsg = await registerController.findUserByNameWithoutPwd(req.params.username);
-  // res.send(resMsg);
+  var resMsg = "finished";
+  res.send(resMsg);
 });
 
 module.exports = router;

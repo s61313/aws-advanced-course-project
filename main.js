@@ -30,21 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 //Establish router
 //app.use("/", main_router); /*replace index with name of router,js*/
 app.use("/api", require("./routers/cloudwatchRouter.js"));
-app.use("/api", require("./routers/registrationRouter.js"));
-app.use("/api", require("./routers/userRouter.js"));
-app.use("/api", require("./routers/publicChatRouter.js"));
-app.use("/api", require("./routers/privateChatRouter.js"));
-app.use("/api", require("./routers/announcementRouter.js"));
-app.use("/api", require("./routers/statusRouter.js"));
-app.use("/api", require("./routers/activityRouter.js"));
-app.use("/api", require("./routers/quizRouter.js"));
-app.use("/api", require("./routers/fireReportRouter.js"));
-app.use("/api", require("./routers/emergencyContactRouter.js"));
 app.use("/", require("./routers/viewRouters.js"));
-
-app.use("/api", require("./routers/shelterRouter.js"));
-
-
 
 // Socketio set up 
 const http = require("http");
