@@ -18,3 +18,47 @@
 .btnBasic:focus {     
     color: #fff;
 }
+
+.navbar {
+    background-color: rgb(36, 48, 64);
+}
+
+#bottom-nav-template{
+    width:100%;
+    height: 40px;
+    position: fixed;
+    bottom: 0px;
+}
+
+#bottom-nav-template .navbar {
+    background-color: rgb(36, 48, 64);
+    overflow: hidden;
+}
+
+/* nav bar */
+.nav-txt{
+    color:#fff;
+    font-style:inherit;
+    font-weight: bolder;
+    padding: .1rem 1rem;
+}
+/* nav bar */
+
+/* layout */
+body {
+    overflow-x:hidden;
+    margin: 0;
+    background:#fff;
+    margin-top:0;
+    overflow:hidden;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+} 
+#page-content-wrapper .page-button{
+    margin-left: 50%;
+    margin-right: 50%;
+} 
+/* layout */
