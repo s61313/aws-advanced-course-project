@@ -12,10 +12,15 @@
 }
 
 .btnBasic:active {     
+    color: #fff;
     background-color:rgb(92, 126, 170);
 }
 
 .btnBasic:focus {     
+    color: #fff;
+}
+
+.btnBasic:hover {
     color: #fff;
 }
 
