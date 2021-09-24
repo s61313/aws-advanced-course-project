@@ -1,0 +1,20 @@
+.btnBasic
+{
+    /* width: 50%;
+    border-radius: 0.5rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer; */
+    color: #fff;
+    border: none;
+    background-color: rgb(36, 48, 64);
+    /* border-color: rgb(36, 48, 64); */
+}
+
+.btnBasic:active {     
+    background-color:yellow;    
+}
+
+.btnBasic:focus {     
+    color: #fff;
+}
