@@ -8,6 +8,18 @@ body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+.table-vertical-scrollable {
+    max-height: 300px;
+    overflow: auto;
+    display:inline-block;
+}
+
+.btn-text-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #fieldset-container {
     width: 500vw;
     overflow: hidden;
