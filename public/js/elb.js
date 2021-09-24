@@ -4,6 +4,7 @@ import User from './modules/userModule.js';
 // const userList = $("#user-list");
 
 var canvas_dataPoints = [];
+var ticket_req_count = 0;
 
 $(document).ready(() => {
   console.log("cloudwatch.js loaded");
@@ -24,6 +25,7 @@ function setupEvent(){
 }
 
 function clearDatapointToCanvas() {
+  ticket_req_count = 0;
   canvas_dataPoints = [];
 }
 
@@ -74,7 +76,8 @@ function buyTicket() {
     success: function (res) {
       console.log("buyTicket - res: " , res);
       // HERE001
-      addDatapointToCanvas(res.ticket_id, res.process_time);
+      ticket_req_count++;
+      addDatapointToCanvas(ticket_req_count, res.process_time);
       updateCanvas();      
       // $("#tbody_ticket").append(getProcessedTicketRowView(res.ticket_id, res.process_time));
     },
