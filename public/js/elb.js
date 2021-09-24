@@ -45,7 +45,7 @@ function updateCanvas() {
     },    
     axisX:{
       // maximum: 30,
-      title : "Ticket #",
+      title : "Ticket Req #",
       minimum: 0,
       interval: 1,
       titleFontSize: 14
