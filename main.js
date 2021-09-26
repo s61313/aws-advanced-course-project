@@ -15,7 +15,7 @@ const SocketioService = require("./utils/socketio");
 const cors = require('cors');
 
 // replace variable in static js files
-replaceEnvVarInFile('./public/js/elb.js', './public/js/elb_tmp.js', '${BACKEND_HOST_URL}', process.env.BACKEND_HOST_URL);
+replaceEnvVarInFile('./public/js/elb_template.js', './public/js/elb.js', '${BACKEND_HOST_URL}', process.env.BACKEND_HOST_URL);
 
 // cors 
 app.use(cors());

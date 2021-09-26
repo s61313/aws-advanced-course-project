@@ -2,3 +2,4 @@ node_modules/
 coverage/
 .env
 settings.json
+public/js/elb.js

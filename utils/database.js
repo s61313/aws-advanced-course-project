@@ -78,7 +78,9 @@ function handleDisconnect() {
   console.log('db connection built');
 }
 
-handleDisconnect();
+// entry point for database
+// handleDisconnect();
+
 module.exports = {
   getConnection: getConnection,
   endConnection: endConnection
