@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const awsS3Service = require("../utils/awsS3");
 const elbController = require("../controllers/elbController.js");
-// const cookieParser = require("cookie-parser");
+
 
 // router.use(cookieParser());
 router.get("/elb/buyticket", async function (req, res) {

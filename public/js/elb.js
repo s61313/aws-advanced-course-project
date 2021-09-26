@@ -7,7 +7,7 @@ var canvas_dataPoints = [];
 var ticket_req_count = 0;
 
 $(document).ready(() => {
-  console.log("cloudwatch.js loaded");
+  console.log("elb.js loaded");
   setupEvent();
 
   // addDatapointToCanvas(1, 3);
@@ -70,8 +70,9 @@ function clearTicketData() {
 function buyTicket() {
   console.log("buyTicket called");
   const req_issued_time = new Date().getTime();
+  const hostname = "${BACKEND_HOST_URL}";
   $.ajax({
-    url: `/api/elb/buyticket?req_issued_time=${req_issued_time}`,
+    url: `${hostname}/api/elb/buyticket?req_issued_time=${req_issued_time}`,
     type: "GET",
     success: function (res) {
       console.log("buyTicket - res: " , res);
