@@ -4,12 +4,6 @@ const express = require("express");
 const db = require('./utils/database');
 const fs = require('fs');
 const path = require("path");
-const moment = require("moment");
-const expressLayouts = require("express-ejs-layouts");
-const flash = require("connect-flash");
-const session = require("express-session");
-const passport = require("passport");
-const main_router = require("./routers/userRouter");
 const app = express();
 const SocketioService = require("./utils/socketio");
 const cors = require('cors');
@@ -35,7 +29,6 @@ app.use(express.urlencoded({ extended: false }));
 
 //Establish router
 //app.use("/", main_router); /*replace index with name of router,js*/
-app.use("/api", require("./routers/cloudwatchRouter.js"));
 app.use("/api", require("./routers/elbRouter.js"));
 app.use("/", require("./routers/viewRouters.js"));
 
