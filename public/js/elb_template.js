@@ -22,8 +22,9 @@ $(document).ready(() => {
 function setupEvent(){
   $('#buyTicketId').click({level: "normal"}, buyTicket);
   $('#buyTicketVipId').click({level: "vip"}, buyTicket);
-
+  
   $('#clearTicketDataId').click(clearTicketData);
+  $('#clearTicketDataVipId').click(clearTicketData);
 }
 
 function clearDatapointToCanvas() {
@@ -76,10 +77,11 @@ function buyTicket(event) {
   const hostname = "${BACKEND_HOST_URL}";
 
   var url_buyticket = '';
-  if (event.data.level === 'normal') 
-    url_buyticket = `${hostname}/api/elb/buyticket?req_issued_time=${req_issued_time}`
-  else (event.data.level === 'vip')
+  if (event.data.level === "normal") {
+    url_buyticket = `${hostname}/api/elb/buyticket?req_issued_time=${req_issued_time}`;
+  } else if (event.data.level === "vip") {
     url_buyticket = `${hostname}/api/elb/vip/buyticket?req_issued_time=${req_issued_time}`
+  }
   $.ajax({
     url: url_buyticket,
     type: "GET",
