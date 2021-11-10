@@ -3,3 +3,4 @@ coverage/
 .env
 settings.json
 public/js/elb.js
+public/js/elbex1.js

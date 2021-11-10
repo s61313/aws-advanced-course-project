@@ -12,4 +12,8 @@ router.get("/elb", (req, res) => {
   res.render("elb");
 });
 
+router.get("/elbex1", (req, res) => {
+  res.render("elbex1");
+});
+
 module.exports = router;
