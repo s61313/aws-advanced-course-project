@@ -7,7 +7,9 @@ var canvas_dataPoints = [];
 var ticket_req_count = 0;
 var is_passed_g = false;
 var passed_color_bg = "#22a2b8";
-var threshold_time_case_1 = 11.0;
+var threshold_time_case_1 = 8.0;
+var passed_count_case_1 = 0;
+var passed_count_target_case_1 = 3;
 
 $(document).ready(() => {
   console.log("elb.js loaded");
@@ -140,10 +142,13 @@ async function buyTicketMultipleTimes(num) {
   }
 
   Promise.all(buyTicket_promise_array).then((result) => {
+    console.log('Promise.all all done this round: ')
     verify_simulate_case_1(result)
-    console.log(result)       
+    console.log(result)
   }).catch((error) => {
+    console.log('Promise.all has errors: ')
     console.log(error)
+    // stopReqInterval()
   })
 
 }
@@ -161,8 +166,12 @@ function verify_simulate_case_1(result) {
 
   if (is_higher == false) {
     console.log("simulate_case_1 passed")
-    is_passed_g = true;
-    stopReqInterval()
+    passed_count_case_1++;
+    if (passed_count_case_1 >= passed_count_target_case_1) {
+      console.log("simulate_case_1 passed all")
+      is_passed_g = true
+      stopReqInterval()
+    }
   }
  
 }
@@ -175,15 +184,19 @@ function buyTicket() {
     var url_buyticket = `${hostname}/api/elb/buyticket?req_issued_time=${req_issued_time}`;
     $.ajax({
       url: url_buyticket,
-      type: "GET",
-      success: function (res) {
-        console.log("buyTicket - res: " , res);
-        ticket_req_count++;
-        addDatapointToCanvas(ticket_req_count, res.process_time);
-        updateCanvas();
-        resolve(res);
-      },
-    });
+      type: "GET"
+    }).done(function(res) {
+      console.log("buyTicket - res: " , res);
+      ticket_req_count++;
+      addDatapointToCanvas(ticket_req_count, res.process_time);
+      updateCanvas();
+      resolve(res);
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+      reject(jqXHR);
+    }).always(function() {
+      
+    });    
+    ;
   })
 }
 
