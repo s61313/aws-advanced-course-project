@@ -34,17 +34,17 @@ function setupEvent(){
   $('#trackSQSmsgId').click({"input1": "value1"}, trackSQSmsg);
   $('#trackSQSmsgStopId').click({"input1": "value1"}, trackSQSmsgStop);
 
-  
-  
 }
 
 function trackSQSmsgStop(event) {
   console.log("trackSQSmsgStop() called");
   clearInterval(refreshIntervalId);
+  $('#trackSQSmsgId').prop('disabled', false);
 }
 
 function trackSQSmsg(event){
   console.log("trackSQSmsg() called");
+  $('#trackSQSmsgId').prop('disabled', true);
   refreshIntervalId = setInterval(function() { get_sqs_queue_msg_count() }, interval_ms)
 }
 
