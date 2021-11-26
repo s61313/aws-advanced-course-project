@@ -16,4 +16,10 @@ router.get("/elbex1", (req, res) => {
   res.render("elbex1");
 });
 
+router.get("/sqs_lambda", (req, res) => {
+  res.render("sqs_lambda");
+});
+
+
+
 module.exports = router;

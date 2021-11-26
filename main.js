@@ -11,6 +11,8 @@ const cors = require('cors');
 // replace variable in static js files
 replaceEnvVarInFile('./public/js/elb_template.js', './public/js/elb.js', '${BACKEND_HOST_URL}', process.env.BACKEND_HOST_URL);
 replaceEnvVarInFile('./public/js/elbex1_template.js', './public/js/elbex1.js', '${BACKEND_HOST_URL}', process.env.BACKEND_HOST_URL);
+replaceEnvVarInFile('./public/js/sqs_lambda_template.js', './public/js/sqs_lambda.js', '${BACKEND_HOST_URL}', process.env.BACKEND_HOST_URL);
+
 
 // cors 
 app.use(cors());
@@ -31,6 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 //Establish router
 //app.use("/", main_router); /*replace index with name of router,js*/
 app.use("/api", require("./routers/elbRouter.js"));
+app.use("/api", require("./routers/sqsRouter.js"));
 app.use("/", require("./routers/viewRouters.js"));
 
 // Socketio set up 
