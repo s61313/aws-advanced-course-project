@@ -87,6 +87,30 @@ class awsSQS {
       return messages;
     }
 
+    get_queue_attr(sqs_queue_url) {    
+
+      return new Promise(async (resolve, reject) => {
+
+        var params = {
+          QueueUrl: sqs_queue_url,
+          AttributeNames : ['ApproximateNumberOfMessages'],
+         };
+
+         this.sqs.getQueueAttributes(params, function(err, data){
+          if (err) {
+                 console.log("Error", err);
+               } else {
+                 console.log(data);
+                 resolve(data);
+               }
+          });         
+         
+        // var queue_attr = await this.sqs.getQueueAttributes(params);
+        // resolve(queue_attr);
+        
+      }) 
+    }    
+
 }
 module.exports = awsSQS;
 
