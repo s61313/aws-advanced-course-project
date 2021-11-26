@@ -24,6 +24,32 @@
     color: #fff;
 }
 
+.btnSecondary
+{
+    /* width: 50%;
+    border-radius: 0.5rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer; */
+    color: #fff;
+    border: none;
+    background-color: rgb(88, 124, 171);
+    /* border-color: rgb(36, 48, 64); */
+}
+
+.btnSecondary:active {     
+    color: #fff;
+    background-color:rgb(88, 124, 171);
+}
+
+.btnSecondary:focus {     
+    color: #fff;
+}
+
+.btnSecondary:hover {
+    color: #fff;
+}
+
 .navbar {
     background-color: rgb(36, 48, 64);
 }
