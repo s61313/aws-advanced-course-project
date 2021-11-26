@@ -2,7 +2,7 @@ exports.handler = async (event) => {
     
     for (var i = 0; i < event.Records.length ; i++) {
         let record = event.Records[i]
-        const { body } = record;
+        let { body } = record;
         console.log("body: ", body);
         
         console.log("type of body: " + (typeof body))
@@ -11,7 +11,7 @@ exports.handler = async (event) => {
         }
 
         console.log("body.process_time_ms: ", body.process_time_ms);
-        const { process_time_ms } = body;
+        let { process_time_ms } = body;
         
         console.log("start processing: " + process_time_ms);
         await delay(process_time_ms);
