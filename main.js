@@ -30,6 +30,12 @@ app.use(express.urlencoded({ extended: false }));
 
 //Establish router
 //app.use("/", main_router); /*replace index with name of router,js*/
+app.all('/api', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
+
 app.use("/api", require("./routers/elbRouter.js"));
 app.use("/api", require("./routers/sqsRouter.js"));
 app.use("/", require("./routers/viewRouters.js"));
