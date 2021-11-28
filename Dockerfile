@@ -1,4 +1,5 @@
 FROM node:12
+ARG serverid
 # Create app directory
 WORKDIR /usr/src/app
 # Install app dependencies
@@ -13,5 +14,6 @@ RUN npm install
 # Bundle app source
 COPY . .
 
+RUN sed -i "s/replaced_this_with_a_server_id/${serverid}/g" views/elb_stickiness.ejs
 EXPOSE 8080
 CMD [ "node", "start.js" ]
