@@ -20,6 +20,10 @@ router.get("/sqs_lambda", (req, res) => {
   res.render("sqs_lambda");
 });
 
+router.get("/elb_stickiness", (req, res) => {
+  res.render("elb_stickiness");
+});
+
 
 
 module.exports = router;
