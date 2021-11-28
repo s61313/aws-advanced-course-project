@@ -33,6 +33,10 @@ router.get("/elb/az", async function (req, res) {
   const url_metadata = 'http://169.254.169.254/latest/meta-data/placement/availability-zone';
   const response = await axios.get(url_metadata)
   console.log(response.data);
+
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
   res.send(response.data);
 });
 
