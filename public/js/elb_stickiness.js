@@ -52,8 +52,15 @@ function checkawsaz() {
   $.ajax({
     url: url_check_aws_az,
     type: "GET",
-    success: function (az_of_ec2) {
+    success: function (az_of_ec2, status, xhr) {
       console.log("url_check_aws_az - az_of_ec2: " , az_of_ec2);   
+      const res_cookie = xhr.getResponseHeader('Set-Cookie');
+      console.log("res_cookie: " , res_cookie);
+      // const AWSALB = xhr.getResponseHeader("AWSALB");    
+      // const AWSALBTG = xhr.getResponseHeader("AWSALBTG");    
+      // console.log("AWSALB: " , AWSALB);   
+      // console.log("AWSALBTG: " , AWSALBTG);   
+      
       $('#awsazId').val(az_of_ec2)   
     },
   });   
