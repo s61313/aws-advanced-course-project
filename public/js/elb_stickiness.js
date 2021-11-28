@@ -52,8 +52,9 @@ function checkawsaz() {
   $.ajax({
     url: url_check_aws_az,
     type: "GET",
-    success: function (res) {
-      console.log("url_check_aws_az - res: " , res);      
+    success: function (az_of_ec2) {
+      console.log("url_check_aws_az - az_of_ec2: " , az_of_ec2);   
+      $('#awsazId').val(az_of_ec2)   
     },
   });   
 }
