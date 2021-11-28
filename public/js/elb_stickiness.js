@@ -54,6 +54,8 @@ function checkawsaz() {
     type: "GET",
     success: function (az_of_ec2, status, xhr) {
       console.log("url_check_aws_az - az_of_ec2: " , az_of_ec2);   
+      console.log("status: " , status);
+      console.log("xhr: " , xhr);
       const res_cookie = xhr.getResponseHeader('Set-Cookie');
       console.log("res_cookie: " , res_cookie);
       // const AWSALB = xhr.getResponseHeader("AWSALB");    
