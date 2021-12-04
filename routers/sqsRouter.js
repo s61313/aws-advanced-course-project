@@ -9,7 +9,7 @@ router.get("/sqs/sendmsg", async function (req, res) {
   console.log("/sqs/sendmsg called");
   var sqs_queue_url = req.query.sqs_queue_url;
   var sqs_msg_number = req.query.sqs_msg_number;
-  const process_time_ms = 5005;
+  var process_time_ms = req.query.process_time_ms;
   const sqs_msg_result = await awsSQSService.send_msg_batch(sqs_queue_url, sqs_msg_number, process_time_ms)
 
   res.send(sqs_msg_result)

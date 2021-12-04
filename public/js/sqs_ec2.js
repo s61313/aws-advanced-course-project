@@ -152,10 +152,9 @@ function sendSQSmsgId(event) {
   let hostname = $('#backendUrlId').val()
   let sqs_queue_url = $('#sqsQueueUrlId').val()
   let sqs_msg_number = $('#sqsMsgBatchNumUrlId').val()
+  let process_time_ms = 1005;
 
-  // let hostname = event.data.hostname;
-
-  var url_sqs_send_msg = `${hostname}/api/sqs/sendmsg?sqs_queue_url=${sqs_queue_url}&sqs_msg_number=${sqs_msg_number}`;
+  var url_sqs_send_msg = `${hostname}/api/sqs/sendmsg?sqs_queue_url=${sqs_queue_url}&sqs_msg_number=${sqs_msg_number}&process_time_ms=${process_time_ms}`;
   console.log("url_sqs_send_msg: " , url_sqs_send_msg);
 
   $.ajax({
