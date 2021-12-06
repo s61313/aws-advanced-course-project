@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const elbController = require("../controllers/elbController.js");
 const awsSQS = require("../utils/awsSQS")
 const awsSQSService = new awsSQS()
-var is_process_continue = false;
 
 router.get("/sqs/sendmsg", async function (req, res) {
   console.log("/sqs/sendmsg called");
@@ -26,19 +24,14 @@ router.get("/sqs/attrtibute", async function (req, res) {
 
 router.get("/sqs/process/continue/stop", async function (req, res) {
   console.log("/sqs/process/continue/stop called");
-  is_process_continue = false;
+  await awsSQSService.process_queue_msg_continue_stop();
   res.send({"result":"Done"});
 });
 
 router.get("/sqs/process/continue", async function (req, res) {
   console.log("/sqs/process/continue called");
   var sqs_queue_url = req.query.sqs_queue_url;
-  is_process_continue = true;
-
-  while (is_process_continue) {
-    await awsSQSService.process_queue_msg(sqs_queue_url);
-  }
-  
+  await awsSQSService.process_queue_msg_continue(sqs_queue_url);  
   res.send({"result":"Done"});
 });
 

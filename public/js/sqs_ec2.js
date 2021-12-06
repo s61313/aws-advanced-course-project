@@ -25,6 +25,8 @@ function setUpDefault() {
   $('#backendUrlId').val('http://localhost:8080')
   $('#sqsQueueUrlId').val('https://sqs.us-east-1.amazonaws.com/344458213649/sqs-asg-ec2-001')
   $('#sqsMsgBatchNumUrlId').val('5')
+
+  $('#continueProcessSQSmsgId').prop('disabled', true);
 }
 
 function setupEvent(){

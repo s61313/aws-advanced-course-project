@@ -9,7 +9,13 @@ const myUtilService = new myUtil()
 
 class awsSQS {
     constructor() {
+      if (!awsSQS._instance) {
+        awsSQS._instance = this;
         this.sqs = new AWS.SQS({apiVersion: '2012-11-05'});
+        this.is_process_continue = false;
+      }
+
+      return awsSQS._instance;        
     }
 
     send_msg(sqs_queue_url) {
@@ -152,6 +158,28 @@ class awsSQS {
         resolve();
       }) 
     }    
+
+    process_queue_msg_continue(sqs_queue_url) {    
+
+      return new Promise(async (resolve, reject) => {
+        if (this.is_process_continue === false) {
+          this.is_process_continue = true;
+          while (this.is_process_continue) {
+            await this.process_queue_msg(sqs_queue_url);
+          }  
+        }
+        resolve();
+      }) 
+    }
+
+    process_queue_msg_continue_stop(sqs_queue_url) {    
+
+      return new Promise(async (resolve, reject) => {
+        this.is_process_continue = false;
+        resolve();
+      }) 
+    }    
+
 
     process_queue_msg_helper(sqs_queue_url, msg_now) {
       return new Promise(async (resolve, reject) => {

@@ -8,6 +8,8 @@ const app = express();
 const SocketioService = require("./utils/socketio");
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const awsSQS = require("./utils/awsSQS")
+const awsSQSService = new awsSQS()
 
 // replace variable in static js files
 replaceEnvVarInFile('./public/js/elb_template.js', './public/js/elb.js', '${BACKEND_HOST_URL}', process.env.BACKEND_HOST_URL);
@@ -59,5 +61,6 @@ function replaceEnvVarInFile(src_file_name, target_file_name, src_env_name, targ
 module.exports = {
     server: server,
     db: db,
-    socketioService: socketioService
+    socketioService: socketioService,
+    awsSQSService: awsSQSService
 }
