@@ -16,5 +16,6 @@ COPY . .
 
 RUN sed -i "s/replaced_this_with_a_server_id/${serverid}/g" views/elb_stickiness.ejs
 RUN sed -i "s|replaced_this_with_a_sqs_queue_url|${sqs_queue_url}|g" .env
+RUN cat .env
 EXPOSE 8080
 CMD [ "node", "start.js" ]
