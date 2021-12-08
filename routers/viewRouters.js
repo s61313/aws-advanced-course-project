@@ -16,6 +16,9 @@ router.get("/elbex1", (req, res) => {
   res.render("elbex1");
 });
 
+router.get("/sqs_asg", (req, res) => {
+  res.render("sqs_asg");
+});
 
 router.get("/sqs_asg_tool", (req, res) => {
   res.render("sqs_asg_tool");

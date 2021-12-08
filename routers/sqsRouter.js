@@ -14,6 +14,15 @@ router.get("/sqs/sendmsg", async function (req, res) {
 
 });
 
+router.get("/sqs/purge", async function (req, res) {
+  console.log("/sqs/purge called");
+  var sqs_queue_url = req.query.sqs_queue_url;
+  const result = await awsSQSService.purge_queue(sqs_queue_url);
+  res.send(result);
+});
+
+
+
 
 router.get("/sqs/attrtibute", async function (req, res) {
   console.log("/sqs/attrtibute called");

@@ -18,6 +18,27 @@ class awsSQS {
       return awsSQS._instance;        
     }
 
+    purge_queue(sqs_queue_url) {
+      return new Promise((resolve, reject) => {
+          
+          var params = {
+            QueueUrl: sqs_queue_url
+          };
+          this.sqs.purgeQueue(params, async function(err, data) {
+             if (err) {
+               console.log("Error", err);
+               resolve();
+             } else {
+              //  console.log("Success", data);
+               let wait_time_for_purge = 60 * 1000;
+               await myUtilService.wait_for_second(wait_time_for_purge);
+               resolve(data);
+             }
+           });
+      })        
+  }    
+
+
     send_msg(sqs_queue_url) {
         return new Promise((resolve, reject) => {
             
