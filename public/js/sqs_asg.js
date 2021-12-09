@@ -9,6 +9,7 @@ var axisX_min = 0;
 var axisX_max = 50;
 const canvas_x_min_update_interval = 10;
 
+var refreshIntervalId_basic;
 var refreshIntervalId;
 var refreshIntervalId_high_demand;
 var interval_ms = 3000
@@ -23,6 +24,9 @@ var consecutive_zero_msg_count = 0;
 const consecutive_zero_msg_count_target = 8;
 var process_time_ms = 20 * 1000; 
 var backlog_per_instance_target = 3;
+
+var sqs_msg_number_basic = 9; 
+const simulation_target_time_basic = 100000000 * 1000; 
 
 var sqs_msg_number = 9; 
 const simulation_target_time = ( (sqs_msg_number/backlog_per_instance_target) * 2 * process_time_ms + consecutive_zero_msg_count_target * interval_ms + 5 * 1000); 
@@ -50,12 +54,24 @@ function setUpDefault() {
 }
 
 function setupEvent(){
+  
+  $('#caseBasicId').click({"input1": "value1"}, start_basic_simulation);
+  $('#caseBasicStopId').click({"input1": "value1"}, end_basic_simulation);
+
   $('#caseNormalDemandId').click({"input1": "value1"}, start_normal_demand_simulation);
   $('#caseNormalDemandStopId').click({"input1": "value1"}, end_normal_demand_simulation);
 
   $('#caseHighDemandId').click({"input1": "value1"}, start_high_demand_simulation);
   $('#caseHighDemandStopId').click({"input1": "value1"}, end_high_demand_simulation);
 
+}
+
+function end_basic_simulation(event) {
+  console.log("end_basic_simulation() called");
+  clearInterval(refreshIntervalId_basic);
+  $('#caseBasicId').prop('disabled', false);
+  $("#caseBasicId").html('Simulation: basic (NOT PASSED)');
+  $("#caseBasicId").css("background-color", notpassed_color_bg);
 }
 
 function end_normal_demand_simulation(event) {
@@ -71,6 +87,24 @@ function end_high_demand_simulation(event) {
   console.log("end_high_demand_simulation() called");
   clearInterval(refreshIntervalId_high_demand);
   $('#caseHighDemandId').prop('disabled', false);
+}
+
+
+async function start_basic_simulation(event){
+  console.log("start_basic_simulation() called");
+  $("#caseBasicId").css("background-color", notpassed_color_bg);
+  $('#caseBasicId').prop('disabled', true);
+
+  // step: purge current msg (60s)
+  // await purge_sqs_queue();
+
+  // step: send batch msg
+  await send_sqs_msg(sqs_msg_number_basic, process_time_ms);
+
+  // step: track status
+  simulation_initiated_time = new Date().getTime();
+  consecutive_zero_msg_count = 0;
+  refreshIntervalId_basic = setInterval(function() { verify_result('case_basic') }, interval_ms)
 }
 
 
@@ -133,7 +167,11 @@ function verify_result(case_type) {
     }
 
     if (consecutive_zero_msg_count >= consecutive_zero_msg_count_target) {
-      if (case_type === 'case_normal_demand') {
+      if (case_type === 'case_basic') {
+        const is_passed = check_result_status(simulation_target_time_basic);
+        update_result_status_basic(is_passed);   
+        clearInterval(refreshIntervalId_basic);
+      }else if (case_type === 'case_normal_demand') {
         const is_passed = check_result_status(simulation_target_time);
         update_result_status(is_passed);   
         clearInterval(refreshIntervalId);
@@ -162,8 +200,23 @@ function check_result_status(target_time) {
   if (simulation_spent_time <= target_time) {
     return true;
   }
-
   return false;
+}
+
+
+function update_result_status_basic(is_passed) {
+  if (is_passed) {
+    $('#caseBasicId').prop('disabled', true);
+    $("#caseBasicId").html('Simulation: normal demand (PASSED!)');
+    $("#caseBasicId").css("background-color", passed_color_bg);
+
+    $('#caseBasicStopId').prop('disabled', true);
+    $("#caseBasicStopId").html('20 points');
+    $("#caseBasicStopId").css("background-color", passed_color_bg);
+  }else{
+    $("#caseBasicId").html('Simulation: normal demand (NOT PASSED - TAKE_TOO_MUCH_TIME)');
+    $("#caseBasicId").css("background-color", notpassed_toolong_color_bg);
+  }
 }
 
 function update_result_status(is_passed) {
