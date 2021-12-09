@@ -6,20 +6,29 @@ var chart;
 var req_count = 0;
 var canvas_dataPoints = [];
 var axisX_min = 0;
-var axisX_max = 100;
+var axisX_max = 50;
+const canvas_x_min_update_interval = 10;
+
 var refreshIntervalId;
+var refreshIntervalId_high_demand;
 var interval_ms = 3000
 
+var notpassed_color_bg = "rgb(88, 124, 171)";
 var passed_color_bg = "#22a2b8";
+var notpassed_toolong_color_bg = "rgb(191, 62, 92)";
 
 var simulation_initiated_time; 
 var simulation_finished_time;
 var consecutive_zero_msg_count = 0;
 const consecutive_zero_msg_count_target = 8;
+var process_time_ms = 20 * 1000; 
+var backlog_per_instance_target = 3;
 
 var sqs_msg_number = 9; 
-var process_time_ms = 20 * 1000; 
-const simulation_target_time = 200 * 1000; 
+const simulation_target_time = ( (sqs_msg_number/backlog_per_instance_target) * 2 * process_time_ms + consecutive_zero_msg_count_target * interval_ms + 5 * 1000); 
+
+var sqs_msg_number_high_demand = 30; 
+const simulation_target_time_high_demand = 200 * 1000; 
 
 $(document).ready(() => {
   console.log("sqs_lambda_tempalte.js loaded");
@@ -31,6 +40,7 @@ $(document).ready(() => {
 function clearData() {
   axisX_min = 0;
   consecutive_zero_msg_count = 0;
+  clearDatapointToCanvas();
   initializeCanvas();
 }
 
@@ -42,20 +52,35 @@ function setUpDefault() {
 function setupEvent(){
   $('#caseNormalDemandId').click({"input1": "value1"}, start_normal_demand_simulation);
   $('#caseNormalDemandStopId').click({"input1": "value1"}, end_normal_demand_simulation);
+
+  $('#caseHighDemandId').click({"input1": "value1"}, start_high_demand_simulation);
+  $('#caseHighDemandStopId').click({"input1": "value1"}, end_high_demand_simulation);
+
 }
 
 function end_normal_demand_simulation(event) {
   console.log("end_normal_demand_simulation() called");
   clearInterval(refreshIntervalId);
   $('#caseNormalDemandId').prop('disabled', false);
+  $("#caseNormalDemandId").html('Simulation: normal demand (NOT PASSED)');
+  $("#caseNormalDemandId").css("background-color", notpassed_color_bg);
 }
+
+
+function end_high_demand_simulation(event) {
+  console.log("end_high_demand_simulation() called");
+  clearInterval(refreshIntervalId_high_demand);
+  $('#caseHighDemandId').prop('disabled', false);
+}
+
 
 async function start_normal_demand_simulation(event){
   console.log("start_normal_demand_simulation() called");
+  $("#caseNormalDemandId").css("background-color", notpassed_color_bg);
   $('#caseNormalDemandId').prop('disabled', true);
 
   // step: purge current msg (60s)
-  await purge_sqs_queue();
+  // await purge_sqs_queue();
 
   // step: send batch msg
   await send_sqs_msg(sqs_msg_number, process_time_ms);
@@ -63,10 +88,28 @@ async function start_normal_demand_simulation(event){
   // step: track status
   simulation_initiated_time = new Date().getTime();
   consecutive_zero_msg_count = 0;
-  refreshIntervalId = setInterval(function() { verify_result() }, interval_ms)
+  refreshIntervalId = setInterval(function() { verify_result('case_normal_demand') }, interval_ms)
 }
 
-function verify_result() {
+
+async function start_high_demand_simulation(event){
+  console.log("start_high_demand_simulation() called");
+  $('#caseHighDemandId').prop('disabled', true);
+
+  // step: purge current msg (60s)
+  await purge_sqs_queue();
+
+  // step: send batch msg
+  await send_sqs_msg(sqs_msg_number_high_demand, process_time_ms);
+
+  // step: track status
+  simulation_initiated_time = new Date().getTime();
+  consecutive_zero_msg_count = 0;
+  refreshIntervalId_high_demand = setInterval(function() { verify_result('case_high_demand') }, interval_ms)
+}
+
+
+function verify_result(case_type) {
   // console.log("verify_result() called");
 
   let hostname = $('#backendUrlId').val()
@@ -90,14 +133,19 @@ function verify_result() {
     }
 
     if (consecutive_zero_msg_count >= consecutive_zero_msg_count_target) {
-      const is_passed = check_result_status();
-      update_result_status(is_passed);   
-      clearInterval(refreshIntervalId);   
+      if (case_type === 'case_normal_demand') {
+        const is_passed = check_result_status(simulation_target_time);
+        update_result_status(is_passed);   
+        clearInterval(refreshIntervalId);
+      }else if (case_type === 'case_high_demand') {
+        const is_passed = check_result_status(simulation_target_time_high_demand);
+        update_result_status_high_demand(is_passed);
+        clearInterval(refreshIntervalId_high_demand);
+      }
     }
 
     req_count++;
     addDatapointToCanvas(req_count, msg_count);
-    updateCanvas();
 
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
@@ -106,12 +154,12 @@ function verify_result() {
 
 }
 
-function check_result_status() {
+function check_result_status(target_time) {
   simulation_finished_time = new Date().getTime();
   let simulation_spent_time = simulation_finished_time - simulation_initiated_time;
   let simulation_spent_time_sec = simulation_spent_time / 1000;
-  console.log(`${simulation_spent_time_sec} seconds vs ${simulation_target_time/1000} second`);
-  if (simulation_spent_time <= simulation_target_time) {
+  console.log(`${simulation_spent_time_sec} seconds vs ${target_time/1000} second`);
+  if (simulation_spent_time <= target_time) {
     return true;
   }
 
@@ -129,6 +177,21 @@ function update_result_status(is_passed) {
     $("#caseNormalDemandStopId").css("background-color", passed_color_bg);
   }else{
     $("#caseNormalDemandId").html('Simulation: normal demand (NOT PASSED - TAKE_TOO_MUCH_TIME)');
+    $("#caseNormalDemandId").css("background-color", notpassed_toolong_color_bg);
+  }
+}
+
+function update_result_status_high_demand(is_passed) {
+  if (is_passed) {
+    $('#caseHighDemandId').prop('disabled', true);
+    $("#caseHighDemandId").html('Simulation: normal demand (PASSED!)');
+    $("#caseHighDemandId").css("background-color", passed_color_bg);
+
+    $('#caseHighDemandStopId').prop('disabled', true);
+    $("#caseHighDemandStopId").html('20 points');
+    $("#caseHighDemandStopId").css("background-color", passed_color_bg);
+  }else{
+    $("#caseHighDemandId").html('Simulation: normal demand (NOT PASSED - TAKE_TOO_MUCH_TIME)');
   }
 }
 
@@ -181,7 +244,6 @@ function send_sqs_msg(sqs_msg_number, process_time_ms) {
 }
 
 function initializeCanvas() {
-  clearDatapointToCanvas();
   chart = new CanvasJS.Chart("chartContainer", {
     animationEnabled: true,
     theme: "light2",
@@ -207,9 +269,6 @@ function initializeCanvas() {
       dataPoints: canvas_dataPoints
     }]
   });
-  updateCanvas();
-}
-function updateCanvas() {
   chart.render();
 }
 
@@ -219,15 +278,23 @@ function clearDatapointToCanvas() {
 }
 
 function addDatapointToCanvas(_x, _y){
-  canvas_dataPoints.push({ x: _x, y: _y })
-  maintain_fixed_axis(_x, canvas_dataPoints)
+  canvas_dataPoints.push({ x: _x, y: _y });
+  maintain_fixed_axis(_x, canvas_dataPoints);
+  chart.render();
 }
 
 function maintain_fixed_axis(_x, canvas_dataPoints) {
   // console.log(` canvas_dataPoints.length: ${canvas_dataPoints.length} `) 
-  if (canvas_dataPoints.length > axisX_max) {
-    canvas_dataPoints.shift()
-    axisX_min = _x - axisX_max;
+  if ( canvas_dataPoints.length > (axisX_max + canvas_x_min_update_interval) ) {
+    
+    var canvas_x_min_update_interval_count = canvas_x_min_update_interval;
+    while (canvas_x_min_update_interval_count > 0) {
+      canvas_dataPoints.shift();
+      axisX_min++;
+      canvas_x_min_update_interval_count--;
+    }
+    initializeCanvas();
+    // axisX_min = _x - axisX_max;
   }
 }
 
