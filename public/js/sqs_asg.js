@@ -22,17 +22,18 @@ var simulation_initiated_time;
 var simulation_finished_time;
 var consecutive_zero_msg_count = 0;
 const consecutive_zero_msg_count_target = 8;
-var process_time_ms = 20 * 1000; 
-var backlog_per_instance_target = 3;
+var process_time_ms = 62 * 1000; 
 
 var sqs_msg_number_basic = 9; 
 const simulation_target_time_basic = 100000000 * 1000; 
 
-var sqs_msg_number = 9; 
-const simulation_target_time = ( (sqs_msg_number/backlog_per_instance_target) * 2 * process_time_ms + consecutive_zero_msg_count_target * interval_ms + 5 * 1000); 
+var sqs_msg_number = 14; 
+var no_of_instance = 3;
+const simulation_target_time = ( (sqs_msg_number/no_of_instance) * 1 * process_time_ms + consecutive_zero_msg_count_target * interval_ms + 120 * 1000); 
 
-var sqs_msg_number_high_demand = 30; 
-const simulation_target_time_high_demand = 200 * 1000; 
+var sqs_msg_number_high_demand = 14;
+var no_of_instance_high_demand = 4; 
+const simulation_target_time_high_demand = ( (sqs_msg_number_high_demand/no_of_instance_high_demand) * 0.7 * process_time_ms + consecutive_zero_msg_count_target * interval_ms + 120 * 1000); 
 
 $(document).ready(() => {
   console.log("sqs_lambda_tempalte.js loaded");
@@ -87,6 +88,8 @@ function end_high_demand_simulation(event) {
   console.log("end_high_demand_simulation() called");
   clearInterval(refreshIntervalId_high_demand);
   $('#caseHighDemandId').prop('disabled', false);
+  $("#caseHighDemandId").html('Simulation: high demand (NOT PASSED)');
+  $("#caseHighDemandId").css("background-color", notpassed_color_bg);
 }
 
 
@@ -110,6 +113,10 @@ async function start_basic_simulation(event){
 
 async function start_normal_demand_simulation(event){
   console.log("start_normal_demand_simulation() called");
+  console.log("start_normal_demand_simulation() simulation_target_time(sec): ", simulation_target_time/1000 );
+
+  
+
   $("#caseNormalDemandId").css("background-color", notpassed_color_bg);
   $('#caseNormalDemandId').prop('disabled', true);
 
@@ -128,10 +135,13 @@ async function start_normal_demand_simulation(event){
 
 async function start_high_demand_simulation(event){
   console.log("start_high_demand_simulation() called");
+  console.log("start_normal_demand_simulation() simulation_target_time_high_demand (sec): ", simulation_target_time_high_demand/1000 );
+    
+  $("#caseHighDemandId").css("background-color", notpassed_color_bg);
   $('#caseHighDemandId').prop('disabled', true);
 
   // step: purge current msg (60s)
-  await purge_sqs_queue();
+  // await purge_sqs_queue();
 
   // step: send batch msg
   await send_sqs_msg(sqs_msg_number_high_demand, process_time_ms);
@@ -207,14 +217,14 @@ function check_result_status(target_time) {
 function update_result_status_basic(is_passed) {
   if (is_passed) {
     $('#caseBasicId').prop('disabled', true);
-    $("#caseBasicId").html('Simulation: normal demand (PASSED!)');
+    $("#caseBasicId").html('Simulation: basic (PASSED!)');
     $("#caseBasicId").css("background-color", passed_color_bg);
 
     $('#caseBasicStopId').prop('disabled', true);
     $("#caseBasicStopId").html('20 points');
     $("#caseBasicStopId").css("background-color", passed_color_bg);
   }else{
-    $("#caseBasicId").html('Simulation: normal demand (NOT PASSED - TAKE_TOO_MUCH_TIME)');
+    $("#caseBasicId").html('Simulation: basic (NOT PASSED)');
     $("#caseBasicId").css("background-color", notpassed_toolong_color_bg);
   }
 }
@@ -226,7 +236,7 @@ function update_result_status(is_passed) {
     $("#caseNormalDemandId").css("background-color", passed_color_bg);
 
     $('#caseNormalDemandStopId').prop('disabled', true);
-    $("#caseNormalDemandStopId").html('20 points');
+    $("#caseNormalDemandStopId").html('30 points');
     $("#caseNormalDemandStopId").css("background-color", passed_color_bg);
   }else{
     $("#caseNormalDemandId").html('Simulation: normal demand (NOT PASSED - TAKE_TOO_MUCH_TIME)');
@@ -237,14 +247,15 @@ function update_result_status(is_passed) {
 function update_result_status_high_demand(is_passed) {
   if (is_passed) {
     $('#caseHighDemandId').prop('disabled', true);
-    $("#caseHighDemandId").html('Simulation: normal demand (PASSED!)');
+    $("#caseHighDemandId").html('Simulation: high demand (PASSED!)');
     $("#caseHighDemandId").css("background-color", passed_color_bg);
 
     $('#caseHighDemandStopId').prop('disabled', true);
-    $("#caseHighDemandStopId").html('20 points');
+    $("#caseHighDemandStopId").html('50 points');
     $("#caseHighDemandStopId").css("background-color", passed_color_bg);
   }else{
-    $("#caseHighDemandId").html('Simulation: normal demand (NOT PASSED - TAKE_TOO_MUCH_TIME)');
+    $("#caseHighDemandId").html('Simulation: high demand (NOT PASSED - TAKE_TOO_MUCH_TIME)');
+    $("#caseHighDemandId").css("background-color", notpassed_toolong_color_bg);
   }
 }
 
@@ -252,7 +263,7 @@ function purge_sqs_queue() {
 
   return new Promise(async (resolve, reject) => {
     console.log("purge_sqs_queue() called");
-    $("#caseNormalDemandId").html('Simulation: normal demand (NOT PASSED - PURGING ...)');
+    // $("#caseNormalDemandId").html('Simulation: normal demand (NOT PASSED - PURGING ...)');
 
     let hostname = $('#backendUrlId').val()
     let sqs_queue_url = $('#sqsQueueUrlId').val()
@@ -265,7 +276,7 @@ function purge_sqs_queue() {
       type: "GET",
       success: function (res) {
         console.log("url_purge_sqs_queue - res: " , res);
-        $("#caseNormalDemandId").html('Simulation: normal demand (NOT PASSED - PURGING FINISHED)');
+        // $("#caseNormalDemandId").html('Simulation: normal demand (NOT PASSED - PURGING FINISHED)');
         resolve();
       },
     });      
