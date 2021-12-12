@@ -28,6 +28,10 @@ router.get("/sqs_lambda", (req, res) => {
   res.render("sqs_lambda");
 });
 
+router.get("/elasticache", (req, res) => {
+  res.render("elasticache");
+});
+
 router.get("/elb_stickiness", (req, res) => {
   res.render("elb_stickiness");
 });
