@@ -50,18 +50,17 @@ class awsElasticache {
 
       return new Promise((resolve, reject) => {
         console.log("init_redis_client() called");
-        var redis_client = this.redis.createClient(this.redis_cluster_port, this.redis_cluster_host);
+        this.redis_client = this.redis.createClient(this.redis_cluster_port, this.redis_cluster_host);
 
         //catch all errors
-        redis_client.on("error", function (err) {
+        this.redis_client.on("error", function (err) {
           console.log("redis failed to connect: " + err);
           resolve();
         });
   
         //connect to redis
-        redis_client.on("connect", function (err, reply) {
+        this.redis_client.on("connect", function (err, reply) {
           console.log("redis connected.");
-          this.redis_client = redis_client;
           resolve();
         });
 
