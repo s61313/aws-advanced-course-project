@@ -47,7 +47,7 @@ async function cleanCache(){
 async function list_employee(){
   console.log("list_employee() called");
   $('#listEmployeeId').prop('disabled', true);
-  await list_employee_helper();
+  const res = await list_employee_helper();
   $("#listEmployeeId").html(`List Employees (${res.processed_time}s)`);
   $('#listEmployeeId').prop('disabled', false);
 }
@@ -66,7 +66,7 @@ function cleanCache_helper() {
       type: "GET",
       success: function (res) {
         console.log("url_elasticache_clean - res: " , res);        
-        resolve();
+        resolve(res);
       },
     });
   })   
