@@ -31,8 +31,8 @@ class EmpModel {
         mydb.getConnection()
             .awaitQuery(sql, values)
             .then(async (result) => {
-              const emp_list_cache_result = await awsElasticacheService.set(this.emp_list_key, result);
-              console.log("emp_list_cache_result: " , emp_list_cache_result);
+              await awsElasticacheService.set(this.emp_list_key, result);
+              // console.log("emp_list_cache_result: " , emp_list_cache_result);
               resolve(result);
             })
             .catch((err) => {
