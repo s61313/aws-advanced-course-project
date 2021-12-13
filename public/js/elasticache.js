@@ -16,7 +16,7 @@ function clearData() {
 }
 
 function setUpDefault() {
-  $('#backendUrlId').val('http://localhost:8080')
+  $('#backendUrlId').val('http://ec2-3-95-148-250.compute-1.amazonaws.com:8080')
   // $('#sqsQueueUrlId').val('https://sqs.us-east-1.amazonaws.com/344458213649/sqs-asg-001')
 }
 
