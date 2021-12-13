@@ -60,7 +60,7 @@ class awsElasticache {
   
         //connect to redis
         redis_client.on("connect", function (err, reply) {
-          console.log("redis connected " + reply);
+          console.log("redis connected.");
           this.redis_client = redis_client;
           resolve();
         });
