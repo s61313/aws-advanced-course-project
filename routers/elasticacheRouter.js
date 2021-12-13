@@ -17,4 +17,10 @@ router.get("/elasticache/list_employee", async function (req, res) {
 
 });
 
+router.get("/elasticache/clean", async function (req, res) {
+  console.log("/elasticache/clean called");
+  await empModelService.clean_cache();
+  res.send({});
+});
+
 module.exports = router;

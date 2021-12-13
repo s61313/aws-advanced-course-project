@@ -95,6 +95,18 @@ class awsElasticache {
       })
     }
 
+    del(key) {
+
+      return new Promise((resolve, reject) => {
+        console.log("del() called");  
+          
+        this.redis_client.del(key, function (err, reply) {
+          console.log("redis_client.del", reply);
+          resolve();
+        });
+
+      })
+    }
 
 
     // list_employee() {

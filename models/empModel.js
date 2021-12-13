@@ -61,6 +61,15 @@ class EmpModel {
       return sql;
     }    
 
+    clean_cache() {
+      return new Promise(async (resolve, reject) => {
+        console.log("clean_cache() called");
+        const emp_list_cache_del = await awsElasticacheService.del(this.emp_list_key);
+        console.log("emp_list_cache_del: " , emp_list_cache_del);
+        resolve();
+      })
+    }       
+
 }
 module.exports = EmpModel;
 

@@ -23,6 +23,8 @@ function setUpDefault() {
 function setupEvent(){
   
   $('#listEmployeeId').click({"input1": "value1"}, list_employee);
+  $('#cleanCacheId').click({"input1": "value1"}, cleanCache);
+
   // $('#caseBasicStopId').click({"input1": "value1"}, end_basic_simulation);
 
   // $('#caseNormalDemandId').click({"input1": "value1"}, start_normal_demand_simulation);
@@ -33,10 +35,42 @@ function setupEvent(){
 
 }
 
+
+async function cleanCache(){
+  console.log("cleanCache() called");
+  $('#cleanCache').prop('disabled', true);
+  await cleanCache_helper();
+  $('#cleanCache').prop('disabled', false);
+}
+
+
 async function list_employee(){
   console.log("list_employee() called");
   $('#listEmployeeId').prop('disabled', true);
   await list_employee_helper();
+  $("#listEmployeeId").html(`List Employees (${res.processed_time}s)`);
+  $('#listEmployeeId').prop('disabled', false);
+}
+
+function cleanCache_helper() {
+
+  return new Promise(async (resolve, reject) => {
+    console.log("cleanCache_helper() called");
+    let hostname = $('#backendUrlId').val()
+  
+    var url_elasticache_clean = `${hostname}/api/elasticache/clean`;
+    console.log("url_elasticache_clean: " , url_elasticache_clean);
+  
+    $.ajax({
+      url: url_elasticache_clean,
+      type: "GET",
+      success: function (res) {
+        console.log("url_elasticache_clean - res: " , res);        
+        resolve();
+      },
+    });
+  })   
+
 }
 
 function list_employee_helper() {
@@ -54,8 +88,6 @@ function list_employee_helper() {
       success: function (res) {
         console.log("url_elasticache_list_employee - res: " , res);
         appendEmployeeRows(res.result);
-        $("#listEmployeeId").html(`List Employees (${res.processed_time}s)`);
-        $('#listEmployeeId').prop('disabled', false);
         resolve();
       },
     });
