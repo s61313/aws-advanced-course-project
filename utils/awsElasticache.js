@@ -88,7 +88,6 @@ class awsElasticache {
         this.redis_client.get(key, function (err, reply) {
           // console.log("redis_client.get 1 ", reply);
           const val_json = JSON.parse(reply);
-          console.log("redis_client.get 2 ", val_json);
           resolve(val_json);
         });
 

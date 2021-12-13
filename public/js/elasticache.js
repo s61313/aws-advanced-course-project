@@ -66,7 +66,7 @@ function cleanCache_helper() {
       type: "GET",
       success: function (res) {
         console.log("url_elasticache_clean - res: " , res);        
-        resolve(res);
+        resolve();
       },
     });
   })   
@@ -88,7 +88,7 @@ function list_employee_helper() {
       success: function (res) {
         console.log("url_elasticache_list_employee - res: " , res);
         appendEmployeeRows(res.result);
-        resolve();
+        resolve(res);
       },
     });
   })   
