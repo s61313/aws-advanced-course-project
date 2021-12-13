@@ -24,6 +24,7 @@ function setupEvent(){
   
   $('#listEmployeeId').click({"input1": "value1"}, list_employee);
   $('#cleanCacheId').click({"input1": "value1"}, cleanCache);
+  $('#clearListId').click({"input1": "value1"}, clearList);
 
   // $('#caseBasicStopId').click({"input1": "value1"}, end_basic_simulation);
 
@@ -35,6 +36,13 @@ function setupEvent(){
 
 }
 
+
+async function clearList(){
+  console.log("clearList() called");
+  $('#clearList').prop('disabled', true);
+  await cleanCacheHelper();
+  $('#clearList').prop('disabled', false);
+}
 
 async function cleanCache(){
   console.log("cleanCache() called");
@@ -50,6 +58,15 @@ async function list_employee(){
   const res = await list_employee_helper();
   $("#listEmployeeId").html(`List Employees (${res.processed_time}s)`);
   $('#listEmployeeId').prop('disabled', false);
+}
+
+function cleanCacheHelper() {
+
+  return new Promise(async (resolve, reject) => {
+    $("#empListId").html("");
+    resolve();
+  })   
+
 }
 
 function cleanCache_helper() {
