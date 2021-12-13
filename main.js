@@ -45,6 +45,7 @@ app.all('/api', function(req, res, next) {
 
 app.use("/api", require("./routers/elbRouter.js"));
 app.use("/api", require("./routers/sqsRouter.js"));
+app.use("/api", require("./routers/elasticacheRouter.js"));
 app.use("/", require("./routers/viewRouters.js"));
 
 // Socketio set up 

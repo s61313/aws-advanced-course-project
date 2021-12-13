@@ -21,15 +21,6 @@ var db_config = {
   database: process.env.MYSQL_FORMAL_DATABASE
 };
 
-var localdb_config = {
-  host: process.env.MYSQL_HOST_URL,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE
-};
-
-// IMPORTNAT: for CircleCI, we need to set environment variable there for db connection 
-
 var connection;
 // var isServerDown = false;
 
@@ -49,19 +40,9 @@ function endConnection() {
 
 function handleDisconnect() {
   console.log('db connection building');
-
-  if (process.env.mode === "local") {
-    console.log(`using local db`);
-    console.log(localdb_config);
-    connection = mysql.createConnection(localdb_config); // Recreate the connection, since
-  }else {
-    console.log(`using remote db`);
-    connection = mysql.createConnection(db_config); // Recreate the connection, since
-    // the old one cannot be reused.
-  }
-
+  connection = mysql.createConnection(db_config); // Recreate the connection, since
   connection.connect(function(err) {              // The server is either down
-    if(err) {                                     // or restarting (takes a while sometimes).
+    if('err: ' , err) {                                     // or restarting (takes a while sometimes).
       console.log('error when connecting to db:', err);
       setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
     }                                     // to avoid a hot loop, and to allow our node script to
@@ -83,5 +64,6 @@ function handleDisconnect() {
 
 module.exports = {
   getConnection: getConnection,
-  endConnection: endConnection
+  endConnection: endConnection,
+  handleDisconnect: handleDisconnect
 };

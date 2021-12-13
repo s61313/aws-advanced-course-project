@@ -10,3 +10,6 @@ if (is_queue_enabled_on_startup === 'true') {
     const sqs_queue_url = process.env.SQS_QUEUE_URL;
     app.awsSQSService.process_queue_msg_continue(sqs_queue_url)    
 }
+
+// db setup 
+app.db.handleDisconnect();

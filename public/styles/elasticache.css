@@ -9,3 +9,13 @@
     align-items: center;
     justify-content: center;
 }
+
+.my-custom-scrollbar {
+    position: relative;
+    overflow: auto;
+    height: 500px;
+    width: 100%;
+}
+.table-wrapper-scroll-y {
+    display: block;
+}
