@@ -4,6 +4,7 @@
 var notpassed_color_bg = "rgb(88, 124, 171)";
 var passed_color_bg = "#22a2b8";
 var notpassed_toolong_color_bg = "rgb(191, 62, 92)";
+var rows_per_page = 500;
 
 $(document).ready(() => {
   console.log("sqs_lambda_tempalte.js loaded");
@@ -115,7 +116,7 @@ function list_employee_helper() {
 function appendEmployeeRows(emp_list) {
   $("#empListId").html("");
   // DO-THIS: limit to show only first 1000 rows  
-  for (var i = 0; i < emp_list.length ;i++) {
+  for (var i = 0; i < emp_list.length || i < rows_per_page ;i++) {
       const emp = emp_list[i];
       $("#empListId").append(getEmployeeRowView(emp.emp_no, emp.first_name, emp.last_name, emp.dept_name, emp.mgr_first_name, emp.mgr_last_name));
   }
