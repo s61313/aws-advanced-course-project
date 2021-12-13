@@ -10,6 +10,9 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const awsSQS = require("./utils/awsSQS")
 const awsSQSService = new awsSQS()
+const awsElasticache = require("./utils/awsElasticache");
+const awsElasticacheService = new awsElasticache();
+
 
 // replace variable in static js files
 replaceEnvVarInFile('./public/js/elb_template.js', './public/js/elb.js', '${BACKEND_HOST_URL}', process.env.BACKEND_HOST_URL);
@@ -63,5 +66,6 @@ module.exports = {
     server: server,
     db: db,
     socketioService: socketioService,
-    awsSQSService: awsSQSService
+    awsSQSService: awsSQSService,
+    awsElasticacheService: awsElasticacheService
 }

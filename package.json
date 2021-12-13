@@ -65,6 +65,8 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "path": "^0.12.7",
+    "redis": "^2.8.0",
+    "redis-clustr": "^1.7.0",
     "reserved-words": "^0.1.2",
     "socket.io": "^3.1.2",
     "sqs-bulk-loader": "^3.0.0",

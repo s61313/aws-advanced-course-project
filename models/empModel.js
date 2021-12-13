@@ -1,5 +1,7 @@
 
 const mydb = require('../utils/database.js');
+const awsElasticache = require("../utils/awsElasticache");
+const awsElasticacheService = new awsElasticache();
 
 class EmpModel {
     constructor() {
@@ -15,6 +17,7 @@ class EmpModel {
         const sql = this.get_list_employee_sql(); 
         // const values = [[id]];
         const values = [];
+        // DO-THIS: try ecache here 
         mydb.getConnection()
             .awaitQuery(sql, values)
             .then((result) => {
