@@ -53,7 +53,8 @@ function list_employee_helper() {
       type: "GET",
       success: function (res) {
         console.log("url_elasticache_list_employee - res: " , res);
-        appendEmployeeRows(res);
+        appendEmployeeRows(res.result);
+        $("#listEmployeeId").html(`List Employees (${res.processed_time}s)`);
         $('#listEmployeeId').prop('disabled', false);
         resolve();
       },

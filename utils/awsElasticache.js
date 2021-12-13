@@ -28,6 +28,9 @@ class awsElasticache {
             .then((result) => {
               resolve(result);
             })
+            .catch((err) => {
+              resolve(err);
+            });
       })
     }    
 
@@ -46,7 +49,7 @@ class awsElasticache {
       ) dm ON dm.dept_no = d.dept_no
       WHERE e.emp_no != dm.mgr_no
       ORDER BY e.emp_no
-      LIMIT 1000;
+      LIMIT 10000;
       `
       return sql;
     }    
