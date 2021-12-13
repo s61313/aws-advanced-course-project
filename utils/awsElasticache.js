@@ -71,8 +71,8 @@ class awsElasticache {
 
       return new Promise((resolve, reject) => {
         console.log("set() called");  
-        
-        this.redis_client.set(key, val, function (err, reply) {
+        const val_json = JSON.stringify(val);
+        this.redis_client.set(key, val_json, function (err, reply) {
           console.log("redis_client.set " , reply);
           resolve(reply);
         });
@@ -86,8 +86,10 @@ class awsElasticache {
         console.log("get() called");  
           
         this.redis_client.get(key, function (err, reply) {
-          console.log("redis_client.get ", reply);
-          resolve(reply);
+          console.log("redis_client.get 1 ", reply);
+          const val_json = JSON.parse(reply);
+          console.log("redis_client.get 2 ", val_json);
+          resolve(val_json);
         });
 
       })

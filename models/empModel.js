@@ -17,7 +17,7 @@ class EmpModel {
       return new Promise(async (resolve, reject) => {
 
         // check cache 
-        const emp_list_cache = await awsElasticacheService.get(this.emp_list_key);
+        const emp_list_cache = await awsElasticacheService.get(JSON.stringify(this.emp_list_key));
         console.log("emp_list_cache: " , emp_list_cache);
 
         if (emp_list_cache) {
