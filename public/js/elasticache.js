@@ -117,9 +117,11 @@ function appendEmployeeRows(emp_list) {
   $("#empListId").html("");
   // DO-THIS: limit to show only first 1000 rows  
   var rows = [];
-  for (var i = 0; i < rows_per_page && i < emp_list.length ;i++) {
-      const emp = emp_list[i];
-      rows.push(getEmployeeRowView(emp.emp_no, emp.first_name, emp.last_name, emp.dept_name, emp.mgr_first_name, emp.mgr_last_name));
+  var rows_min = Math.min(rows_per_page, emp_list.length);
+  for (var i = 0; i < rows_min ;i++) {
+    console.log(i + " vs " + rows_min);
+    const emp = emp_list[i];
+    rows.push(getEmployeeRowView(emp.emp_no, emp.first_name, emp.last_name, emp.dept_name, emp.mgr_first_name, emp.mgr_last_name));
   }
   $("#empListId").append(rows);
 }
