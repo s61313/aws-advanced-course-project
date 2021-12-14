@@ -61,7 +61,7 @@ async function listEmployeeWithEcache(){
   $("#empListId").html("");
   $('#listEmployeeWithEcache').prop('disabled', true);
   const res = await list_employee_helper(true);
-  $("#listEmployeeWithEcache").html(`List Employees + ElastiCache (${res.processed_time}s)`);
+  $("#listEmployeeWithEcache").html(`List Employees + ElastiCache OOOO (${res.processed_time}s)`);
   $('#listEmployeeWithEcache').prop('disabled', false);
 }
 
