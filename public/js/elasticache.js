@@ -55,6 +55,7 @@ async function cleanCache(){
 
 async function list_employee(){
   console.log("list_employee() called");
+  $("#empListId").html("");
   $('#listEmployeeId').prop('disabled', true);
   const res = await list_employee_helper();
   $("#listEmployeeId").html(`List Employees (${res.processed_time}s)`);
@@ -115,15 +116,11 @@ function list_employee_helper() {
 
 function appendEmployeeRows(emp_list) {
   $("#empListId").html("");
-  // DO-THIS: limit to show only first 1000 rows  
-  var rows = [];
   var rows_min = Math.min(rows_per_page, emp_list.length);
   for (var i = 0; i < rows_min ;i++) {
-    console.log(i + " vs " + rows_min);
     const emp = emp_list[i];
-    rows.push(getEmployeeRowView(emp.emp_no, emp.first_name, emp.last_name, emp.dept_name, emp.mgr_first_name, emp.mgr_last_name));
+    $("#empListId").append(getEmployeeRowView(emp.emp_no, emp.first_name, emp.last_name, emp.dept_name, emp.mgr_first_name, emp.mgr_last_name));
   }
-  $("#empListId").append(rows);
 }
 
 function getEmployeeRowView(emp_no, first_name, last_name, dept_name, mgr_first_name, mgr_last_name) {
