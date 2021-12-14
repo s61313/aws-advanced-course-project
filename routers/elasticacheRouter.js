@@ -8,6 +8,7 @@ router.get("/elasticache/list_employee", async function (req, res) {
   var is_cache = req.query.is_cache;
   const start_time = new Date().getTime();
   var result;
+  console.log("is_cache: " , is_cache);
   if (is_cache) {
     result = await empModelService.list_employee_cached();
   }else {
