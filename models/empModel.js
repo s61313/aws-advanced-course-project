@@ -16,6 +16,23 @@ class EmpModel {
     list_employee() {
       return new Promise(async (resolve, reject) => {
 
+        const sql = this.get_list_employee_sql(); 
+        // const values = [[id]];
+        const values = [];
+        mydb.getConnection()
+            .awaitQuery(sql, values)
+            .then(async (result) => {
+              resolve(result);
+            })
+            .catch((err) => {
+              resolve(err);
+            });
+      })
+    }  
+
+    list_employee_cached() {
+      return new Promise(async (resolve, reject) => {
+
         // check cache 
         const emp_list_cache = await awsElasticacheService.get(this.emp_list_key);
         if (emp_list_cache) {
@@ -25,19 +42,17 @@ class EmpModel {
         const sql = this.get_list_employee_sql(); 
         // const values = [[id]];
         const values = [];
-        // DO-THIS: try ecache here 
         mydb.getConnection()
             .awaitQuery(sql, values)
             .then(async (result) => {
               await awsElasticacheService.set(this.emp_list_key, result);
-              // console.log("emp_list_cache_result: " , emp_list_cache_result);
               resolve(result);
             })
             .catch((err) => {
               resolve(err);
             });
       })
-    }    
+    }      
 
     get_list_employee_sql() {
       const sql = 

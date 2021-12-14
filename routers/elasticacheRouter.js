@@ -5,9 +5,14 @@ const empModelService = new empModel();
 
 router.get("/elasticache/list_employee", async function (req, res) {
   console.log("/elasticache/list_employee called");
-  // var sqs_queue_url = req.query.sqs_queue_url;
+  var is_cache = req.query.is_cache;
   const start_time = new Date().getTime();
-  const result = await empModelService.list_employee();
+  var result;
+  if (is_cache) {
+    result = await empModelService.list_employee_cached();
+  }else {
+    result = await empModelService.list_employee();
+  }
   const end_time = new Date().getTime();
   let processed_time = (end_time - start_time) / 1000;
   res.send({

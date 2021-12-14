@@ -24,8 +24,11 @@ function setUpDefault() {
 function setupEvent(){
   
   $('#listEmployeeId').click({"input1": "value1"}, list_employee);
+  $('#listEmployeeWithEcacheId').click({"input1": "value1"}, listEmployeeWithEcache);
   $('#cleanCacheId').click({"input1": "value1"}, cleanCache);
   $('#clearListId').click({"input1": "value1"}, clearList);
+
+  
 
   // $('#caseBasicStopId').click({"input1": "value1"}, end_basic_simulation);
 
@@ -53,11 +56,21 @@ async function cleanCache(){
 }
 
 
+async function listEmployeeWithEcache(){
+  console.log("listEmployeeWithEcache() called");
+  $("#empListId").html("");
+  $('#listEmployeeWithEcache').prop('disabled', true);
+  const res = await list_employee_helper(true);
+  $("#listEmployeeWithEcache").html(`List Employees + ElastiCache (${res.processed_time}s)`);
+  $('#listEmployeeWithEcache').prop('disabled', false);
+}
+
+
 async function list_employee(){
   console.log("list_employee() called");
   $("#empListId").html("");
   $('#listEmployeeId').prop('disabled', true);
-  const res = await list_employee_helper();
+  const res = await list_employee_helper(false);
   $("#listEmployeeId").html(`List Employees (${res.processed_time}s)`);
   $('#listEmployeeId').prop('disabled', false);
 }
@@ -92,13 +105,13 @@ function cleanCache_helper() {
 
 }
 
-function list_employee_helper() {
+function list_employee_helper(is_cache) {
 
   return new Promise(async (resolve, reject) => {
     console.log("list_employee_helper() called");
     let hostname = $('#backendUrlId').val()
   
-    var url_elasticache_list_employee = `${hostname}/api/elasticache/list_employee`;
+    var url_elasticache_list_employee = `${hostname}/api/elasticache/list_employee?is_cache=${is_cache}`;
     console.log("url_elasticache_list_employee: " , url_elasticache_list_employee);
   
     $.ajax({
