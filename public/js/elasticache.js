@@ -119,7 +119,7 @@ function appendEmployeeRows(emp_list) {
   var rows = [];
   for (var i = 0; i < emp_list.length || i < rows_per_page ;i++) {
       const emp = emp_list[i];
-      rows.append(getEmployeeRowView(emp.emp_no, emp.first_name, emp.last_name, emp.dept_name, emp.mgr_first_name, emp.mgr_last_name));
+      rows.push(getEmployeeRowView(emp.emp_no, emp.first_name, emp.last_name, emp.dept_name, emp.mgr_first_name, emp.mgr_last_name));
   }
   $("#empListId").append(rows);
 }
