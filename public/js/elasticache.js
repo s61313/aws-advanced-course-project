@@ -116,10 +116,12 @@ function list_employee_helper() {
 function appendEmployeeRows(emp_list) {
   $("#empListId").html("");
   // DO-THIS: limit to show only first 1000 rows  
+  var rows = [];
   for (var i = 0; i < emp_list.length || i < rows_per_page ;i++) {
       const emp = emp_list[i];
-      $("#empListId").append(getEmployeeRowView(emp.emp_no, emp.first_name, emp.last_name, emp.dept_name, emp.mgr_first_name, emp.mgr_last_name));
+      rows.append(getEmployeeRowView(emp.emp_no, emp.first_name, emp.last_name, emp.dept_name, emp.mgr_first_name, emp.mgr_last_name));
   }
+  $("#empListId").append(rows);
 }
 
 function getEmployeeRowView(emp_no, first_name, last_name, dept_name, mgr_first_name, mgr_last_name) {
