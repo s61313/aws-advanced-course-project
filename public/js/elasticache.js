@@ -59,10 +59,10 @@ async function cleanCache(){
 async function listEmployeeWithEcache(){
   console.log("listEmployeeWithEcache() called");
   $("#empListId").html("");
-  $('#listEmployeeWithEcache').prop('disabled', true);
+  $('#listEmployeeWithEcacheId').prop('disabled', true);
   const res = await list_employee_helper(true);
-  $("#listEmployeeWithEcache").html(`List Employees + ElastiCache OOOO (${res.processed_time}s)`);
-  $('#listEmployeeWithEcache').prop('disabled', false);
+  $("#listEmployeeWithEcacheId").html(`List Employees + ElastiCache (${res.processed_time}s)`);
+  $('#listEmployeeWithEcacheId').prop('disabled', false);
 }
 
 
@@ -71,7 +71,7 @@ async function list_employee(){
   $("#empListId").html("");
   $('#listEmployeeId').prop('disabled', true);
   const res = await list_employee_helper(false);
-  $("#listEmployeeId").html(`List Employees XXX (${res.processed_time}s)`);
+  $("#listEmployeeId").html(`List Employees (${res.processed_time}s)`);
   $('#listEmployeeId').prop('disabled', false);
 }
 
