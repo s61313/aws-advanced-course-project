@@ -110,8 +110,14 @@ function list_employee_helper(is_cache) {
   return new Promise(async (resolve, reject) => {
     console.log("list_employee_helper() called");
     let hostname = $('#backendUrlId').val()
-  
-    var url_elasticache_list_employee = `${hostname}/api/elasticache/list_employee?is_cache=${is_cache}`;
+    
+    var url_elasticache_list_employee;
+    if (is_cache) {
+      url_elasticache_list_employee = `${hostname}/api/elasticache/list_employee_cached`;
+    }else {
+      url_elasticache_list_employee = `${hostname}/api/elasticache/list_employee`;
+    }
+    
     console.log("url_elasticache_list_employee: " , url_elasticache_list_employee);
   
     $.ajax({
