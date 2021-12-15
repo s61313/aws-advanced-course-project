@@ -2,7 +2,7 @@
 var RedisClustr = require('redis-clustr');
 var RedisClient = require('redis');
 // var RedisCluster = require('redis-cluster').clusterClient;
-var RedisCluster = require('redis-cluster').poorMansClusterClient;
+var poorMansRedisClusterClient = require('redis-cluster').poorMansClusterClient;
 
 class awsElasticache {
     constructor() {
@@ -61,7 +61,7 @@ class awsElasticache {
           {name: 'redis03', link: cluster_url, slots: [10923, 16383], options: {max_attempts: 3}}
         ];
 
-        this.redis_client = poorMansClusterClient(cluster);
+        this.redis_client = poorMansRedisClusterClient(cluster);
 
         this.redis_client.set('foo', 'bar', function (err, reply) {
           if (err) throw err;
