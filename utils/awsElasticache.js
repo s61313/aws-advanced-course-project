@@ -94,7 +94,7 @@ class awsElasticache {
         
         var cmd_hset = cmd_hset_hash + cmd_hset_key_val;
         var cmd_hset_bytes = myUtilService.getBinarySize(cmd_hset);
-        console.log(`cmd_hset: ${cmd_hset} - byte: ${cmd_hset_bytes}`);
+        console.log(`cmd_hset: ${cmd_hset} - byte: ${cmd_hset_bytes/1024} KB`);
         let stdout_result = await this.execute_child_process(cmd_hset);
         resolve();
         
