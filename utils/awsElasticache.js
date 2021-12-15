@@ -138,27 +138,40 @@ class awsElasticache {
 
       return new Promise((resolve, reject) => {
         console.log("get() called");  
-        const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
-        var cmd_get = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} get ${key}`;
-        console.log("cmd_get: ", cmd_get);
+
+        var cmd_hgetall = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hgetall ${key}`;
+        console.log("cmd_hgetall: ", cmd_hgetall);
+        let stdout_json = await this.execute_child_process(cmd_hset);
+        let stdout_obj = JSON.parse(stdout_json);
+        let emp_list = [];
+        for (let i = 0; i < stdout_obj.length ;i+=2) {
+          let emp_no = stdout_obj[i];
+          let emp = stdout_obj[i+1];
+          emp_list.push(emp);
+        }
+        console.log("emp_list: ", emp_list);
+
+        // const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
+        // var cmd_get = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} get ${key}`;
+        // console.log("cmd_get: ", cmd_get);
           
-        exec(cmd_get, (error, stdout, stderr) => {
-          var result = null;
-          if (error) {
-              console.log(`error: ${error.message}`);
-              resolve();
-          }
-          if (stderr) {
-              console.log(`stderr: ${stderr}`);
-              resolve();
-          }
-          console.log(`stdout: ${stdout}`);
-          if (myUtilService.isJson(stdout)) {
-            result = JSON.parse(stdout);
-          }          
-          console.log(`result: ${result}`);
-          resolve(result);
-        })
+        // exec(cmd_get, (error, stdout, stderr) => {
+        //   var result = null;
+        //   if (error) {
+        //       console.log(`error: ${error.message}`);
+        //       resolve();
+        //   }
+        //   if (stderr) {
+        //       console.log(`stderr: ${stderr}`);
+        //       resolve();
+        //   }
+        //   console.log(`stdout: ${stdout}`);
+        //   if (myUtilService.isJson(stdout)) {
+        //     result = JSON.parse(stdout);
+        //   }          
+        //   console.log(`result: ${result}`);
+        //   resolve(result);
+        // })
 
         // this.redis_client.get(key, function (err, reply) {
         //   console.log("redis_client.get 1 ", reply);
