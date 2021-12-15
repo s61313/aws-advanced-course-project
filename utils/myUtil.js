@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 class myUtil {
     constructor() {
       this.lock_available = true;
@@ -30,6 +32,31 @@ class myUtil {
         setTimeout(resolve, ms);
       });
     }
+
+    write_to_file(filepath, stringcontent) {
+      return new Promise((resolve) => {
+
+        fs.writeFile(filepath, stringcontent, function(err) {
+          if (err) throw err;
+          console.log('write complete');
+          resolve();
+        });
+
+      });
+    }
+
+    read_from_file(filepath, stringcontent) {
+      return new Promise((resolve) => {
+
+        fs.readFile(filepath, function(err, data) {
+          if (err) throw err;
+          console.log('read complete: ', data);
+          resolve(data);
+        });
+
+      });
+    }
+
 
     isJson(str) {
       try {

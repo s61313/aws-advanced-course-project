@@ -5,6 +5,7 @@ const { exec } = require("child_process");
 const myUtil = require("./myUtil")
 const myUtilService = new myUtil()
 
+
 class awsElasticache {
     constructor() {
       if (!awsElasticache._instance) {
@@ -72,12 +73,16 @@ class awsElasticache {
 
     set(key, val) {
 
-      return new Promise((resolve, reject) => {
+      return new Promise(async (resolve, reject) => {
         console.log("set() called");
         const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
         const val_json = JSON.stringify(val);
-        var cmd_set = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} '${val_json}'`;
-        // console.log("cmd_set: ", cmd_set);
+        const jsonfilename = 'myjsonfile.json';
+        await myUtilService.write_to_file(jsonfilename, val_json);
+        await myUtilService.read_from_file(jsonfilename);
+        // var cmd_set = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} '${val_json}'`;
+        var cmd_set = `${redis_cli_script} -c -x -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} < ${jsonfilename}`;
+        console.log("cmd_set: ", cmd_set);
         exec(cmd_set, (error, stdout, stderr) => {
           if (error) {
               console.log(`error: ${error.message}`);
