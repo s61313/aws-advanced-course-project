@@ -69,7 +69,7 @@ class EmpModel {
       ) dm ON dm.dept_no = d.dept_no
       WHERE e.emp_no != dm.mgr_no
       ORDER BY e.emp_no
-      LIMIT 50000;
+      LIMIT 10;
       `
       return sql;
     }    
