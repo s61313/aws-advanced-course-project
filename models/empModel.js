@@ -48,7 +48,7 @@ class EmpModel {
         // execute sql query 
         const sql = this.get_list_employee_sql(); 
         const values = []; // const values = [[id]];
-        const result = mydb.getConnection().awaitQuery(sql, values);
+        const result = await mydb.getConnection().awaitQuery(sql, values);
         console.log("set result: " , result);
 
         // set cache 
