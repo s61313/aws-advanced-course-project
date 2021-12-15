@@ -7,7 +7,6 @@ class EmpModel {
     constructor() {
       if (!EmpModel._instance) {
         EmpModel._instance = this;
-        this.emp_list_key = "emp_list";
         this.simulate_seconds = 5;
       }
 
@@ -55,15 +54,7 @@ class EmpModel {
       do sleep(${seconds});
       `
       return sql;
-    }      
-
-    clean_cache() {
-      return new Promise(async (resolve, reject) => {
-        console.log("clean_cache() called");
-        await awsElasticacheService.del(this.emp_list_key);
-        resolve();
-      })
-    }       
+    }            
 
 }
 module.exports = EmpModel;

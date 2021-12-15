@@ -36,7 +36,7 @@ router.get("/elasticache/list_employee_cached", async function (req, res) {
 
 router.get("/elasticache/clean", async function (req, res) {
   console.log("/elasticache/clean called");
-  await empModelService.clean_cache();
+  await awsElasticacheService.del(emp_list_key);
   res.send({});
 });
 
