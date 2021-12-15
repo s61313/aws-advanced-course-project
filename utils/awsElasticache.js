@@ -83,14 +83,15 @@ class awsElasticache {
         // var cmd_set = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} '${val_json}'`;
         // var cmd_set = `${redis_cli_script} -c -x -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} < ${jsonfilename}`;
         // console.log("cmd_set: ", cmd_set);
-
+        var cmd_hset = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset`;
         for (let i = 0; i < val.length ;i++) {
           let emp = val[i];
           let emp_json = JSON.stringify(emp);
-          var cmd_hset = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${key} ${emp.emp_no} '${emp_json}'`;
-          console.log("cmd_hset: ", cmd_hset);
-          let stdout_result = await this.execute_child_process(cmd_hset);
+          let cmd_hset_hash_key_val = ` ${key} ${emp.emp_no} '${emp_json}'`;
+          cmd_hset += cmd_hset_hash_key_val;
         }
+        console.log("cmd_hset: ", cmd_hset);
+        let stdout_result = await this.execute_child_process(cmd_hset);
         resolve();
         
         // exec(cmd_set, (error, stdout, stderr) => {
