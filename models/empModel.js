@@ -43,9 +43,9 @@ class EmpModel {
         console.log("emp_list_cache not exists");
         const sql_wait = this.get_wait_sql(5);
         console.log("sql_wait starts");
-        await mydb.getConnection().awaitQuecry(sql_wait);
+        await mydb.getConnection().awaitQuery(sql_wait);
         console.log("sql_wait ends");
-        
+
         const sql = this.get_list_employee_sql(); 
         // const values = [[id]];
         const values = [];
