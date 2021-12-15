@@ -119,6 +119,7 @@ class awsElasticache {
           }
           console.log(`stdout: ${stdout}`);
           resolve();
+        })
 
         // this.redis_client.get(key, function (err, reply) {
         //   console.log("redis_client.get 1 ", reply);
