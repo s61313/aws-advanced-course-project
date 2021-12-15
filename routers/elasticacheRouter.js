@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const empModel = require("../models/empModel");
 const empModelService = new empModel();
+const emp_list_key = "emp_list";
 
 router.get("/elasticache/list_employee", async function (req, res) {
   console.log("/elasticache/list_employee called");
@@ -11,16 +12,24 @@ router.get("/elasticache/list_employee", async function (req, res) {
   console.log("is_cache: " , is_cache);
   console.log(typeof is_cache);
   if (is_cache == 'true') {
-    result = await empModelService.list_employee_cached();
+    // get cache 
+    const emp_list_cache = await awsElasticacheService.get(emp_list_key);
+    if (emp_list_cache) {
+      console.log("emp_list_cache exists");
+      res.send({"result": result,"processed_time": ((new Date().getTime() - start_time) / 1000)});
+    }
+
+    // main logic
+    console.log("emp_list_cache not exists");
+    const result = await empModelService.list_employee_cached();
+    // set cache 
+    await awsElasticacheService.set(emp_list_key, result);
+    res.send({"result": result,"processed_time": ((new Date().getTime() - start_time) / 1000)});
+
   }else {
     result = await empModelService.list_employee();
-  }
-  const end_time = new Date().getTime();
-  let processed_time = (end_time - start_time) / 1000;
-  res.send({
-    "result": result,
-    "processed_time": processed_time
-  });
+    res.send({"result": result,"processed_time": ((new Date().getTime() - start_time) / 1000)});
+  } 
 
 });
 

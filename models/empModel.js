@@ -34,14 +34,14 @@ class EmpModel {
     list_employee_cached() {
       return new Promise(async (resolve, reject) => {
 
-        // get cache 
-        const emp_list_cache = await awsElasticacheService.get(this.emp_list_key);
-        if (emp_list_cache) {
-          console.log("emp_list_cache exists");
-          return resolve(emp_list_cache);
-        }
+        // // get cache 
+        // const emp_list_cache = await awsElasticacheService.get(this.emp_list_key);
+        // if (emp_list_cache) {
+        //   console.log("emp_list_cache exists");
+        //   return resolve(emp_list_cache);
+        // }
         
-        console.log("emp_list_cache not exists");
+        // console.log("emp_list_cache not exists");
         // simulate long-running sql query
         const sql_wait = this.get_wait_sql(this.simulate_seconds);
         await mydb.getConnection().awaitQuery(sql_wait);
@@ -49,10 +49,9 @@ class EmpModel {
         const sql = this.get_list_employee_sql(); 
         const values = []; // const values = [[id]];
         const result = await mydb.getConnection().awaitQuery(sql, values);
-        console.log("set result: " , result);
 
         // set cache 
-        await awsElasticacheService.set(this.emp_list_key, result);
+        // await awsElasticacheService.set(this.emp_list_key, result);
         resolve(result);
       })
     }      
