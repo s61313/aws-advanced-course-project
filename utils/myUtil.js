@@ -46,11 +46,12 @@ class myUtil {
     }
 
     read_from_file(filepath, stringcontent) {
+      const isJsonFunc = this.isJson;
       return new Promise((resolve) => {
 
         fs.readFile(filepath, function(err, data) {
           if (err) throw err;
-          if (this.isJson(data)) {
+          if (isJsonFunc(data)) {
             console.log('read complete (json): ', JSON.parse(stdout));
           }else {
             console.log('read complete: ', data);
