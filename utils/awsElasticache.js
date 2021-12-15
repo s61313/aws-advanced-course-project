@@ -153,8 +153,8 @@ class awsElasticache {
             let emp_json = stdout_obj[i+1];
             console.log("emp_no: ", emp_no);  
             console.log("emp_json: ", emp_json);  
-            // let emp = JSON.parse(emp_json);
-            // emp_list.push(emp);
+            let emp = JSON.parse(emp_json);
+            emp_list.push(emp);
           }
           console.log("emp_list: ", emp_list);  
           if (emp_list.length > 0) {
