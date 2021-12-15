@@ -142,15 +142,21 @@ class awsElasticache {
         var cmd_hgetall = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hgetall ${key}`;
         console.log("cmd_hgetall: ", cmd_hgetall);
         let stdout_json = await this.execute_child_process(cmd_hgetall);
-        let stdout_obj = JSON.parse(stdout_json);
-        let emp_list = [];
-        for (let i = 0; i < stdout_obj.length ;i+=2) {
-          let emp_no = stdout_obj[i];
-          let emp_json = stdout_obj[i+1];
-          let emp = JSON.parse(emp_json);
-          emp_list.push(emp);
+        
+        if (myUtilService.isJson(stdout_json)) {
+          let stdout_obj = JSON.parse(stdout_json);
+          let emp_list = [];
+          for (let i = 0; i < stdout_obj.length ;i+=2) {
+            let emp_no = stdout_obj[i];
+            let emp_json = stdout_obj[i+1];
+            let emp = JSON.parse(emp_json);
+            emp_list.push(emp);
+          }
+          console.log("emp_list: ", emp_list);  
+          resolve(emp_list);
+        }else {
+          resolve();
         }
-        console.log("emp_list: ", emp_list);
 
         // const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
         // var cmd_get = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} get ${key}`;
