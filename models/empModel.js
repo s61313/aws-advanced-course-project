@@ -8,6 +8,7 @@ class EmpModel {
       if (!EmpModel._instance) {
         EmpModel._instance = this;
         this.emp_list_key = "emp_list";
+        this.simulate_seconds = 5;
       }
 
       return EmpModel._instance;        
@@ -33,7 +34,7 @@ class EmpModel {
     list_employee_cached() {
       return new Promise(async (resolve, reject) => {
 
-        // check cache 
+        // get cache 
         const emp_list_cache = await awsElasticacheService.get(this.emp_list_key);
         if (emp_list_cache) {
           console.log("emp_list_cache exists");
@@ -41,23 +42,16 @@ class EmpModel {
         }
         
         console.log("emp_list_cache not exists");
-        const sql_wait = this.get_wait_sql(5);
-        console.log("sql_wait starts");
+        // simulate long-running sql query
+        const sql_wait = this.get_wait_sql(this.simulate_seconds);
         await mydb.getConnection().awaitQuery(sql_wait);
-        console.log("sql_wait ends");
-
+        // execute sql query 
         const sql = this.get_list_employee_sql(); 
-        // const values = [[id]];
-        const values = [];
-        mydb.getConnection()
-            .awaitQuery(sql, values)
-            .then(async (result) => {
-              await awsElasticacheService.set(this.emp_list_key, result);
-              resolve(result);
-            })
-            .catch((err) => {
-              resolve(err);
-            });
+        const values = []; // const values = [[id]];
+        const result = mydb.getConnection().awaitQuery(sql, values);
+
+        // set cache 
+        await awsElasticacheService.set(this.emp_list_key, result);
       })
     }      
 
