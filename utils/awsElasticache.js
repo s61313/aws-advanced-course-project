@@ -1,6 +1,7 @@
 
 var RedisClustr = require('redis-clustr');
 var RedisClient = require('redis');
+var RedisCluster = require('redis-cluster').clusterClient;
 
 class awsElasticache {
     constructor() {
@@ -8,8 +9,23 @@ class awsElasticache {
         awsElasticache._instance = this;
         this.redis_cluster_host = process.env.REDIS_CLUSTER_HOST;
         this.redis_cluster_port = process.env.REDIS_CLUSTER_PORT;
-        this.redis = this.init_redis();
-        this.redis_client = null;
+        // this.redis = this.init_redis();
+        // this.redis_client = null;
+
+        // use for cluster mode 
+        var firstLink = process.env.REDIS_CLUSTER_HOST + ":" + process.env.REDIS_CLUSTER_PORT;
+        new redis.clusterInstance(firstLink, function (err, r) {
+          if (err) throw err;
+          r.set('foo', 'bar', function (err, reply) {
+            if (err) throw err;
+            assert.equal(reply,'OK');
+        
+            r.get('foo', function (err, reply) {
+              if (err) throw err;
+              assert.equal(reply, 'bar');
+            });
+          });
+        });
       }
 
       return awsElasticache._instance;        
