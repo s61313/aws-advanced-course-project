@@ -36,9 +36,11 @@ class EmpModel {
         // check cache 
         const emp_list_cache = await awsElasticacheService.get(this.emp_list_key);
         if (emp_list_cache) {
+          console.log("emp_list_cache exists");
           resolve(emp_list_cache);
         }
-
+        
+        console.log("emp_list_cache not exists");
         const sql = this.get_list_employee_sql(); 
         // const values = [[id]];
         const values = [];
