@@ -93,11 +93,13 @@ class awsElasticache {
           cmd_hset_key_val += cmd_hset_hash_key_val;
         }
         var cmd_hset = cmd_hset_hash + cmd_hset_key_val;
-        const jsonfilename = 'myjsonfile.json';
-        await myUtilService.write_to_file(jsonfilename, cmd_hset);
-        // await myUtilService.read_from_file(jsonfilename);
         var cmd_final = `cat ${jsonfilename} | ${cmd_redis_client}`;
         console.log("cmd_final: ", cmd_final);
+        const jsonfilename = 'myjsonfile.json';
+        await myUtilService.write_to_file(jsonfilename, cmd_final);
+        // await myUtilService.read_from_file(jsonfilename);
+        
+        
         // var cmd_hset = `${cmd_hset_hash} < ${jsonfilename}`;
         // console.log("cmd_hset: ", cmd_hset);
         let stdout_result = await this.execute_child_process(cmd_hset);
