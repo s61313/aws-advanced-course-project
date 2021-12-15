@@ -2,6 +2,8 @@
 var RedisClustr = require('redis-clustr');
 var RedisClient = require('redis');
 const { exec } = require("child_process");
+const myUtil = require("./myUtil")
+const myUtilService = new myUtil()
 
 class awsElasticache {
     constructor() {
@@ -120,7 +122,7 @@ class awsElasticache {
               resolve();
           }
           console.log(`stdout: ${stdout}`);
-          if (stdout) {
+          if (myUtilService.isJson(stdout)) {
             result = JSON.parse(stdout);
           }          
           console.log(`result: ${result}`);
