@@ -46,6 +46,7 @@
     "bcryptjs": "^2.4.3",
     "bootstrap-input-spinner": "^2.0.9",
     "canvasjs": "^1.8.3",
+    "child_process": "^1.0.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
