@@ -87,7 +87,7 @@ class awsElasticache {
         for (let i = 0; i < val.length ;i++) {
           let emp = val[i];
           let emp_json = JSON.stringify(emp);
-          var cmd_hset = `${redis_cli_script} -c -x -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${key} ${emp.emp_no} '${emp_json}'`;
+          var cmd_hset = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${key} ${emp.emp_no} '${emp_json}'`;
           console.log("cmd_hset: ", cmd_hset);
           let stdout_result = await this.execute_child_process(cmd_hset);
         }
