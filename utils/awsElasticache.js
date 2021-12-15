@@ -76,27 +76,29 @@ class awsElasticache {
       return new Promise(async (resolve, reject) => {
         console.log("set() called");
         const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
-        // const val_json = JSON.stringify(val);
         // const jsonfilename = 'myjsonfile.json';
         // await myUtilService.write_to_file(jsonfilename, val_json);
         // await myUtilService.read_from_file(jsonfilename);
-        // var cmd_set = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} '${val_json}'`;
         // var cmd_set = `${redis_cli_script} -c -x -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} < ${jsonfilename}`;
-        // console.log("cmd_set: ", cmd_set);
-        var cmd_hset_hash = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${key} `;
-        var cmd_hset_key_val = '';
-        for (let i = 0; i < val.length ;i++) {
-          let emp = val[i];
-          let emp_json = JSON.stringify(emp);
-          let cmd_hset_hash_key_val = ` ${emp.emp_no} '${emp_json}'`;
-          cmd_hset_key_val += cmd_hset_hash_key_val;
-        }
-        
-        var cmd_hset = cmd_hset_hash + cmd_hset_key_val;
-        var cmd_hset_bytes = myUtilService.getBinarySize(cmd_hset);
-        console.log(`cmd_hset: ${cmd_hset} - byte: ${cmd_hset_bytes/1024} KB`);
-        let stdout_result = await this.execute_child_process(cmd_hset);
+        const val_json = JSON.stringify(val);
+        var cmd_set = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} '${val_json}'`;
+        console.log("cmd_set: ", cmd_set);
+        await this.execute_child_process(cmd_set);
         resolve();
+        // var cmd_hset_hash = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${key} `;
+        // var cmd_hset_key_val = '';
+        // for (let i = 0; i < val.length ;i++) {
+        //   let emp = val[i];
+        //   let emp_json = JSON.stringify(emp);
+        //   let cmd_hset_hash_key_val = ` ${emp.emp_no} '${emp_json}'`;
+        //   cmd_hset_key_val += cmd_hset_hash_key_val;
+        // }
+        
+        // var cmd_hset = cmd_hset_hash + cmd_hset_key_val;
+        // var cmd_hset_bytes = myUtilService.getBinarySize(cmd_hset);
+        // console.log(`cmd_hset: ${cmd_hset} - byte: ${cmd_hset_bytes/1024} KB`);
+        // let stdout_result = await this.execute_child_process(cmd_hset);
+        // resolve();
         
         // exec(cmd_set, (error, stdout, stderr) => {
         //   if (error) {
@@ -144,33 +146,43 @@ class awsElasticache {
       return new Promise(async (resolve, reject) => {
         console.log("get() called");  
         const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
-        var cmd_hgetall = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hgetall ${key}`;
-        console.log("cmd_hgetall: ", cmd_hgetall);
-        let stdout_json = await this.execute_child_process(cmd_hgetall);
+        var cmd_get = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} get ${key}`;
+        console.log("cmd_get: ", cmd_get);
+        let stdout_json = await this.execute_child_process(cmd_get);
+        var result = null;
+        if (myUtilService.isJson(stdout_json)) {
+          result = JSON.parse(stdout_json);
+        }          
+        console.log(`result: ${result}`);
+        resolve(result);        
+
+        // var cmd_hgetall = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hgetall ${key}`;
+        // console.log("cmd_hgetall: ", cmd_hgetall);
+        // let stdout_json = await this.execute_child_process(cmd_hgetall);
         
-        if (stdout_json) {
-          let stdout_obj = stdout_json.split(/\r?\n/);
-          console.log("cmd_hgetall list: ", stdout_obj);  
-          let emp_list = [];
-          for (let i = 0; i < stdout_obj.length ;i+=2) {
-            let emp_no = stdout_obj[i];
-            if (emp_no == '') continue;
-            let emp_json = stdout_obj[i+1];
-            // console.log("emp_no: ", emp_no);  
-            // console.log("emp_json: ", emp_json);  
-            let emp = JSON.parse(emp_json);
-            emp_list.push(emp);
-          }
+        // if (stdout_json) {
+        //   let stdout_obj = stdout_json.split(/\r?\n/);
+        //   console.log("cmd_hgetall list: ", stdout_obj);  
+        //   let emp_list = [];
+        //   for (let i = 0; i < stdout_obj.length ;i+=2) {
+        //     let emp_no = stdout_obj[i];
+        //     if (emp_no == '') continue;
+        //     let emp_json = stdout_obj[i+1];
+        //     // console.log("emp_no: ", emp_no);  
+        //     // console.log("emp_json: ", emp_json);  
+        //     let emp = JSON.parse(emp_json);
+        //     emp_list.push(emp);
+        //   }
           
-          if (emp_list.length > 0) {
-            console.log("emp_list: ", emp_list);  
-            resolve(emp_list);
-          }else {
-            resolve(); 
-          }
-        }else {
-          resolve();
-        }
+        //   if (emp_list.length > 0) {
+        //     console.log("emp_list: ", emp_list);  
+        //     resolve(emp_list);
+        //   }else {
+        //     resolve(); 
+        //   }
+        // }else {
+        //   resolve();
+        // }
 
         // const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
         // var cmd_get = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} get ${key}`;
