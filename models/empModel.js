@@ -53,6 +53,7 @@ class EmpModel {
 
         // set cache 
         await awsElasticacheService.set(this.emp_list_key, result);
+        resolve(result);
       })
     }      
 
