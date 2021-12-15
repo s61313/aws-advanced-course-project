@@ -119,6 +119,7 @@ class awsElasticache {
               console.log(`stderr: ${stderr}`);
               resolve();
           }
+          console.log(`stdout: ${stdout}`);
           if (stdout) {
             result = JSON.parse(stdout);
           }          
