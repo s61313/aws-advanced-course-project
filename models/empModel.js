@@ -59,7 +59,6 @@ class EmpModel {
     get_list_employee_sql() {
       const sql = 
       `
-      SELECT benchmark(10000000, md5('when will it end?'));
       SELECT e.emp_no, e.first_name, e.last_name, d.dept_name, dm.mgr_no, dm.mgr_first_name, dm.mgr_last_name
       FROM employees e
       LEFT JOIN dept_emp de ON e.emp_no = de.emp_no AND de.to_date = '9999-01-01'
