@@ -1,5 +1,6 @@
 
 var RedisClustr = require('redis-clustr');
+var redis = RedisCluster;
 var RedisClient = require('redis');
 var RedisCluster = require('redis-cluster').clusterClient;
 
