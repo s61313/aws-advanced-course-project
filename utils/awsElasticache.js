@@ -76,26 +76,35 @@ class awsElasticache {
       return new Promise(async (resolve, reject) => {
         console.log("set() called");
         const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
-        const val_json = JSON.stringify(val);
-        const jsonfilename = 'myjsonfile.json';
-        await myUtilService.write_to_file(jsonfilename, val_json);
-        await myUtilService.read_from_file(jsonfilename);
+        // const val_json = JSON.stringify(val);
+        // const jsonfilename = 'myjsonfile.json';
+        // await myUtilService.write_to_file(jsonfilename, val_json);
+        // await myUtilService.read_from_file(jsonfilename);
         // var cmd_set = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} '${val_json}'`;
-        var cmd_set = `${redis_cli_script} -c -x -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} < ${jsonfilename}`;
-        console.log("cmd_set: ", cmd_set);
-        exec(cmd_set, (error, stdout, stderr) => {
-          if (error) {
-              console.log(`error: ${error.message}`);
-              resolve();
-          }
-          if (stderr) {
-              console.log(`stderr: ${stderr}`);
-              resolve();
-          }
-          console.log(`stdout: ${stdout}`);
-          resolve();
-      });
+        // var cmd_set = `${redis_cli_script} -c -x -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} < ${jsonfilename}`;
+        // console.log("cmd_set: ", cmd_set);
 
+        for (let i = 0; i < val.length ;i++) {
+          let emp = val[i];
+          let emp_json = JSON.stringify(emp);
+          var cmd_hset = `${redis_cli_script} -c -x -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${key} ${emp.emp_no} ${emp_json}`;
+          console.log("cmd_hset: ", cmd_hset);
+          let stdout_result = await execute_child_process(cmd_hset);
+        }
+        resolve();
+        
+        // exec(cmd_set, (error, stdout, stderr) => {
+        //   if (error) {
+        //       console.log(`error: ${error.message}`);
+        //       resolve();
+        //   }
+        //   if (stderr) {
+        //       console.log(`stderr: ${stderr}`);
+        //       resolve();
+        //   }
+        //   console.log(`stdout: ${stdout}`);
+        //   resolve();
+        // });
         
         // console.log("set() called");  
         // const val_json = JSON.stringify(val);
@@ -107,6 +116,23 @@ class awsElasticache {
 
       })
     }
+
+    execute_child_process(cmd) {
+      return new Promise(async (resolve, reject) => {
+        exec(cmd, (error, stdout, stderr) => {
+          if (error) {
+              console.log(`error: ${error.message}`);
+              resolve();
+          }
+          if (stderr) {
+              console.log(`stderr: ${stderr}`);
+              resolve();
+          }
+          console.log(`stdout: ${stdout}`);
+          resolve(stdout);
+        });
+      })
+    }    
 
     get(key) {
 
