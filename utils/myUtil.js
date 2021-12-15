@@ -70,7 +70,13 @@ class myUtil {
           return false;
       }
       return true;
-  }
+    }
+
+    getBinarySize(string) {
+      return Buffer.byteLength(string, 'utf8');
+    }
+  
+
 
 }
 module.exports = myUtil;
