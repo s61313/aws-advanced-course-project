@@ -144,7 +144,7 @@ class awsElasticache {
         let stdout_json = await this.execute_child_process(cmd_hgetall);
         
         if (stdout_json) {
-          let stdout_obj = stdout_json => stdout_json.split(/\r?\n/);
+          let stdout_obj = stdout_json.split(/\r?\n/);
           console.log("cmd_hgetall list: ", stdout_obj);  
           let emp_list = [];
           for (let i = 0; i < stdout_obj.length ;i+=2) {
