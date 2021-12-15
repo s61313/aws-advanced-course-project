@@ -22,6 +22,7 @@ router.get("/elasticache/list_employee_cached", async function (req, res) {
   if (result_cached) {
     console.log("emp_list_cache exists");
     res.send({"result": result_cached,"processed_time": ((new Date().getTime() - start_time) / 1000)});
+    return;
   }
 
   // main logic
