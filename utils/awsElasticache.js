@@ -28,24 +28,7 @@ class awsElasticache {
         await this.execute_child_process(cmd_set);
         resolve();
       })
-    }
-
-    execute_child_process(cmd) {
-      return new Promise(async (resolve, reject) => {
-        exec(cmd, (error, stdout, stderr) => {
-          if (error) {
-              console.log(`error: ${error.message}`);
-              return resolve();
-          }
-          if (stderr) {
-              console.log(`stderr: ${stderr}`);
-              return resolve();
-          }
-          console.log(`stdout: ${stdout}`);
-          resolve(stdout);
-        });
-      })
-    }    
+    }   
 
     get(key) {
 
@@ -76,6 +59,23 @@ class awsElasticache {
 
       })
     }
+
+    execute_child_process(cmd) {
+      return new Promise(async (resolve, reject) => {
+        exec(cmd, (error, stdout, stderr) => {
+          if (error) {
+              console.log(`error: ${error.message}`);
+              return resolve();
+          }
+          if (stderr) {
+              console.log(`stderr: ${stderr}`);
+              return resolve();
+          }
+          console.log(`stdout: ${stdout}`);
+          resolve(stdout);
+        });
+      })
+    }     
 
 }
 module.exports = awsElasticache;
