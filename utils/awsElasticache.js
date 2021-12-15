@@ -138,7 +138,7 @@ class awsElasticache {
 
       return new Promise(async (resolve, reject) => {
         console.log("get() called");  
-
+        const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
         var cmd_hgetall = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hgetall ${key}`;
         console.log("cmd_hgetall: ", cmd_hgetall);
         let stdout_json = await this.execute_child_process(cmd_hset);
