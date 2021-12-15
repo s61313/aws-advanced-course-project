@@ -76,14 +76,14 @@ class awsElasticache {
         console.log("cmd_set: ", cmd_set);
         exec(cmd_set, (error, stdout, stderr) => {
           if (error) {
-              console.log(`error: ${error.message}`);
+              // console.log(`error: ${error.message}`);
               resolve();
           }
           if (stderr) {
-              console.log(`stderr: ${stderr}`);
+              // console.log(`stderr: ${stderr}`);
               resolve();
           }
-          console.log(`stdout: ${stdout}`);
+          // console.log(`stdout: ${stdout}`);
           resolve();
       });
 
