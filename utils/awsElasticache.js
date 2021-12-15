@@ -1,8 +1,7 @@
 
 var RedisClustr = require('redis-clustr');
 var RedisClient = require('redis');
-// var RedisCluster = require('redis-cluster').clusterClient;
-var poorMansRedisClusterClient = require('redis-cluster').poorMansClusterClient;
+
 
 class awsElasticache {
     constructor() {
@@ -12,8 +11,6 @@ class awsElasticache {
         this.redis_cluster_port = process.env.REDIS_CLUSTER_PORT;
         this.redis = this.init_redis();
         this.redis_client = null;
-
-        // 
       }
 
       return awsElasticache._instance;        
@@ -54,39 +51,19 @@ class awsElasticache {
 
       return new Promise((resolve, reject) => {
         console.log("init_redis_client() called");
-        var cluster_url = this.redis_cluster_host + ":" + this.redis_cluster_port;
-        var cluster = [
-          {name: 'redis01', link: cluster_url, slots: [   0, 5461], options: {max_attempts: 3}},
-          {name: 'redis02', link: cluster_url, slots: [5462, 10922], options: {max_attempts: 3}},
-          {name: 'redis03', link: cluster_url, slots: [10923, 16383], options: {max_attempts: 3}}
-        ];
+        this.redis_client = this.redis.createClient(this.redis_cluster_port, this.redis_cluster_host);
 
-        this.redis_client = poorMansRedisClusterClient(cluster);
-
-        this.redis_client.set('foo', 'bar', function (err, reply) {
-          if (err) throw err;
-          assert.equal(reply,'OK');
-        
-          this.redis_client.get('foo', function (err, reply) {
-            if (err) throw err;
-            assert.equal(reply, 'bar');
-          });
-        });        
-
-
-        // this.redis_client = this.redis.createClient(this.redis_cluster_port, this.redis_cluster_host);
-
-        // //catch all errors
-        // this.redis_client.on("error", function (err) {
-        //   console.log("redis failed to connect: " + err);
-        //   resolve();
-        // });
+        //catch all errors
+        this.redis_client.on("error", function (err) {
+          console.log("redis failed to connect: " + err);
+          resolve();
+        });
   
-        // //connect to redis
-        // this.redis_client.on("connect", function (err, reply) {
-        //   console.log("redis connected.");
-        //   resolve();
-        // });
+        //connect to redis
+        this.redis_client.on("connect", function (err, reply) {
+          console.log("redis connected.");
+          resolve();
+        });
 
       })
     }
