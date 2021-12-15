@@ -14,23 +14,6 @@ class EmpModel {
       return EmpModel._instance;        
     }
 
-    // list_employee() {
-    //   return new Promise(async (resolve, reject) => {
-
-    //     const sql = this.get_list_employee_sql(); 
-    //     // const values = [[id]];
-    //     const values = [];
-    //     mydb.getConnection()
-    //         .awaitQuery(sql, values)
-    //         .then(async (result) => {
-    //           resolve(result);
-    //         })
-    //         .catch((err) => {
-    //           resolve(err);
-    //         });
-    //   })
-    // }  
-
     list_employee() {
       return new Promise(async (resolve, reject) => {
 
@@ -42,7 +25,7 @@ class EmpModel {
         const values = []; // const values = [[id]];
         const result = await mydb.getConnection().awaitQuery(sql, values);
         resolve(result);
-        
+
       })
     }      
 
