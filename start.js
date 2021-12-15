@@ -17,10 +17,6 @@ const start_function = async () => {
     // db setup 
     app.db.handleDisconnect();
 
-    console.log('connecting to redis server');
-    await app.awsElasticacheService.init_redis_client();
-    console.log('finished connecting to redis server');
-
     // app server setup
     app.server.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 

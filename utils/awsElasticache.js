@@ -12,49 +12,9 @@ class awsElasticache {
         awsElasticache._instance = this;
         this.redis_cluster_host = process.env.REDIS_CLUSTER_HOST;
         this.redis_cluster_port = process.env.REDIS_CLUSTER_PORT;
-        this.redis = this.init_redis();
-        this.redis_client = null;
       }
 
       return awsElasticache._instance;        
-    }
-
-    init_redis() {
-      var redis = new RedisClustr({
-          servers: [
-              {
-                  host: this.redis_cluster_host,
-                  port: this.redis_cluster_port
-              }
-          ],
-          createClient: function (redis_cluster_port, redis_cluster_host) {
-              // this is the default behaviour
-              return RedisClient.createClient(redis_cluster_port, redis_cluster_host);
-          }
-      });
-
-      return redis;
-    }
-
-    init_redis_client() {
-
-      return new Promise((resolve, reject) => {
-        console.log("init_redis_client() called");
-        this.redis_client = this.redis.createClient(this.redis_cluster_port, this.redis_cluster_host);
-
-        //catch all errors
-        this.redis_client.on("error", function (err) {
-          console.log("redis failed to connect: " + err);
-          resolve();
-        });
-  
-        //connect to redis
-        this.redis_client.on("connect", function (err, reply) {
-          console.log("redis connected.");
-          resolve();
-        });
-
-      })
     }
 
     set(key, val) {
@@ -62,10 +22,6 @@ class awsElasticache {
       return new Promise(async (resolve, reject) => {
         console.log("set() called");
         const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
-        // const jsonfilename = 'myjsonfile.json';
-        // await myUtilService.write_to_file(jsonfilename, val_json);
-        // await myUtilService.read_from_file(jsonfilename);
-        // var cmd_set = `${redis_cli_script} -c -x -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} < ${jsonfilename}`;
         const val_json = JSON.stringify(val);
         var cmd_set = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} '${val_json}'`;
         console.log("cmd_set: ", cmd_set);
@@ -130,31 +86,9 @@ class awsElasticache {
           console.log(`stdout: ${stdout}`);
           resolve();
         })
-          
-        // this.redis_client.del(key, function (err, reply) {
-        //   console.log("redis_client.del", reply);
-        //   resolve();
-        // });
 
       })
     }
-
-
-    // list_employee() {
-    //   return new Promise((resolve, reject) => {
-    //     const sql = this.get_list_employee_sql(); 
-    //     // const values = [[id]];
-    //     const values = [];
-    //     mydb.getConnection()
-    //         .awaitQuery(sql, values)
-    //         .then((result) => {
-    //           resolve(result);
-    //         })
-    //         .catch((err) => {
-    //           resolve(err);
-    //         });
-    //   })
-    // }    
 
 }
 module.exports = awsElasticache;
