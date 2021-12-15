@@ -157,7 +157,11 @@ class awsElasticache {
             // emp_list.push(emp);
           }
           console.log("emp_list: ", emp_list);  
-          resolve(emp_list);
+          if (emp_list.length > 0) {
+            resolve(emp_list);
+          }else {
+            resolve(); 
+          }
         }else {
           resolve();
         }
