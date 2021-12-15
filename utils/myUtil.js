@@ -50,7 +50,11 @@ class myUtil {
 
         fs.readFile(filepath, function(err, data) {
           if (err) throw err;
-          console.log('read complete: ', data);
+          if (this.isJson(data)) {
+            console.log('read complete (json): ', JSON.parse(stdout));
+          }else {
+            console.log('read complete: ', data);
+          }
           resolve(data);
         });
 
