@@ -89,7 +89,7 @@ class awsElasticache {
           let emp_json = JSON.stringify(emp);
           var cmd_hset = `${redis_cli_script} -c -x -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${key} ${emp.emp_no} ${emp_json}`;
           console.log("cmd_hset: ", cmd_hset);
-          let stdout_result = await execute_child_process(cmd_hset);
+          let stdout_result = await this.execute_child_process(cmd_hset);
         }
         resolve();
         
