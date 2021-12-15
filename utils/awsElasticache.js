@@ -67,7 +67,7 @@ class awsElasticache {
 
     del(key) {
 
-      return new Promise((resolve, reject) => {
+      return new Promise(async (resolve, reject) => {
         console.log("del() called");  
         const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
         var cmd_del = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} del ${key}`;
