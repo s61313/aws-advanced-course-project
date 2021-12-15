@@ -136,7 +136,7 @@ class awsElasticache {
 
     get(key) {
 
-      return new Promise((resolve, reject) => {
+      return new Promise(async (resolve, reject) => {
         console.log("get() called");  
 
         var cmd_hgetall = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hgetall ${key}`;
