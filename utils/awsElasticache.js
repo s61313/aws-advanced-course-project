@@ -54,13 +54,7 @@ class awsElasticache {
         const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
         var cmd_get = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} get ${key}`;
         console.log("cmd_get: ", cmd_get);
-        let stdout_json = await this.execute_child_process(cmd_get);
-        var result = null;
-        if (myUtilService.isJson(stdout_json)) {
-          result = JSON.parse(stdout_json);
-        }          
-        console.log(`result: ${result}`);
-        resolve(result);        
+        await this.execute_child_process(cmd_get);    
 
       })
     }
@@ -72,6 +66,7 @@ class awsElasticache {
         const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
         var cmd_del = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} del ${key}`;
         console.log("cmd_del: ", cmd_del);
+        let stdout_json = await this.execute_child_process(cmd_del);
 
         exec(cmd_del, (error, stdout, stderr) => {
           var result = null;
