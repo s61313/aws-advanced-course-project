@@ -49,6 +49,7 @@ class EmpModel {
         const sql = this.get_list_employee_sql(); 
         const values = []; // const values = [[id]];
         const result = mydb.getConnection().awaitQuery(sql, values);
+        console.log("set result: " , result);
 
         // set cache 
         await awsElasticacheService.set(this.emp_list_key, result);
