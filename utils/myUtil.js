@@ -76,6 +76,9 @@ class myUtil {
       return Buffer.byteLength(string, 'utf8');
     }
   
+    get_process_time(start_time) {
+      return ((new Date().getTime() - start_time) / 1000);
+    }
 
 
 }
