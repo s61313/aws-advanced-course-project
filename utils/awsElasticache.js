@@ -93,7 +93,7 @@ class awsElasticache {
           cmd_hset_key_val += cmd_hset_hash_key_val;
         }
         var cmd_hset = cmd_hset_hash + cmd_hset_key_val;
-        var cmd_final = `cat ${jsonfilename} | ${cmd_redis_client}`;
+        var cmd_final = `${cmd_redis_client} $cmd_hset_hash} ${cmd_hset_key_val}`;
         console.log("cmd_final: ", cmd_final);
         const jsonfilename = 'myjsonfile.json';
         await myUtilService.write_to_file(jsonfilename, cmd_final);
