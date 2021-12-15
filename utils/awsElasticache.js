@@ -110,6 +110,7 @@ class awsElasticache {
         console.log("cmd_get: ", cmd_get);
           
         exec(cmd_get, (error, stdout, stderr) => {
+          var result = null;
           if (error) {
               console.log(`error: ${error.message}`);
               resolve();
@@ -118,8 +119,11 @@ class awsElasticache {
               console.log(`stderr: ${stderr}`);
               resolve();
           }
-          console.log(`stdout: ${stdout}`);
-          resolve(stdout);
+          if (stdout) {
+            result = JSON.parse(stdout);
+          }          
+          console.log(`result: ${result}`);
+          resolve(result);
         })
 
         // this.redis_client.get(key, function (err, reply) {
