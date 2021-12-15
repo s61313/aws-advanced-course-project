@@ -37,7 +37,7 @@ class EmpModel {
         const emp_list_cache = await awsElasticacheService.get(this.emp_list_key);
         if (emp_list_cache) {
           console.log("emp_list_cache exists");
-          resolve(emp_list_cache);
+          return resolve(emp_list_cache);
         }
         
         console.log("emp_list_cache not exists");
