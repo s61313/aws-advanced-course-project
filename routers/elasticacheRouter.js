@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const empModel = require("../models/empModel");
 const empModelService = new empModel();
+const awsElasticache = require("../utils/awsElasticache");
+const awsElasticacheService = new awsElasticache();
 const emp_list_key = "emp_list";
 
 router.get("/elasticache/list_employee", async function (req, res) {
