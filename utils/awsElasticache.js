@@ -71,8 +71,9 @@ class awsElasticache {
     set(key, val) {
 
       return new Promise((resolve, reject) => {
-        var redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
-        var cmd_set = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set Z 100`;
+        const redis_cli_script = '/home/ec2-user/aws-advanced-course-project/redis-stable/src/redis-cli';
+        const val_json = JSON.stringify(val);
+        var cmd_set = `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} ${val_json}`;
         console.log("cmd_set prefix: ", `${redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set `);
         exec(cmd_set, (error, stdout, stderr) => {
           if (error) {
