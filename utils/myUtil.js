@@ -52,7 +52,7 @@ class myUtil {
         fs.readFile(filepath, function(err, data) {
           if (err) throw err;
           if (isJsonFunc(data)) {
-            console.log('read complete (json): ', JSON.parse(stdout));
+            console.log('read complete (json): ', JSON.parse(data));
           }else {
             console.log('read complete: ', data);
           }
