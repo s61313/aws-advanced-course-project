@@ -41,6 +41,11 @@ class EmpModel {
         }
         
         console.log("emp_list_cache not exists");
+        const sql_wait = this.get_wait_sql(5);
+        console.log("sql_wait starts");
+        await mydb.getConnection().awaitQuecry(sql_wait);
+        console.log("sql_wait ends");
+        
         const sql = this.get_list_employee_sql(); 
         // const values = [[id]];
         const values = [];
@@ -59,7 +64,6 @@ class EmpModel {
     get_list_employee_sql() {
       const sql = 
       `
-      do sleep(5);
       SELECT e.emp_no, e.first_name, e.last_name, d.dept_name, dm.mgr_no, dm.mgr_first_name, dm.mgr_last_name
       FROM employees e
       LEFT JOIN dept_emp de ON e.emp_no = de.emp_no AND de.to_date = '9999-01-01'
@@ -75,7 +79,15 @@ class EmpModel {
       LIMIT 500;
       `
       return sql;
-    }    
+    }  
+
+    get_wait_sql(seconds) {
+      const sql = 
+      `
+      do sleep(${seconds});
+      `
+      return sql;
+    }      
 
     clean_cache() {
       return new Promise(async (resolve, reject) => {
