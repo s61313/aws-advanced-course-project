@@ -73,7 +73,8 @@ class awsElasticache {
         console.log("set() called");  
         const val_json = JSON.stringify(val);
         this.redis_client.set(key, val_json, function (err, reply) {
-          console.log("redis_client.set " , reply);
+          console.log("redis_client.set err: " , err);
+          console.log("redis_client.set reply: " , reply);
           resolve(reply);
         });
 
