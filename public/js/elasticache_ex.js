@@ -85,7 +85,8 @@ function getEmpInfoHelper() {
       url: url_get_employee,
       type: "GET",
       success: function (res) {
-        console.log("url_get_employee - res: " , res);        
+        console.log("url_get_employee - res: " , res);   
+        appendEmployeeRows(res.result);     
         resolve();
       },
     });
@@ -116,8 +117,7 @@ function cleanCache_helper() {
       url: url_elasticache_clean,
       type: "GET",
       success: function (res) {
-        console.log("url_elasticache_clean - res: " , res);  
-        appendEmployeeRows(res.result);      
+        console.log("url_elasticache_clean - res: " , res);    
         resolve();
       },
     });
