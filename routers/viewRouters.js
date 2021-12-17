@@ -36,6 +36,8 @@ router.get("/elb_stickiness", (req, res) => {
   res.render("elb_stickiness");
 });
 
-
+router.get("/elasticache_exercise", (req, res) => {
+  res.render("elasticache_exercise");
+});
 
 module.exports = router;
