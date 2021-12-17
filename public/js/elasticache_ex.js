@@ -82,7 +82,7 @@ function getEmpInfoHelper() {
     console.log("url_get_employee: " , url_get_employee);
   
     $.ajax({
-      url: url_elasticache_clean,
+      url: url_get_employee,
       type: "GET",
       success: function (res) {
         console.log("url_get_employee - res: " , res);        
