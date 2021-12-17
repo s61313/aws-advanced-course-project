@@ -116,7 +116,8 @@ function cleanCache_helper() {
       url: url_elasticache_clean,
       type: "GET",
       success: function (res) {
-        console.log("url_elasticache_clean - res: " , res);        
+        console.log("url_elasticache_clean - res: " , res);  
+        appendEmployeeRows(res.result);      
         resolve();
       },
     });

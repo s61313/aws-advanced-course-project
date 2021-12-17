@@ -7,7 +7,7 @@ class EmpModel {
     constructor() {
       if (!EmpModel._instance) {
         EmpModel._instance = this;
-        this.simulate_seconds = 5;
+        this.simulate_seconds = 1;
       }
 
       return EmpModel._instance;        
