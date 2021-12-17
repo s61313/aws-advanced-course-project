@@ -156,7 +156,9 @@ function list_employee_helper(is_cache) {
 function appendEmployeeRows(emp_list) {
   $("#empListId").html("");
   var rows_min = Math.min(rows_per_page, emp_list.length);
+  console.log("rows_min: ", rows_min);
   for (var i = 0; i < rows_min ;i++) {
+    console.log("add row - i : ", i);
     const emp = emp_list[i];
     $("#empListId").append(getEmployeeRowView(emp.emp_no, emp.first_name, emp.last_name, emp.dept_name, emp.mgr_first_name, emp.mgr_last_name));
   }
