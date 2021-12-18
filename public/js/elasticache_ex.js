@@ -94,7 +94,7 @@ function simulation01Helper() {
       let names = namesList[i];
       let res = await get_employee_api(names.empName, names.mgrName);
       processed_time_total += res.processed_time;
-      $("#listEmployeeWithEcacheId").html(`List Employees + ElastiCache (${processed_time_total}s)`);
+      $("#getEmpInfoId").html(`Get Employee Information by Two Names(${processed_time_total}s)`);
     }
 
     resolve();
