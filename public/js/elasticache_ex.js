@@ -26,7 +26,17 @@ function setupEvent(){
   $('#getEmpInfoId').click({"input1": "value1"}, getEmpInfo);
   $('#cleanCacheId').click({"input1": "value1"}, cleanCache);
   $('#clearListId').click({"input1": "value1"}, clearList);
+  $('#simulation01Id').click({"input1": "value1"}, simulation01);
 
+  
+
+}
+
+async function simulation01(){
+  console.log("simulation01() called");
+  $('#simulation01Id').prop('disabled', true);
+  await simulation01Helper();
+  $('#simulation01Id').prop('disabled', false);
 }
 
 
@@ -70,6 +80,50 @@ async function list_employee(){
   $('#listEmployeeId').prop('disabled', false);
 }
 
+
+function simulation01Helper() {
+
+  return new Promise(async (resolve, reject) => {
+    console.log("simulation01Helper() called");
+    let namesList = getTestNamesList();
+
+    for (var i = 0; i < namesList.length; i++) {
+      let names = namesList[i];
+      let get_employee_api_result = await get_employee_api(names.empName, names.mgrName);
+      if (get_employee_api_result != "OK") {
+        break;
+      }
+    }
+
+  })   
+
+}
+
+function get_employee_api(url, empName, mgrName) {
+  return new Promise(async (resolve, reject) => {
+
+    let hostname = $('#backendUrlId').val();
+    var url_get_employee = `${hostname}/api/elasticache/get_employee?empName=${empName}&mgrName=${mgrName}`;
+    console.log("url_get_employee_2: " , url_get_employee);
+
+    $.ajax({
+      url: url,
+      type: "GET",
+      success: function (res) {
+        console.log("get_employee_api - res: " , res);   
+        // DOTHIS: is wrong cached data, show red something
+        appendEmployeeRows(res.result);     
+        resolve("OK");
+      },
+    });
+  })
+}
+
+function getTestNamesList() {
+  var namesList = [];
+  namesList.push({empName: 'George',mgrName: 'Oscar'});
+  return namesList;
+}
 
 function getEmpInfoHelper() {
 
