@@ -42,7 +42,7 @@ router.get("/elasticache/get_employee", async function (req, res) {
   const start_time = new Date().getTime();
   var empName = req.query.empName;
   var mgrName = req.query.mgrName;
-  var cacheKey = "empName:" + empName + ";" + "mgrName:" + mgrName;
+  var cacheKey = "empName_" + empName + "__" + "mgrName_" + mgrName;
 
   // get cache 
   const result_cached = await awsElasticacheService.get(cacheKey); 
