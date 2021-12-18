@@ -95,6 +95,7 @@ class awsElasticache {
 
         for (let i = 0; i < allkeys_list.length ;i++) {
           let key_to_del = allkeys_list[i];
+          if (key_to_del === '') continue;
           const result_sremove = await this.del(key_to_del);
           console.log("result_sremove: ", result_sremove);  
         }
