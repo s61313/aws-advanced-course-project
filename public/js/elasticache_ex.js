@@ -37,17 +37,19 @@ function setupEvent(){
 async function simulation01(){
   console.log("simulation01() called");
   $('#simulation01Id').prop('disabled', true);
+  $("#simulation01Id").html(`Simluation`);
   processed_time_total = 0;
   await simulation01Helper();
   $('#simulation01Id').prop('disabled', false);
 }
 
-
 async function getEmpInfo(){
   console.log("getEmpInfo() called");
   $('#getEmpInfoId').prop('disabled', true);
-  await getEmpInfoHelper();
+  $("#getEmpInfoId").html(`Get Employee Information by Two Names`);
+  const res = await getEmpInfoHelper();
   $('#getEmpInfoId').prop('disabled', false);
+  $("#getEmpInfoId").html(`Get Employee Information by Two Names(${res.processed_time})s`);
 }
 
 async function clearList(){
@@ -63,26 +65,6 @@ async function cleanAllCache(){
   await cleanAllCacheHelper();
   $('#cleanAllCacheId').prop('disabled', false);
 }
-
-async function listEmployeeWithEcache(){
-  console.log("listEmployeeWithEcache() called");
-  $("#empListId").html("");
-  $('#listEmployeeWithEcacheId').prop('disabled', true);
-  const res = await list_employee_helper(true);
-  $("#listEmployeeWithEcacheId").html(`List Employees + ElastiCache (${res.processed_time}s)`);
-  $('#listEmployeeWithEcacheId').prop('disabled', false);
-}
-
-
-async function list_employee(){
-  console.log("list_employee() called");
-  $("#empListId").html("");
-  $('#listEmployeeId').prop('disabled', true);
-  const res = await list_employee_helper(false);
-  $("#listEmployeeId").html(`List Employees (${res.processed_time}s)`);
-  $('#listEmployeeId').prop('disabled', false);
-}
-
 
 function simulation01Helper() {
 
@@ -148,7 +130,7 @@ function getEmpInfoHelper() {
       success: function (res) {
         console.log("url_get_employee - res: " , res);   
         appendEmployeeRows(res.result);     
-        resolve();
+        resolve(res);
       },
     });
   })   
