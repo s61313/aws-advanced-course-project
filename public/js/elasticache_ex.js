@@ -98,6 +98,8 @@ function simulation01Helper() {
       }
     }
 
+    resolve();
+
   })   
 
 }
