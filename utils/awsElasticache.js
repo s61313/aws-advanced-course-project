@@ -81,7 +81,7 @@ class awsElasticache {
         var cmd_smembers = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} smembers ${this.set_key}`;
         console.log("cmd_smembers: ", cmd_smembers);
         await this.execute_child_process(cmd_smembers);
-
+        resolve(cmd_smembers);
       })
     }
 
@@ -89,6 +89,7 @@ class awsElasticache {
 
       return new Promise(async (resolve, reject) => {
         const allkeys = await this.smembers();
+        console.log("allkeys: ", allkeys);
         let keys_to_del = "";
         for (let i = 0; i < allkeys.length ;i++) {
           keys_to_del += " ";
