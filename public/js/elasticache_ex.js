@@ -94,7 +94,7 @@ function simulation01Helper() {
       let names = namesList[i];
       let res = await get_employee_api(names.empName, names.mgrName);
       processed_time_total += res.processed_time;
-      $("#simulation01Id").html(`Simluation(${processed_time_total}s)`);
+      $("#simulation01Id").html(`Simluation(${processed_time_total.toPrecision(3)}s)`);
     }
 
     resolve();
