@@ -92,16 +92,24 @@ class awsElasticache {
         const allkeys_list = allkeys.split(/\r?\n/);
         console.log("allkeys_list: ", allkeys_list);
         // console.log("typeof(allkeys): ", typeof(allkeys));
-        
-        let keys_to_del = "";
+
         for (let i = 0; i < allkeys_list.length ;i++) {
-          keys_to_del += " ";
-          keys_to_del += allkeys_list[i];
+          let key_to_del = allkeys_list[i];
+          const result_sremove = await this.del(key_to_del);
+          console.log("result_sremove: ", result_sremove);  
         }
-        console.log("keys_to_del: ", keys_to_del);
-        const result_sremove = await this.del(keys_to_del);
-        console.log("result_sremove: ", result_sremove);
+        // console.log("keys_to_del: ", keys_to_del);
         resolve();
+        
+        // let keys_to_del = "";
+        // for (let i = 0; i < allkeys_list.length ;i++) {
+        //   keys_to_del += " ";
+        //   keys_to_del += allkeys_list[i];
+        // }
+        // console.log("keys_to_del: ", keys_to_del);
+        // const result_sremove = await this.del(keys_to_del);
+        // console.log("result_sremove: ", result_sremove);
+        // resolve();
       })
     }
 
