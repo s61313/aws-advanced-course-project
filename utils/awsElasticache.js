@@ -29,7 +29,8 @@ class awsElasticache {
         await this.execute_child_process(cmd_set);
 
         // store keys for later clean up 
-        await this.sadd(key);
+        const sadd_result = await this.sadd(key);
+        console.log("sadd_result: " , sadd_result);
 
         resolve();
       })
@@ -69,8 +70,8 @@ class awsElasticache {
         console.log("sadd() called");  
         var cmd_sadd = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} sadd ${this.set_key} ${element}`;
         console.log("cmd_sadd: ", cmd_sadd);
-        await this.execute_child_process(cmd_sadd);
-
+        const sadd_result = await this.execute_child_process(cmd_sadd);
+        resolve(sadd_result);
       })
     }    
 
