@@ -33,7 +33,7 @@ class awsElasticache {
     get(key) {
 
       return new Promise(async (resolve, reject) => {
-        console.log("get() called");  
+        // console.log("get() called");  
         var cmd_get = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} get ${key}`;
         console.log("cmd_get: ", cmd_get);
         let stdout_json = await this.execute_child_process(cmd_get);
