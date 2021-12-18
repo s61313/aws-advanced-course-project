@@ -5,6 +5,7 @@ var notpassed_color_bg = "rgb(88, 124, 171)";
 var passed_color_bg = "#22a2b8";
 var notpassed_toolong_color_bg = "rgb(191, 62, 92)";
 var rows_per_page = 500;
+var processed_time_total = 0;
 
 $(document).ready(() => {
   console.log("sqs_lambda_tempalte.js loaded");
@@ -36,6 +37,7 @@ function setupEvent(){
 async function simulation01(){
   console.log("simulation01() called");
   $('#simulation01Id').prop('disabled', true);
+  processed_time_total = 0;
   await simulation01Helper();
   $('#simulation01Id').prop('disabled', false);
 }
@@ -90,10 +92,9 @@ function simulation01Helper() {
 
     for (var i = 0; i < namesList.length; i++) {
       let names = namesList[i];
-      let get_employee_api_result = await get_employee_api(names.empName, names.mgrName);
-      if (get_employee_api_result != "OK") {
-        break;
-      }
+      let res = await get_employee_api(names.empName, names.mgrName);
+      processed_time_total += res.processed_time;
+      $("#listEmployeeWithEcacheId").html(`List Employees + ElastiCache (${processed_time_total}s)`);
     }
 
     resolve();
@@ -116,7 +117,7 @@ function get_employee_api(empName, mgrName) {
         console.log("get_employee_api - res: " , res);   
         // DOTHIS: is wrong cached data, show red something
         appendEmployeeRows(res.result);     
-        resolve("OK");
+        resolve(res);
       },
     });
   })
