@@ -97,6 +97,7 @@ class awsElasticache {
         }
         console.log("keys_to_del: ", keys_to_del);
         await this.del(keys_to_del);
+        resolve();
       })
     }
 
