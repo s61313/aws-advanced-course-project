@@ -24,7 +24,7 @@ class awsElasticache {
         console.log("set() called");  
         const val_json = JSON.stringify(val);
         var cmd_set = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} '${val_json}'`;
-        console.log("cmd_set: ", cmd_set);
+        // console.log("cmd_set: ", cmd_set);
         await this.execute_child_process(cmd_set);
         resolve();
       })

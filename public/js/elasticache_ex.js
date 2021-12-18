@@ -27,11 +27,9 @@ function setUpDefault() {
 function setupEvent(){
   
   $('#getEmpInfoId').click({"input1": "value1"}, getEmpInfo);
-  $('#cleanCacheId').click({"input1": "value1"}, cleanCache);
+  $('#cleanAllCacheId').click({"input1": "value1"}, cleanAllCache);
   $('#clearListId').click({"input1": "value1"}, clearList);
   $('#simulation01Id').click({"input1": "value1"}, simulation01);
-
-  
 
 }
 
@@ -57,11 +55,11 @@ async function clearList(){
   $('#clearList').prop('disabled', false);
 }
 
-async function cleanCache(){
-  console.log("cleanCache() called");
-  $('#cleanCache').prop('disabled', true);
-  await cleanCache_helper();
-  $('#cleanCache').prop('disabled', false);
+async function cleanAllCache(){
+  console.log("cleanAllCache() called");
+  $('#cleanAllCacheId').prop('disabled', true);
+  await cleanAllCacheHelper();
+  $('#cleanAllCacheId').prop('disabled', false);
 }
 
 async function listEmployeeWithEcache(){
@@ -127,6 +125,8 @@ function get_employee_api(empName, mgrName) {
 function getTestNamesList() {
   var namesList = [];
   namesList.push({empName: 'George',mgrName: 'Oscar'});
+  namesList.push({empName: 'Go',mgrName: 's'});
+  namesList.push({empName: 'G',mgrName: 'os'});
   return namesList;
 }
 
@@ -154,6 +154,26 @@ function getEmpInfoHelper() {
 
 }
 
+function cleanAllCacheHelper() {
+
+  return new Promise(async (resolve, reject) => {
+    console.log("cleanAllCacheHelper() called");
+    let hostname = $('#backendUrlId').val()
+  
+    var url_elasticache_cleanall = `${hostname}/api/elasticache/cleanall`;
+    console.log("url_elasticache_cleanall: " , url_elasticache_cleanall);
+  
+    $.ajax({
+      url: url_elasticache_cleanall,
+      type: "GET",
+      success: function (res) {
+        console.log("url_elasticache_cleanall - res: " , res);    
+        resolve();
+      },
+    });
+  })   
+
+}
 
 function cleanCacheHelper() {
 
@@ -164,26 +184,7 @@ function cleanCacheHelper() {
 
 }
 
-function cleanCache_helper() {
 
-  return new Promise(async (resolve, reject) => {
-    console.log("cleanCache_helper() called");
-    let hostname = $('#backendUrlId').val()
-  
-    var url_elasticache_clean = `${hostname}/api/elasticache/clean`;
-    console.log("url_elasticache_clean: " , url_elasticache_clean);
-  
-    $.ajax({
-      url: url_elasticache_clean,
-      type: "GET",
-      success: function (res) {
-        console.log("url_elasticache_clean - res: " , res);    
-        resolve();
-      },
-    });
-  })   
-
-}
 
 function list_employee_helper(is_cache) {
 
