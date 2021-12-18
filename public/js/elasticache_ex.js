@@ -18,6 +18,9 @@ function clearData() {
 
 function setUpDefault() {
   $('#backendUrlId').val('http://ec2-3-94-53-228.compute-1.amazonaws.com:8080')
+  $('#empNameId').val('George');
+  $('#mgrNameId').val('Oscar');
+  
   // $('#sqsQueueUrlId').val('https://sqs.us-east-1.amazonaws.com/344458213649/sqs-asg-001')
 }
 
