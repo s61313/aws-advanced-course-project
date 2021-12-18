@@ -41,7 +41,7 @@ class awsElasticache {
         if (myUtilService.isJson(stdout_json)) {
           result = JSON.parse(stdout_json);
         }          
-        console.log(`result: ${result}`);
+        // console.log(`result: ${result}`);
         resolve(result);        
 
       })
