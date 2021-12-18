@@ -69,7 +69,7 @@ class awsElasticache {
               console.log(`stderr: ${stderr}`);
               return resolve();
           }
-          console.log(`stdout: ${stdout}`);
+          // console.log(`stdout: ${stdout}`);
           resolve(stdout);
         });
       })
