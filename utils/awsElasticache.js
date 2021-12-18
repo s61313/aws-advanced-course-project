@@ -99,7 +99,9 @@ class awsElasticache {
           const result_sremove = await this.del(key_to_del);
           console.log("result_sremove: ", result_sremove);  
         }
-        // console.log("keys_to_del: ", keys_to_del);
+
+        const del_set_key_result = await this.del(this.set_key);
+        console.log("del_set_key_result: ", del_set_key_result);
         resolve();
         
         // let keys_to_del = "";
