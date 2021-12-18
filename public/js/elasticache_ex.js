@@ -102,7 +102,7 @@ function simulation01Helper() {
 
 }
 
-function get_employee_api(url, empName, mgrName) {
+function get_employee_api(empName, mgrName) {
   return new Promise(async (resolve, reject) => {
 
     let hostname = $('#backendUrlId').val();
@@ -110,7 +110,7 @@ function get_employee_api(url, empName, mgrName) {
     console.log("url_get_employee_2: " , url_get_employee);
 
     $.ajax({
-      url: url,
+      url: url_get_employee,
       type: "GET",
       success: function (res) {
         console.log("get_employee_api - res: " , res);   
