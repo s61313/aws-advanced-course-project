@@ -60,7 +60,7 @@ class EmpModel {
       ) dm ON dm.dept_no = d.dept_no
       WHERE e.emp_no != dm.mgr_no 
         AND (e.first_name LIKE '%${empName}%' or e.last_name LIKE '%${empName}%')
-        AND (dm.first_name LIKE '%${mgrName}%' or dm.last_name LIKE '%${mgrName}%') 
+        AND (dm.mgr_first_name LIKE '%${mgrName}%' or dm.mgr_last_name LIKE '%${mgrName}%') 
       ORDER BY e.emp_no
       LIMIT 100;
       `
