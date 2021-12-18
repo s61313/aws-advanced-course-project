@@ -14,14 +14,14 @@ class EmpModel {
     }
 
     
-    get_employee_by_id(emp_no) {
+    get_employees_by_empname_and_mgrname(empName, mgrName) {
       return new Promise(async (resolve, reject) => {
 
         // simulate long-running sql query
         const sql_wait = this.get_wait_sql(this.simulate_seconds);
         await mydb.getConnection().awaitQuery(sql_wait);
         // execute sql query 
-        const sql = this.get_employee_by_id_sql(emp_no); 
+        const sql = this.get_employee_by_empname_and_mgrname_sql(empName, mgrName); 
         const values = []; // const values = [[id]];
         const result = await mydb.getConnection().awaitQuery(sql, values);
         resolve(result);
@@ -45,7 +45,7 @@ class EmpModel {
     }      
     
     
-    get_employee_by_id_sql(emp_no_to_find) {
+    get_employee_by_empname_and_mgrname_sql(empName, mgrName) {
       const sql = 
       `
       SELECT e.emp_no, e.first_name, e.last_name, d.dept_name, dm.mgr_no, dm.mgr_first_name, dm.mgr_last_name
@@ -58,7 +58,7 @@ class EmpModel {
           LEFT JOIN employees e2 ON dm2.emp_no = e2.emp_no
           WHERE dm2.to_date = '9999-01-01'
       ) dm ON dm.dept_no = d.dept_no
-      WHERE e.emp_no != dm.mgr_no AND e.emp_no = ${emp_no_to_find}
+      WHERE e.emp_no != dm.mgr_no AND CONCAT(e.first_name, e.last_name) LIKE '%${empName}%'
       ORDER BY e.emp_no
       LIMIT 100;
       `

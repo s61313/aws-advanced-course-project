@@ -76,9 +76,10 @@ function getEmpInfoHelper() {
   return new Promise(async (resolve, reject) => {
     console.log("getEmpInfoHelper() called");
     let hostname = $('#backendUrlId').val();
-    let empNo = $('#empNoId').val();
+    let empName = $('#empNameId').val();
+    let mgrName = $('#mgrNameId').val();
   
-    var url_get_employee = `${hostname}/api/elasticache/get_employee?empNo=${empNo}`;
+    var url_get_employee = `${hostname}/api/elasticache/get_employee?empName=${empName}&mgrName=${mgrName}`;
     console.log("url_get_employee: " , url_get_employee);
   
     $.ajax({
