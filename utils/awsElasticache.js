@@ -67,7 +67,7 @@ class awsElasticache {
 
       return new Promise(async (resolve, reject) => {
         console.log("sadd() called");  
-        var cmd_sadd = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} sadd ${this.setkey} ${element}`;
+        var cmd_sadd = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} sadd ${this.set_key} ${element}`;
         console.log("cmd_sadd: ", cmd_sadd);
         await this.execute_child_process(cmd_sadd);
 
@@ -78,7 +78,7 @@ class awsElasticache {
 
       return new Promise(async (resolve, reject) => {
         console.log("smembers() called");  
-        var cmd_smembers = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} smembers ${this.setkey}`;
+        var cmd_smembers = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} smembers ${this.set_key}`;
         console.log("cmd_smembers: ", cmd_smembers);
         await this.execute_child_process(cmd_smembers);
 
