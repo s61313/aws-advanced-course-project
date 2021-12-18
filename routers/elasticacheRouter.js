@@ -55,7 +55,7 @@ router.get("/elasticache/get_employee", async function (req, res) {
 
   // main logic
   console.log("cache not exists");
-  const result = await empModelService.get_employees_by_empname_and_mgrname(empName, mgrName); // DOTHIS 
+  const result = await empModelService.get_employees_by_empname_and_mgrname(empName, mgrName); 
   // set cache 
   await awsElasticacheService.set(cacheKey, result);
 
