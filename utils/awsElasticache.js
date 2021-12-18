@@ -90,6 +90,8 @@ class awsElasticache {
       return new Promise(async (resolve, reject) => {
         const allkeys = await this.smembers();
         console.log("allkeys: ", allkeys);
+        console.log("typeof(allkeys): ", typeof(allkeys));
+        
         let keys_to_del = "";
         for (let i = 0; i < allkeys.length ;i++) {
           keys_to_del += " ";
