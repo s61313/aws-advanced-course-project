@@ -68,4 +68,10 @@ router.get("/elasticache/clean", async function (req, res) {
   res.send({});
 });
 
+router.get("/elasticache/cleanall", async function (req, res) {
+  console.log("/elasticache/clean called");
+  await awsElasticacheService.sremove();
+  res.send({});
+});
+
 module.exports = router;

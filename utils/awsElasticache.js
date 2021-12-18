@@ -13,6 +13,7 @@ class awsElasticache {
         this.redis_cluster_host = process.env.REDIS_CLUSTER_HOST;
         this.redis_cluster_port = process.env.REDIS_CLUSTER_PORT;
         this.redis_cli_script = 'redis-cli';
+        this.set_key = 'mysetkey';
       }
 
       return awsElasticache._instance;        
@@ -26,6 +27,10 @@ class awsElasticache {
         var cmd_set = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} '${val_json}'`;
         // console.log("cmd_set: ", cmd_set);
         await this.execute_child_process(cmd_set);
+
+        // store keys for later clean up 
+        await this.sadd(key);
+
         resolve();
       })
     }   
@@ -57,6 +62,43 @@ class awsElasticache {
 
       })
     }
+
+    sadd(element) {
+
+      return new Promise(async (resolve, reject) => {
+        console.log("sadd() called");  
+        var cmd_sadd = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} sadd ${this.setkey} ${element}`;
+        console.log("cmd_sadd: ", cmd_sadd);
+        await this.execute_child_process(cmd_sadd);
+
+      })
+    }    
+
+    smembers() {
+
+      return new Promise(async (resolve, reject) => {
+        console.log("smembers() called");  
+        var cmd_smembers = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} smembers ${this.setkey}`;
+        console.log("cmd_smembers: ", cmd_smembers);
+        await this.execute_child_process(cmd_smembers);
+
+      })
+    }
+
+    sremove() {
+
+      return new Promise(async (resolve, reject) => {
+        const allkeys = await this.smembers();
+        let keys_to_del = "";
+        for (let i = 0; i < allkeys.length ;i++) {
+          keys_to_del += " ";
+          keys_to_del += allkeys[i];
+        }
+        console.log("keys_to_del: ", keys_to_del);
+        await this.del(keys_to_del);
+      })
+    }
+
 
     execute_child_process(cmd) {
       return new Promise(async (resolve, reject) => {
