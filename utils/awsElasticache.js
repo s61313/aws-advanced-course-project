@@ -89,13 +89,14 @@ class awsElasticache {
 
       return new Promise(async (resolve, reject) => {
         const allkeys = await this.smembers();
-        console.log("allkeys: ", allkeys);
-        console.log("typeof(allkeys): ", typeof(allkeys));
+        const allkeys_list = allkeys.split(/\r?\n/);
+        console.log("allkeys_list: ", allkeys_list);
+        // console.log("typeof(allkeys): ", typeof(allkeys));
         
         let keys_to_del = "";
-        for (let i = 0; i < allkeys.length ;i++) {
+        for (let i = 0; i < allkeys_list.length ;i++) {
           keys_to_del += " ";
-          keys_to_del += allkeys[i];
+          keys_to_del += allkeys_list[i];
         }
         console.log("keys_to_del: ", keys_to_del);
         await this.del(keys_to_del);
