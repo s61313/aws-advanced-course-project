@@ -58,8 +58,8 @@ class awsElasticache {
         console.log("del() called");  
         var cmd_del = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} del ${key}`;
         console.log("cmd_del: ", cmd_del);
-        await this.execute_child_process(cmd_del);
-        resolve();
+        const result_del = await this.execute_child_process(cmd_del);
+        resolve(result_del);
       })
     }
 
