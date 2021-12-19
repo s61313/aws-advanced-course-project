@@ -85,7 +85,8 @@ function simulation01Helper() {
         $("#simulation01Id").html(`Simluation (New request is cached by mistake) [empName,mgrName]=[${names.empName},${names.mgrName}]`);
         $("#simulation01Id").css("background-color", notpassed_toolong_color_bg);  
         resolve();
-        return;      }else {
+        return;      
+      }else {
         processed_time_total += result.res.processed_time;
         $("#simulation01Id").html(`Simluation(${processed_time_total.toPrecision(3)}s)`);  
       }
