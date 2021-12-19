@@ -79,6 +79,17 @@ class awsElasticache {
       })
     }
 
+    hdel(key) {
+
+      return new Promise(async (resolve, reject) => {
+        console.log("del() called");  
+        var cmd_hdel = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hdel ${this.hash} ${key}`;
+        console.log("cmd_hdel: ", cmd_hdel);
+        const result_hdel = await this.execute_child_process(cmd_hdel);
+        resolve(result_hdel);
+      })
+    }    
+
     hgetall() {
 
       return new Promise(async (resolve, reject) => {
@@ -91,6 +102,7 @@ class awsElasticache {
           let stdout_obj = stdout_json.split(/\r?\n/);
           console.log("cmd_hgetall list: ", stdout_obj);  
           let emp_list = [];
+          let key_list = [];
           for (let i = 0; i < stdout_obj.length ;i+=2) {
             let emp_no = stdout_obj[i];
             if (emp_no == '') continue;
@@ -98,12 +110,13 @@ class awsElasticache {
             // console.log("emp_no: ", emp_no);  
             // console.log("emp_json: ", emp_json);  
             let emp = JSON.parse(emp_json);
+            key_list.push(emp_no);
             emp_list.push(emp);
           }
           
-          if (emp_list.length > 0) {
-            console.log("emp_list: ", emp_list);  
-            resolve(emp_list);
+          if (key_list.length > 0) {
+            console.log("key_list: ", key_list);  
+            resolve(key_list);
           }else {
             resolve(); 
           }
@@ -181,9 +194,16 @@ class awsElasticache {
     cleanallcache() {
       return new Promise(async (resolve, reject) => {
         console.log("cleanallcache() called");  
-        const result_cleanallcache = await this.del(this.hash);
-        console.log("result_cleanallcache: ", result_cleanallcache);  
-        resolve(result_cleanallcache);        
+        const key_list = await this.hgetall();
+        if (key_list) {
+          for (let i = 0; i < key_list.length ;i++) {
+            let key_here =  key_list[i];
+            const result_cleanallcache = await this.hdel(key_here);
+            console.log("result_cleanallcache: ", result_cleanallcache);    
+          }
+        }
+
+        resolve();        
       })      
     }
 
