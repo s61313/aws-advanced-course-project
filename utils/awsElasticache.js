@@ -26,12 +26,12 @@ class awsElasticache {
         console.log("set() called");  
         const val_json = JSON.stringify(val);
         var cmd_set = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} '${val_json}'`;
-        console.log("cmd_set: ", `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} [skip_val_debug]`);
+        console.log("set() cmd: ", `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} [skip_val_debug]`);
         await this.execute_child_process(cmd_set);
 
         // store keys for later clean up 
         const sadd_result = await this.sadd(key);
-        console.log("sadd_result: " , sadd_result);
+        console.log("set() result: " , sadd_result);
 
         resolve();
       })
@@ -40,9 +40,9 @@ class awsElasticache {
     get(key) {
 
       return new Promise(async (resolve, reject) => {
-        // console.log("get() called");  
+        console.log("get() called");  
         var cmd_get = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} get ${key}`;
-        console.log("cmd_get: ", cmd_get);
+        console.log("get() cmd: ", cmd_get);
         let stdout_json = await this.execute_child_process(cmd_get);
         var result = null;
         if (myUtilService.isJson(stdout_json)) {
@@ -61,7 +61,7 @@ class awsElasticache {
         console.log("hset() called");
         let val_json = JSON.stringify(val);
         let cmd_hset = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${this.hash} ${key} '${val_json}'`;
-        console.log("hset() cmd: ", `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${this.hash} ${key} [skip_val]`);
+        console.log("hset() cmd: ", `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${this.hash} ${key} [skip_val_json]`);
         let stdout_result = await this.execute_child_process(cmd_hset);
         console.log("hset() result: ", stdout_result);
         resolve(stdout_result);
@@ -74,7 +74,7 @@ class awsElasticache {
       return new Promise(async (resolve, reject) => {
         console.log("hget() called");  
         var cmd_hget = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hget ${this.hash} ${key}`;
-        console.log("cmd_hget: ", cmd_hget);
+        console.log("hget() cmd: ", cmd_hget);
         let stdout_json = await this.execute_child_process(cmd_hget);        
         var result = null;
         if (myUtilService.isJson(stdout_json)) {
@@ -91,7 +91,7 @@ class awsElasticache {
       return new Promise(async (resolve, reject) => {
         console.log("del() called");  
         var cmd_hdel = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hdel ${this.hash} ${key}`;
-        console.log("cmd_hdel: ", cmd_hdel);
+        console.log("del() cmd: ", cmd_hdel);
         const result_hdel = await this.execute_child_process(cmd_hdel);
         resolve(result_hdel);
       })
