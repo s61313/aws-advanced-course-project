@@ -8,6 +8,7 @@ var color_bg_default = "rgb(36, 48, 64)";
 var rows_per_page = 500;
 var processed_time_total = 0;
 var cached_checker = new Set();
+const hostname = "${BACKEND_HOST_URL}";
 
 $(document).ready(() => {
   console.log("sqs_lambda_tempalte.js loaded");
@@ -100,7 +101,6 @@ function simulation01Helper() {
 function get_employee_api(empName, mgrName) {
   return new Promise(async (resolve, reject) => {
 
-    let hostname = $('#backendUrlId').val();
     var url_get_employee = `${hostname}/api/elasticache/get_employee?empName=${empName}&mgrName=${mgrName}`;
     console.log("url_get_employee_2: " , url_get_employee);
 
@@ -152,7 +152,6 @@ function getEmpInfoHelper() {
 
   return new Promise(async (resolve, reject) => {
     console.log("getEmpInfoHelper() called");
-    let hostname = $('#backendUrlId').val();
     let empName = $('#empNameId').val();
     let mgrName = $('#mgrNameId').val();
   
@@ -176,7 +175,6 @@ function cleanAllCacheHelper() {
 
   return new Promise(async (resolve, reject) => {
     console.log("cleanAllCacheHelper() called");
-    let hostname = $('#backendUrlId').val()
   
     var url_elasticache_cleanall = `${hostname}/api/elasticache/cleanall`;
     console.log("url_elasticache_cleanall: " , url_elasticache_cleanall);
@@ -208,7 +206,6 @@ function list_employee_helper(is_cache) {
 
   return new Promise(async (resolve, reject) => {
     console.log("list_employee_helper() called");
-    let hostname = $('#backendUrlId').val()
     
     var url_elasticache_list_employee;
     if (is_cache) {
