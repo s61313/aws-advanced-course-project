@@ -14,6 +14,7 @@ class awsElasticache {
         this.redis_cluster_port = process.env.REDIS_CLUSTER_PORT;
         this.redis_cli_script = 'redis-cli';
         this.set_key = 'mysetkey';
+        this.hash = "myhash";
       }
 
       return awsElasticache._instance;        
@@ -52,6 +53,66 @@ class awsElasticache {
 
       })
     }
+
+
+    hset(key, val) {
+
+      return new Promise(async (resolve, reject) => {
+        console.log("hset() called");
+        var cmd_hset = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${this.hash} ${key} ${val}`;
+        console.log("cmd_hset: ", `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${this.hash} ${key} [skip_val]`);
+        let stdout_result = await this.execute_child_process(cmd_hset);
+        resolve(stdout_result);
+      })
+
+    }    
+
+    hget(key) {
+
+      return new Promise(async (resolve, reject) => {
+        console.log("hget() called");  
+        var cmd_hget = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hget ${this.hash} ${key}`;
+        console.log("cmd_hget: ", cmd_hget);
+        let stdout_json = await this.execute_child_process(cmd_hget);        
+        resolve(stdout_json);
+
+      })
+    }
+
+    hgetall() {
+
+      return new Promise(async (resolve, reject) => {
+        console.log("hgetall() called");  
+        var cmd_hgetall = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hgetall ${this.hash}`;
+        console.log("cmd_hgetall: ", cmd_hgetall);
+        let stdout_json = await this.execute_child_process(cmd_hgetall);
+        
+        if (stdout_json) {
+          let stdout_obj = stdout_json.split(/\r?\n/);
+          console.log("cmd_hgetall list: ", stdout_obj);  
+          let emp_list = [];
+          for (let i = 0; i < stdout_obj.length ;i+=2) {
+            let emp_no = stdout_obj[i];
+            if (emp_no == '') continue;
+            let emp_json = stdout_obj[i+1];
+            // console.log("emp_no: ", emp_no);  
+            // console.log("emp_json: ", emp_json);  
+            let emp = JSON.parse(emp_json);
+            emp_list.push(emp);
+          }
+          
+          if (emp_list.length > 0) {
+            console.log("emp_list: ", emp_list);  
+            resolve(emp_list);
+          }else {
+            resolve(); 
+          }
+        }else {
+          resolve();
+        }
+
+      })
+    }    
 
     del(key) {
 
@@ -115,6 +176,15 @@ class awsElasticache {
         // console.log("result_sremove: ", result_sremove);
         // resolve();
       })
+    }
+
+    cleanallcache() {
+      return new Promise(async (resolve, reject) => {
+        console.log("cleanallcache() called");  
+        const result_cleanallcache = await this.del(this.hash);
+        console.log("result_cleanallcache: ", result_cleanallcache);  
+        resolve(result_cleanallcache);        
+      })      
     }
 
 
