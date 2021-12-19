@@ -93,6 +93,7 @@ function simulation01Helper() {
     }
 
     $("#simulation01Id").html(`Simluation(${processed_time_total.toPrecision(3)}s)(PASSED)`);  
+    $("#simulation01Id").css("background-color", passed_color_bg);  
 
     resolve();
 
