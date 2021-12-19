@@ -48,6 +48,7 @@ router.get("/elasticache/get_employee", async function (req, res) {
   // get cache 
   const result_cached = await awsElasticacheService.hget(cacheKey); 
   console.log("result_cached: " , result_cached);
+  console.log("typeof(result_cached): " , typeof(result_cached));
   if (result_cached) {
     console.log("cache exists");
     res.send({"result": result_cached,"processed_time": myUtilService.get_process_time(start_time)});
