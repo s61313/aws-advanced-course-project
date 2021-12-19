@@ -100,6 +100,7 @@ function get_employee_api(empName, mgrName) {
       success: function (res) {
         console.log("get_employee_api - res: " , res);   
         // DOTHIS: is wrong cached data, show red something 
+        console.log("get_employee_api - is_cached: " , cached_checker.has(get_key(empName, mgrName)));   
         if (cached_checker.has(get_key(empName, mgrName)) === false) {
           if (res.processed_time < 1) {
             console.log("wrong cache detected.");
