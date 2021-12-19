@@ -92,6 +92,8 @@ function simulation01Helper() {
       }
     }
 
+    $("#simulation01Id").html(`Simluation(${processed_time_total.toPrecision(3)}s)(PASSED)`);  
+
     resolve();
 
   })   
@@ -141,6 +143,15 @@ function getTestNamesList() {
   namesList.push({empName: 'Kerry',mgrName: 'Oscar'});
   namesList.push({empName: 'Tom',mgrName: 'Oscar'});
   namesList.push({empName: 'Kerry',mgrName: 'Oscar'});
+  namesList.push({empName: 'Kerry',mgrName: 'Karsten'});
+  namesList.push({empName: 'Kerry',mgrName: 'Karsten'});
+  namesList.push({empName: 'Kerry',mgrName: 'Karsten'});
+  namesList.push({empName: 'Kerry',mgrName: 'Karsten'});
+  namesList.push({empName: 'Kerry',mgrName: 'Karsten'});
+  namesList.push({empName: 'Kerry',mgrName: 'Karsten'});
+  namesList.push({empName: 'Kerry',mgrName: 'Karsten'});
+  namesList.push({empName: 'Kerry',mgrName: 'Karsten'});
+  namesList.push({empName: 'Kerry',mgrName: 'Karsten'});
   namesList.push({empName: 'Kerry',mgrName: 'Karsten'});
   namesList.push({empName: 'Kerry',mgrName: 'Karsten'});
   namesList.push({empName: 'Sam',mgrName: 'Oscar'});
