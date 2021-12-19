@@ -4,6 +4,7 @@
 var notpassed_color_bg = "rgb(88, 124, 171)";
 var passed_color_bg = "#22a2b8";
 var notpassed_toolong_color_bg = "rgb(191, 62, 92)";
+var color_bg_default = "rgb(36, 48, 64)";
 var rows_per_page = 500;
 var processed_time_total = 0;
 var cached_checker = new Set();
@@ -16,6 +17,9 @@ $(document).ready(() => {
 });
 
 async function clearData() {
+  processed_time_total = 0;
+  cached_checker = new Set();
+  await cleanAllCacheHelper();
 }
 
 function setUpDefault() {
@@ -39,13 +43,9 @@ async function simulation01(){
   console.log("simulation01() called");
   $('#simulation01Id').prop('disabled', true);
   $("#simulation01Id").html(`Simluation`);
-  processed_time_total = 0;
-  cached_checker = new Set();
-  await cleanAllCacheHelper();
-  $("#simulation01Id").css("background-color", notpassed_color_bg); 
-
-  await simulation01Helper();
-  
+  $("#simulation01Id").css("background-color", color_bg_default); 
+  clearData();
+  await simulation01Helper();  
   $('#simulation01Id').prop('disabled', false);
 }
 
