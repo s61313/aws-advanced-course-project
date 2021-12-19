@@ -60,7 +60,7 @@ class awsElasticache {
       return new Promise(async (resolve, reject) => {
         console.log("hset() called");
         let val_json = JSON.stringify(val);
-        let cmd_hset = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${this.hash} ${key} ${val_json}`;
+        let cmd_hset = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${this.hash} ${key} '${val_json}'`;
         console.log("cmd_hset: ", `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hset ${this.hash} ${key} [skip_val]`);
         let stdout_result = await this.execute_child_process(cmd_hset);
         resolve(stdout_result);
