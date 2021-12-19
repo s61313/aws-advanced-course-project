@@ -15,7 +15,7 @@ $(document).ready(() => {
   clearData();
 });
 
-function clearData() {
+async function clearData() {
 }
 
 function setUpDefault() {
@@ -41,7 +41,10 @@ async function simulation01(){
   $("#simulation01Id").html(`Simluation`);
   processed_time_total = 0;
   cached_checker = new Set();
+  await cleanAllCacheHelper();
+
   await simulation01Helper();
+  
   $('#simulation01Id').prop('disabled', false);
 }
 
