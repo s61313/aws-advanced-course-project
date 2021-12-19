@@ -42,6 +42,7 @@ async function simulation01(){
   processed_time_total = 0;
   cached_checker = new Set();
   await cleanAllCacheHelper();
+  $("#simulation01Id").css("background-color", notpassed_color_bg); 
 
   await simulation01Helper();
   
@@ -81,7 +82,8 @@ function simulation01Helper() {
       let names = namesList[i];
       let result = await get_employee_api(names.empName, names.mgrName);
       if (result.is_cached_wrong) {
-        $("#simulation01Id").html(`Simluation (New request is cached by mistake) [empName,mgrName]=[${names.empName},${names.mgrName}]`);  
+        $("#simulation01Id").html(`Simluation (New request is cached by mistake) [empName,mgrName]=[${names.empName},${names.mgrName}]`);
+        $("#simulation01Id").css("background-color", notpassed_toolong_color_bg);  
         break;
       }else {
         processed_time_total += result.res.processed_time;
