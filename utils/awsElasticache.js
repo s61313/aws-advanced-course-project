@@ -97,6 +97,7 @@ class awsElasticache {
         var cmd_hgetall = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hgetall ${this.hash}`;
         console.log("cmd_hgetall: ", cmd_hgetall);
         let stdout_json = await this.execute_child_process(cmd_hgetall);
+        console.log("cmd_hgetall stdout_json: ", stdout_json);
         
         if (stdout_json) {
           let stdout_obj = stdout_json.split(/\r?\n/);
