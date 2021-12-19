@@ -42,22 +42,14 @@ router.get("/elasticache/get_employee", async function (req, res) {
   const start_time = new Date().getTime();
   var empName = req.query.empName;
   var mgrName = req.query.mgrName;
-  var cacheKey = "empName_" + empName + "__" + "mgrName_" + mgrName;
-  // var cacheKey = empName + mgrName; // wrong-one case
 
-  // get cache 
-  const result_cached = await awsElasticacheService.hget(cacheKey); 
-  if (result_cached) {
-    console.log("cache exists");
-    res.send({"result": result_cached,"processed_time": myUtilService.get_process_time(start_time)});
-    return;
-  }
+  // TODO: add cache logic here
 
   // main logic
   console.log("cache not exists");
   const result = await empModelService.get_employees_by_empname_and_mgrname(empName, mgrName); 
-  // set cache 
-  await awsElasticacheService.hset(cacheKey, result);
+
+  // TODO: add cache logic here
 
   res.send({"result": result,"processed_time": myUtilService.get_process_time(start_time)});
 });
