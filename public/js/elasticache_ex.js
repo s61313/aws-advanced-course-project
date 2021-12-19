@@ -79,9 +79,14 @@ function simulation01Helper() {
 
     for (var i = 0; i < namesList.length; i++) {
       let names = namesList[i];
-      let res = await get_employee_api(names.empName, names.mgrName);
-      processed_time_total += res.processed_time;
-      $("#simulation01Id").html(`Simluation(${processed_time_total.toPrecision(3)}s)`);
+      let result = await get_employee_api(names.empName, names.mgrName);
+      if (result.is_cached_wrong) {
+        $("#simulation01Id").html(`Simluation (New request is cached by mistake) [empName,mgrName]=[${names.empName},${names.mgrName}]`);  
+        break;
+      }else {
+        processed_time_total += result.res.processed_time;
+        $("#simulation01Id").html(`Simluation(${processed_time_total.toPrecision(3)}s)`);  
+      }
     }
 
     resolve();
@@ -104,15 +109,17 @@ function get_employee_api(empName, mgrName) {
         console.log("get_employee_api - res: " , res);   
         // DOTHIS: is wrong cached data, show red something 
         console.log("get_employee_api - is_cached: " , cached_checker.has(get_key(empName, mgrName)));   
+        let is_cached_wrong = false;
         if (cached_checker.has(get_key(empName, mgrName)) === false) {
           if (res.processed_time < 1) {
             console.log("wrong cache detected.");
+            is_cached_wrong = true;
           }
         }
         cached_checker.add(get_key(empName, mgrName));
         
         appendEmployeeRows(res.result);     
-        resolve(res);
+        resolve({"res": res, "is_cached_wrong": is_cached_wrong});
       },
     });
   })
