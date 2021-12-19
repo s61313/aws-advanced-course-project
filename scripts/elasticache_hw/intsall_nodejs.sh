@@ -8,3 +8,4 @@ cd redis-stable
 sudo make BUILD_TLS=yes
 echo 'export PATH=$PATH:/home/ec2-user/redis-stable/src' >> ~/.bashrc 
 source ~/.bash_profile
+redis-cli --version
