@@ -108,8 +108,17 @@ function get_employee_api(empName, mgrName) {
 function getTestNamesList() {
   var namesList = [];
   namesList.push({empName: 'George',mgrName: 'Oscar'});
+  namesList.push({empName: 'George',mgrName: 'Oscar'});
+  namesList.push({empName: 'Tom',mgrName: 'Oscar'});
+  namesList.push({empName: 'Kerry',mgrName: 'Oscar'});
   namesList.push({empName: 'Go',mgrName: 's'});
   namesList.push({empName: 'G',mgrName: 'os'});
+  namesList.push({empName: 'Tom',mgrName: 'Oscar'});
+  namesList.push({empName: 'Kerry',mgrName: 'Oscar'});
+  namesList.push({empName: 'Kerry',mgrName: 'Karsten'});
+  namesList.push({empName: 'Kerry',mgrName: 'Karsten'});
+  namesList.push({empName: 'Sam',mgrName: 'Oscar'});
+  namesList.push({empName: 'George',mgrName: 'Oscar'});
   return namesList;
 }
 
