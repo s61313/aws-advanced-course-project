@@ -74,7 +74,12 @@ class awsElasticache {
         var cmd_hget = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hget ${this.hash} ${key}`;
         console.log("cmd_hget: ", cmd_hget);
         let stdout_json = await this.execute_child_process(cmd_hget);        
-        resolve(stdout_json);
+        var result = null;
+        if (myUtilService.isJson(stdout_json)) {
+          result = JSON.parse(stdout_json);
+        }          
+        // console.log(`result: ${result}`);
+        resolve(result);  
 
       })
     }
