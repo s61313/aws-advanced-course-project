@@ -10,4 +10,3 @@ sudo make BUILD_TLS=yes
 echo 'export PATH=$PATH:/home/ec2-user/redis-stable/src' >> ~/.bashrc 
 source ~/.bashrc
 cd $pwd_initial
-redis-cli --version
