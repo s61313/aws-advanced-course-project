@@ -1,4 +1,4 @@
-#!/bin/bash -i
+#!/bin/bash
 cd /home/ec2-user
 sudo amazon-linux-extras install epel -y
 sudo yum install gcc jemalloc-devel openssl-devel tcl tcl-devel -y
