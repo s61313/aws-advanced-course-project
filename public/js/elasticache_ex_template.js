@@ -18,9 +18,6 @@ $(document).ready(() => {
 });
 
 async function clearData() {
-  processed_time_total = 0;
-  cached_checker = new Set();
-  await cleanAllCacheHelper();
 }
 
 function setUpDefault() {
@@ -45,7 +42,9 @@ async function simulation01(){
   $('#simulation01Id').prop('disabled', true);
   $("#simulation01Id").html(`Simluation`);
   $("#simulation01Id").css("background-color", color_bg_default); 
-  clearData();
+  processed_time_total = 0;
+  cached_checker = new Set();
+  await cleanAllCacheHelper();
   await simulation01Helper();  
   $('#simulation01Id').prop('disabled', false);
 }
