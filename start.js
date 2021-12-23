@@ -15,7 +15,7 @@ const start_function = async () => {
     }
 
     // db setup 
-    app.db.handleDisconnect();
+    // app.db.handleDisconnect();
 
     // app server setup
     app.server.listen(PORT, () => console.log(`Server started on port ${PORT}`));
