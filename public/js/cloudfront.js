@@ -102,10 +102,10 @@ function getVideoBySignedCookieHelper() {
 function getVideoSignedCookieHelper() {
   return new Promise(async (resolve, reject) => {
 
-    let hostname = $('#backendUrlId').val();
+    let hostname = 'http://mycf7.learncodebypicture.com';
     // let videourl = $('#videourl').val();
     let distribution_dns = `${cf_distribution_dns}/*`;
-    var url_get_video = `${hostname}/api/cloudfront/coursevideo/signedcookie?distribution_dns=${distribution_dns}`;
+    var url_get_video = `${hostname}/api/cloudfront/coursevideo/signedcookie`;
     console.log("url_get_video: " , url_get_video);
 
     $.ajax({
