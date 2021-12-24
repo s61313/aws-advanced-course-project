@@ -106,7 +106,7 @@ class awsCloudfront {
     getSignedUrl(resourceURL) {
 
       return new Promise(async (resolve, reject) => {
-        console.log("set() called");  
+        console.log("getSignedUrl() called");  
         const signedUrl = cfUtil.getSignedUrl(resourceURL, {
           keypairId: keyPairId,
           privateKeyString: privateKey,
@@ -127,7 +127,6 @@ class awsCloudfront {
 
         let signer = new AWS.CloudFront.Signer(keyPairId, privateKey);
         var options = {url: "http://"+cfUrl, policy: policyString};
-
         signer.getSignedCookie(options, function(err, signedCookies) {
             if (err) {
                 res.send(err);
@@ -140,8 +139,9 @@ class awsCloudfront {
             }
         });
 
-        // var options = {keypairId: cfKeyPairId, privateKeyString: cfPk};
-        // var signedCookies = cfUtil.getSignedCookies(cfURL, options);
+        // var options = {keypairId: keyPairId, privateKeyString: privateKey, policy: policyString};
+        // var signedCookies = cfUtil.getSignedCookies('http://' + cfUrl + '/*', options);
+        // console.log("signedCookies: ", signedCookies);
         // resolve({
         //   "signedCookies": signedCookies
         // });
