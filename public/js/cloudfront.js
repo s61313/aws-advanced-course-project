@@ -8,6 +8,8 @@ var color_bg_default = "rgb(36, 48, 64)";
 var rows_per_page = 500;
 var processed_time_total = 0;
 var cached_checker = new Set();
+var cf_distribution_dns = "https://d2vp2cg4foy7ez.cloudfront.net"
+let videourlall = `${cf_distribution_dns}/aws_cloudfront_gcp_vpc_zh.mp4`;
 // const hostname = "${BACKEND_HOST_URL}";
 
 
@@ -27,16 +29,98 @@ function setUpDefault() {
 
 function setupEvent(){  
   $('#getVideoId').click({"input1": "value1"}, getVideo);
+  $('#getVideoSignedCookieId').click({"input1": "value1"}, getVideoSignedCookie); 
+  $('#getVideoBySignedCookieId').click({"input1": "value1"}, getVideoBySignedCookie); 
+
 }
 
+async function getVideoBySignedCookie(){
+  console.log("getVideoBySignedCookie() called");
+  $('#getVideoBySignedCookieId').prop('disabled', true);
+  $("#getVideoBySignedCookieId").html(`Get Video by Signed Cookie`);
+  await getVideoBySignedCookieHelper();  
+  $('#getVideoBySignedCookieId').prop('disabled', false);
+}
+
+async function getVideoSignedCookie(){
+  console.log("getVideoSignedCookie() called");
+  $('#getVideoSignedCookieId').prop('disabled', true);
+  $("#getVideoSignedCookieId").html(`Get Video (Signed Cookie)`);
+  await getVideoSignedCookieHelper();  
+  $('#getVideoSignedCookieId').prop('disabled', false);
+}
 
 async function getVideo(){
   console.log("getVideo() called");
-  $('#getVideo').prop('disabled', true);
-  $("#getVideo").html(`Get Video`);
+  $('#getVideoId').prop('disabled', true);
+  $("#getVideoId").html(`Get Video`);
   // $("#simulation01Id").css("background-color", color_bg_default); 
   await getVideoHelper();  
-  $('#simulation01Id').prop('disabled', false);
+  $('#getVideoId').prop('disabled', false);
+}
+
+
+
+function getVideoBySignedCookieHelper() {
+  return new Promise(async (resolve, reject) => {
+    
+    // $('#videoSrcId')[0].load(); 
+
+    let policy = getCookie('CloudFront-Policy');
+    let signature = getCookie('CloudFront-Signature');
+    let keyPairId = getCookie('CloudFront-Key-Pair-Id');
+    let videourlByCookie = `${videourlall}?Policy=${policy}&Signature=${signature}&Key-Pair-Id=${keyPairId}`;
+    console.log("videourlByCookie: ", videourlByCookie);
+    $('#videoSrcId').html("");
+    $('#videoSrcId').append(`<source src=${videourlByCookie} type="video/mp4">`);    
+    $('#videoSrcId')[0].load();    
+    resolve();
+
+    // let videourl = `${cf_distribution_dns}/aws_cloudfront_gcp_vpc_zh.mp4`;
+    // console.log("videourl: " , videourl);
+
+    // $.ajax({
+    //   url: videourl,
+    //   type: "GET",
+    //   xhrFields: {
+    //     withCredentials: true
+    //   },
+    //   success: function (res) {
+    //     console.log("videourl - res: " , res);   
+    //     // appendEmployeeRows(res.result);     
+    //     // $('#videoSrcId').html("");
+    //     // $('#videoSrcId').append(`<source src=${res.result.signedUrl} type="video/mp4">`);       
+    //     // $('#videoSrcId')[0].load(); 
+    //     resolve();
+    //   },
+    // });
+
+  })
+}
+
+
+function getVideoSignedCookieHelper() {
+  return new Promise(async (resolve, reject) => {
+
+    let hostname = $('#backendUrlId').val();
+    // let videourl = $('#videourl').val();
+    let distribution_dns = `${cf_distribution_dns}/*`;
+    var url_get_video = `${hostname}/api/cloudfront/coursevideo/signedcookie?distribution_dns=${distribution_dns}`;
+    console.log("url_get_video: " , url_get_video);
+
+    $.ajax({
+      url: url_get_video,
+      type: "GET",
+      success: function (res) {
+        console.log("url_get_video - res: " , res);   
+        // appendEmployeeRows(res.result);     
+        // $('#videoSrcId').html("");
+        // $('#videoSrcId').append(`<source src=${res.result.signedUrl} type="video/mp4">`);       
+        // $('#videoSrcId')[0].load(); 
+        resolve();
+      },
+    });
+  })
 }
 
 function getVideoHelper() {
@@ -44,7 +128,7 @@ function getVideoHelper() {
 
     let hostname = $('#backendUrlId').val();
     // let videourl = $('#videourl').val();
-    let videourl = 'https://d33eam7xngdn67.cloudfront.net/aws_cloudfront_gcp_vpc_zh.mp4';
+    let videourl = `${cf_distribution_dns}/aws_cloudfront_gcp_vpc_zh.mp4`;
     var url_get_video = `${hostname}/api/cloudfront/coursevideo?videourl=${videourl}`;
     console.log("url_get_video: " , url_get_video);
 
@@ -61,4 +145,10 @@ function getVideoHelper() {
       },
     });
   })
+}
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
 }
