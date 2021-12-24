@@ -19,11 +19,16 @@ router.get("/cloudfront/coursevideo/signedcookie", async function (req, res) {
   // var distribution_dns = req.query.distribution_dns;
   const result = await awsCloudfrontService.getSignedCookies();
   console.log("result.signedCookies: " , result.signedCookies);
+  let cookies = [];
   for(var cookieId in result.signedCookies) {
-    res.cookie(cookieId, result.signedCookies[cookieId], { domain: 'mycf7.learncodebypicture.com', path: '/' });
+    cookies.push({"key": cookieId, "val": result.signedCookies[cookieId]});
+    res.cookie(cookieId, result.signedCookies[cookieId]);
   }
 
-  res.send({"processed_time": myUtilService.get_process_time(start_time)});
+  res.send({
+    "cookies": cookies,
+    "processed_time": myUtilService.get_process_time(start_time)
+  });
 });
 
 module.exports = router;
