@@ -28,7 +28,7 @@ function setUpDefault() {
 }
 
 function setupEvent(){  
-  $('#getVideoId').click({"input1": "value1"}, getVideo);
+  $('#getVideoId').click({"input1": "value1"}, getVideoBySignedUrl);
   $('#getVideoSignedCookieId').click({"input1": "value1"}, getVideoSignedCookie); 
   $('#getVideoBySignedCookieId').click({"input1": "value1"}, getVideoBySignedCookie); 
 
@@ -50,12 +50,12 @@ async function getVideoSignedCookie(){
   $('#getVideoSignedCookieId').prop('disabled', false);
 }
 
-async function getVideo(){
-  console.log("getVideo() called");
+async function getVideoBySignedUrl(){
+  console.log("getVideoBySignedUrl() called");
   $('#getVideoId').prop('disabled', true);
   $("#getVideoId").html(`Get Video`);
   // $("#simulation01Id").css("background-color", color_bg_default); 
-  await getVideoHelper();  
+  await getVideoBySignedUrlHelper();  
   $('#getVideoId').prop('disabled', false);
 }
 
@@ -104,7 +104,7 @@ function getVideoSignedCookieHelper() {
 
     let hostname = 'http://mycf7.learncodebypicture.com';
     // let videourl = $('#videourl').val();
-    let distribution_dns = `${cf_distribution_dns}/*`;
+    // let distribution_dns = `${cf_distribution_dns}/*`;
     var url_get_video = `${hostname}/api/cloudfront/coursevideo/signedcookie`;
     console.log("url_get_video: " , url_get_video);
 
@@ -113,6 +113,11 @@ function getVideoSignedCookieHelper() {
       type: "GET",
       success: function (res) {
         console.log("url_get_video - res: " , res);   
+        const cookies_to_add = res.cookies;
+        for (let i = 0; i < cookies_to_add.length; i++) {
+          const cookie_to_add = cookies_to_add[i];
+          createCookie(cookie_to_add.key, cookie_to_add.val, 1);
+        }
         // appendEmployeeRows(res.result);     
         // $('#videoSrcId').html("");
         // $('#videoSrcId').append(`<source src=${res.result.signedUrl} type="video/mp4">`);       
@@ -123,7 +128,7 @@ function getVideoSignedCookieHelper() {
   })
 }
 
-function getVideoHelper() {
+function getVideoBySignedUrlHelper() {
   return new Promise(async (resolve, reject) => {
 
     let hostname = $('#backendUrlId').val();
@@ -152,3 +157,31 @@ function getCookie(name) {
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
+
+function createCookie(name, value, days) {
+  var expires;
+  if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toGMTString();
+  }
+  else {
+      expires = "";
+  }
+  document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+// function getCookie(c_name) {
+//   if (document.cookie.length > 0) {
+//       c_start = document.cookie.indexOf(c_name + "=");
+//       if (c_start != -1) {
+//           c_start = c_start + c_name.length + 1;
+//           c_end = document.cookie.indexOf(";", c_start);
+//           if (c_end == -1) {
+//               c_end = document.cookie.length;
+//           }
+//           return unescape(document.cookie.substring(c_start, c_end));
+//       }
+//   }
+//   return "";
+// }
