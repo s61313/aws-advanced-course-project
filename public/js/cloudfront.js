@@ -152,12 +152,11 @@ function getVideoSignedCookieHelper() {
         console.log("cookie_array: ", cookie_array);
         for (let i = 0; i < cookie_array.length; i++) {
           const cookie_to_add = cookie_array[i]; 
-          browser.cookies.set({
-            url: '.learncodebypicture.com',
-            name: cookie_to_add.key,
-            value: cookie_to_add.val,
-            expirationDate: new Date().getTime() + 86400000
-          })
+          const key = cookie_to_add.key;
+          const val = cookie_to_add.val;
+          const domain = '.learncodebypicture.com';
+          const expire = new Date().getTime() + 86400000;
+          document.cookie = `${key}=${val};expires=${expire};domain=${domain};path=/"`;
         }
         // appendEmployeeRows(res.result);     
         // $('#videoSrcId').html("");
