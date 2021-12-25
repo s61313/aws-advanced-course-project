@@ -31,8 +31,21 @@ function setupEvent(){
   $('#getVideoId').click({"input1": "value1"}, getVideo);
   $('#getVideoSignedCookieId').click({"input1": "value1"}, getVideoSignedCookie); 
   $('#getVideoBySignedCookieId').click({"input1": "value1"}, getVideoBySignedCookie); 
+  $('#getVideoBySignedCookie2Id').click({"input1": "value1"}, getVideoBySignedCookie2); 
+
+  
 
 }
+
+
+async function getVideoBySignedCookie2(){
+  console.log("getVideoBySignedCookie2() called");
+  $('#getVideoBySignedCookie2Id').prop('disabled', true);
+  $("#getVideoBySignedCookie2Id").html(`Get Video by Signed Cookie`);
+  await getVideoBySignedCookie2Helper();  
+  $('#getVideoBySignedCookie2Id').prop('disabled', false);
+}
+
 
 async function getVideoBySignedCookie(){
   console.log("getVideoBySignedCookie() called");
@@ -60,6 +73,18 @@ async function getVideo(){
 }
 
 
+function getVideoBySignedCookie2Helper() {
+  return new Promise(async (resolve, reject) => {
+    console.log("getVideoBySignedCookie2Helper() called");
+    let videourlByCookie = `${videourlall}`;
+    console.log("videourlByCookie: ", videourlByCookie);
+    $('#videoSrcId').html("");
+    $('#videoSrcId').append(`<source src=${videourlByCookie} type="video/mp4">`);    
+    $('#videoSrcId')[0].load();    
+    resolve();
+
+  })
+}
 
 function getVideoBySignedCookieHelper() {
   return new Promise(async (resolve, reject) => {
