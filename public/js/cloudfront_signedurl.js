@@ -31,7 +31,8 @@ function setupEvent(){
 async function getVideo(){
   console.log("getVideo() called");
   $('#getVideoId').prop('disabled', true);
-  $("#getVideoId").html(`Get Video`);
+  $("#getVideoId").html(`Get Video by Signed URL`);  
+  $("#getVideoId").css("background-color", color_bg_default);    
   await getVideoHelper();  
   $('#getVideoId').prop('disabled', false);
 }
@@ -41,7 +42,8 @@ function getVideoHelper() {
 
     let hostname = $('#backendUrlId').val();
     let videopath = '/production/aws_cloudfront_gcp_vpc_zh.mp4';
-    var url_get_video = `${hostname}/api/cloudfront/coursevideo?videopath=${videopath}`;
+    let studentstatus = $('#studentstatus').find(":selected").val();
+    var url_get_video = `${hostname}/api/cloudfront/coursevideo?videopath=${videopath}&studentstatus=${studentstatus}`;
     console.log("url_get_video: " , url_get_video);
 
     $.ajax({
@@ -49,10 +51,18 @@ function getVideoHelper() {
       type: "GET",
       success: function (res) {
         console.log("url_get_video - res: " , res);   
-        // appendEmployeeRows(res.result);     
-        $('#videoSrcId').html("");
-        $('#videoSrcId').append(`<source src=${res.result.signedUrl} type="video/mp4">`);       
-        $('#videoSrcId')[0].load(); 
+        if (res) {
+          // appendEmployeeRows(res.result);     
+          $('#videoSrcId').html("");
+          $('#videoSrcId').append(`<source src=${res.result.signedUrl} type="video/mp4">`);       
+          $('#videoSrcId')[0].load(); 
+        }else {
+          console.log("unauthorized content");
+          $('#videoSrcId').html("");
+          $('#videoSrcId')[0].load(); 
+          $("#getVideoId").html(`Get Video by Signed URL (Unauthorized Content)`);  
+          $("#getVideoId").css("background-color", notpassed_toolong_color_bg);  
+        }
         resolve();
       },
     });
