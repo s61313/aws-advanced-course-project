@@ -69,7 +69,8 @@ function getVideoBySignedCookieHelper() {
     let policy = getCookie('CloudFront-Policy');
     let signature = getCookie('CloudFront-Signature');
     let keyPairId = getCookie('CloudFront-Key-Pair-Id');
-    let videourlByCookie = `${videourlall}?Policy=${policy}&Signature=${signature}&Key-Pair-Id=${keyPairId}`;
+    // let videourlByCookie = `${videourlall}?Policy=${policy}&Signature=${signature}&Key-Pair-Id=${keyPairId}`;
+    let videourlByCookie = `${videourlall}`;
     console.log("videourlByCookie: ", videourlByCookie);
     $('#videoSrcId').html("");
     $('#videoSrcId').append(`<source src=${videourlByCookie} type="video/mp4">`);    
