@@ -8,7 +8,7 @@ var color_bg_default = "rgb(36, 48, 64)";
 var rows_per_page = 500;
 var processed_time_total = 0;
 var cached_checker = new Set();
-var cf_distribution_dns = "https://d2vp2cg4foy7ez.cloudfront.net"
+var cf_distribution_dns = "https://d1ro98q9nmwayg.cloudfront.net"
 let videourlall = `${cf_distribution_dns}/aws_cloudfront_gcp_vpc_zh.mp4`;
 // const hostname = "${BACKEND_HOST_URL}";
 
