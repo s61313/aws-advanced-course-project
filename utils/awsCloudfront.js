@@ -120,7 +120,7 @@ class awsCloudfront {
       })
     }   
 
-    getSignedCookies(cfURL) {
+    getSignedCookies() {
 
       return new Promise(async (resolve, reject) => {
         console.log("getSignedCookies() called");  

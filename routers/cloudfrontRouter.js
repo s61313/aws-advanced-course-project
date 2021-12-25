@@ -16,8 +16,7 @@ router.get("/cloudfront/coursevideo", async function (req, res) {
 router.get("/cloudfront/coursevideo/signedcookie", async function (req, res) {
   console.log("/cloudfront/coursevideo/signedcookie called");
   const start_time = new Date().getTime();
-  var distribution_dns = req.query.distribution_dns;
-  const result = await awsCloudfrontService.getSignedCookies(distribution_dns);
+  const result = await awsCloudfrontService.getSignedCookies();
   console.log("result.signedCookies: " , result.signedCookies);
   for(var cookieId in result.signedCookies) {
     res.cookie(cookieId, result.signedCookies[cookieId]);
