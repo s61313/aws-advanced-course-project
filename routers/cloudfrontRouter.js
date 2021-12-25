@@ -9,6 +9,7 @@ router.get("/cloudfront/coursevideo", async function (req, res) {
   console.log("/cloudfront/coursevideo called");
   const start_time = new Date().getTime();
   var videourl = req.query.videourl;
+  console.log("videourl: " , videourl);
   const result = await awsCloudfrontService.getSignedUrl(videourl);
   res.send({"result": result,"processed_time": myUtilService.get_process_time(start_time)});
 });
