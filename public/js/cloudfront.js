@@ -103,7 +103,7 @@ function getVideoBySignedCookieHelper() {
 function getVideoSignedCookieHelper() {
   return new Promise(async (resolve, reject) => {
 
-    let hostname = 'http://mycf7.learncodebypicture.com';
+    let hostname = 'http://myalb1.learncodebypicture.com';
     // let videourl = $('#videourl').val();
     // let distribution_dns = `${cf_distribution_dns}/*`;
     var url_get_video = `${hostname}/api/cloudfront/coursevideo/signedcookie`;
