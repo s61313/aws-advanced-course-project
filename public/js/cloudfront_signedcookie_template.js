@@ -84,10 +84,6 @@ function getSignedCookieHelper() {
           console.log("cookie_str: ", cookie_str);
           document.cookie = cookie_str;
         }
-        // appendEmployeeRows(res.result);     
-        // $('#videoSrcId').html("");
-        // $('#videoSrcId').append(`<source src=${res.result.signedUrl} type="video/mp4">`);       
-        // $('#videoSrcId')[0].load(); 
         resolve();
       },
     });
