@@ -18,6 +18,7 @@ const awsElasticacheService = new awsElasticache();
 replaceEnvVarInFile('./public/js/elb_template.js', './public/js/elb.js', '${BACKEND_HOST_URL}', process.env.BACKEND_HOST_URL);
 replaceEnvVarInFile('./public/js/elbex1_template.js', './public/js/elbex1.js', '${BACKEND_HOST_URL}', process.env.BACKEND_HOST_URL);
 replaceEnvVarInFile('./public/js/elasticache_ex_template.js', './public/js/elasticache_ex.js', '${BACKEND_HOST_URL}', process.env.BACKEND_HOST_URL);
+replaceEnvVarInFile('./public/js/cloudfront_signedcookie_template.js', './public/js/cloudfront_signedcookie.js', '${CF_URL}', process.env.CF_URL);
 
 // cors 
 app.use(cors());
