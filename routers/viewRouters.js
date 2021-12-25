@@ -44,4 +44,8 @@ router.get("/cloudfront", (req, res) => {
   res.render("cloudfront");
 });
 
+router.get("/cloudfront_signedcookie", (req, res) => {
+  res.render("cloudfront_signedcookie");
+});
+
 module.exports = router;
