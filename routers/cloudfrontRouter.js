@@ -22,7 +22,8 @@ router.get("/cloudfront/coursevideo/signedcookie", async function (req, res) {
   let cookies = [];
   for(var cookieId in result.signedCookies) {
     cookies.push({"key": cookieId, "val": result.signedCookies[cookieId]});
-    res.cookie(cookieId, result.signedCookies[cookieId]);
+    learncodebypicture.com
+    res.cookie(cookieId, result.signedCookies[cookieId], { domain: '.learncodebypicture.com'});
   }
 
   res.send({
