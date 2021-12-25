@@ -64,7 +64,7 @@ MLDL2wKBgQClQWovfNn+DgW2k/8f88xDOmuyW58LnINdXWa39eAOi0JMx+4wk3/O
 tE/TsmXyiQwYf8/cVwmhNIR7Okk3Vzol/rHtXAoEBRf/U6lrHWsYpQ==
 -----END RSA PRIVATE KEY-----`;
 
-let cfUrl = "d1ro98q9nmwayg.cloudfront.net";
+let cfUrl = "mycf09.learncodebypicture.com";
 let expiry = Date.now() + 86400000;
 
 let policy = {
