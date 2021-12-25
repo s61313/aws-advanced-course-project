@@ -78,10 +78,23 @@ function getVideoBySignedCookie2Helper() {
     console.log("getVideoBySignedCookie2Helper() called");
     let videourlByCookie = `${videourlall}`;
     console.log("videourlByCookie: ", videourlByCookie);
-    $('#videoSrcId').html("");
-    $('#videoSrcId').append(`<source src=${videourlByCookie} type="video/mp4">`);    
-    $('#videoSrcId')[0].load();    
-    resolve();
+
+    $.ajax({
+      url: videourlByCookie,
+      type: "GET",
+      xhrFields: {
+        withCredentials: true
+      },
+      success: function (res) {
+        console.log("videourlByCookie - res: " , res);   
+        resolve();
+      },
+    });
+    
+    // $('#videoSrcId').html("");
+    // $('#videoSrcId').append(`<source src=${videourlByCookie} type="video/mp4">`);    
+    // $('#videoSrcId')[0].load();    
+    // resolve();
 
   })
 }
