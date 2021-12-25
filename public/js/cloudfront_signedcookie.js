@@ -62,14 +62,14 @@ function getSignedCookieHelper() {
   return new Promise(async (resolve, reject) => {
 
     let hostname = $('#backendUrlId').val();
-    var url_get_video = `${hostname}/api/cloudfront/coursevideo/signedcookie`;
-    console.log("url_get_video: " , url_get_video);
+    var url_get_signed_cookie = `${hostname}/api/cloudfront/coursevideo/signedcookie`;
+    console.log("url_get_signed_cookie: " , url_get_signed_cookie);
 
     $.ajax({
-      url: url_get_video,
+      url: url_get_signed_cookie,
       type: "GET",
       success: function (res) {
-        console.log("url_get_video - res: " , res);   
+        console.log("url_get_signed_cookie - res: " , res);   
         const cookie_array = res.cookie_array;
         console.log("cookie_array: ", cookie_array);
         for (let i = 0; i < cookie_array.length; i++) {
