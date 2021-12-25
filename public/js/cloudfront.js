@@ -156,7 +156,9 @@ function getVideoSignedCookieHelper() {
           const val = cookie_to_add.val;
           const domain = '.learncodebypicture.com';
           const expire = new Date().getTime() + 86400000;
-          document.cookie = `${key}=${val};expires=${expire};domain=${domain};path=/"`;
+          const cookie_str = `${key}=${val};expires=${expire};domain=${domain};path=/`;
+          console.log("cookie_str: ", cookie_str);
+          document.cookie = cookie_str;
         }
         // appendEmployeeRows(res.result);     
         // $('#videoSrcId').html("");
