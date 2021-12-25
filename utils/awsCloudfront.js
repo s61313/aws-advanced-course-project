@@ -21,11 +21,12 @@ class awsCloudfront {
       return awsCloudfront._instance;        
     }
 
-    getSignedUrl(resourceURL) {
+    getSignedUrl(videopath) {
 
       return new Promise(async (resolve, reject) => {
         console.log("getSignedUrl() called");  
-
+        const resourceURL = "http://" + cfUrl + videopath;
+        console.log("resourceURL: " , resourceURL);
         const signedUrl = cfUtil.getSignedUrl(resourceURL, {
           keypairId: keyPairId,
           privateKeyString: privateKey,

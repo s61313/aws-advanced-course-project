@@ -6,7 +6,7 @@ var passed_color_bg = "#22a2b8";
 var notpassed_toolong_color_bg = "rgb(191, 62, 92)";
 var color_bg_default = "rgb(36, 48, 64)";
 // var cf_url = "http://"+cfUrl;
-var cf_url = "http://" + "mycf11.learncodebypicture.com";
+var cf_url = "https://" + "mycf11.learncodebypicture.com";
 console.log("cf_url: ", cf_url);
 
 $(document).ready(() => {
@@ -20,7 +20,6 @@ async function clearData() {
 }
 
 function setUpDefault() {
-  $('#backendUrlId').val('https://mycf11.learncodebypicture.com');
 }
 
 function setupEvent(){  
@@ -48,9 +47,9 @@ async function getSignedCookie(){
 function getVideoBySignedCookie2Helper() {
   return new Promise(async (resolve, reject) => {
     console.log("getVideoBySignedCookie2Helper() called");
-    let hostname = $('#backendUrlId').val();
+    // let hostname = $('#backendUrlId').val();
     let videopath = '/production/aws_cloudfront_gcp_vpc_zh.mp4';
-    let videourl = hostname + videopath;
+    let videourl = cf_url + videopath;
     console.log("videourl: ", videourl);
 
     $('#videoSrcId').html("");
@@ -64,8 +63,8 @@ function getVideoBySignedCookie2Helper() {
 function getSignedCookieHelper() {
   return new Promise(async (resolve, reject) => {
 
-    let hostname = $('#backendUrlId').val();
-    var url_get_signed_cookie = `${hostname}/api/cloudfront/coursevideo/signedcookie`;
+    // let hostname = $('#backendUrlId').val();
+    var url_get_signed_cookie = `${cf_url}/api/cloudfront/coursevideo/signedcookie`;
     console.log("url_get_signed_cookie: " , url_get_signed_cookie);
 
     $.ajax({
@@ -85,10 +84,6 @@ function getSignedCookieHelper() {
           console.log("cookie_str: ", cookie_str);
           document.cookie = cookie_str;
         }
-        // appendEmployeeRows(res.result);     
-        // $('#videoSrcId').html("");
-        // $('#videoSrcId').append(`<source src=${res.result.signedUrl} type="video/mp4">`);       
-        // $('#videoSrcId')[0].load(); 
         resolve();
       },
     });

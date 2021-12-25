@@ -8,9 +8,9 @@ const myUtilService = new myUtil();
 router.get("/cloudfront/coursevideo", async function (req, res) {
   console.log("/cloudfront/coursevideo called");
   const start_time = new Date().getTime();
-  var videourl = req.query.videourl;
-  console.log("videourl: " , videourl);
-  const result = await awsCloudfrontService.getSignedUrl(videourl);
+  var videopath = req.query.videopath;
+  console.log("videopath: " , videopath);
+  const result = await awsCloudfrontService.getSignedUrl(videopath);
   res.send({"result": result,"processed_time": myUtilService.get_process_time(start_time)});
 });
 
