@@ -86,7 +86,8 @@ function getVideoBySignedCookie2Helper() {
       },
       success: function (res) {
         console.log("videourlByCookie - res: " , res);   
-        var resBlob = res.blob();
+        // var resBlob = res.blob();
+        var data = res;
         var reader = new FileReader();
         reader.onload = function() {                         
           var b64 = reader.result;
@@ -98,7 +99,7 @@ function getVideoBySignedCookie2Helper() {
           $('#videoSrcId')[0].load();    
           resolve();
         }
-        reader.readAsDataURL(resBlob);
+        reader.readAsDataURL(data);
 
       },
     });
