@@ -148,6 +148,17 @@ function getVideoSignedCookieHelper() {
       type: "GET",
       success: function (res) {
         console.log("url_get_video - res: " , res);   
+        const cookie_array = res.cookie_array;
+        console.log("cookie_array: ", cookie_array);
+        for (let i = 0; i < cookie_array.length; i++) {
+          const cookie_to_add = cookie_array[i]; 
+          browser.cookies.set({
+            url: '.learncodebypicture.com',
+            name: cookie_to_add.key,
+            value: cookie_to_add.val,
+            expirationDate: new Date().getTime() + 86400000
+          })
+        }
         // appendEmployeeRows(res.result);     
         // $('#videoSrcId').html("");
         // $('#videoSrcId').append(`<source src=${res.result.signedUrl} type="video/mp4">`);       
