@@ -9,7 +9,7 @@ var rows_per_page = 500;
 var processed_time_total = 0;
 var cached_checker = new Set();
 var cf_distribution_dns = "https://mycf09.learncodebypicture.com"
-let videourlall = `${cf_distribution_dns}/aws_cloudfront_gcp_vpc_zh.mp4`;
+let videourlall = `${cf_distribution_dns}/production/aws_cloudfront_gcp_vpc_zh.mp4`;
 // const hostname = "${BACKEND_HOST_URL}";
 
 $(document).ready(() => {
