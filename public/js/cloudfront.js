@@ -86,6 +86,10 @@ function getVideoBySignedCookie2Helper() {
       },
       success: function (res) {
         console.log("videourlByCookie - res: " , res);   
+        var base64data = Buffer.from(res).toString('base64');
+        $('#videoSrcId').html("");
+        $('#videoSrcId').append(`<source src="data:video/mp4;base64,${base64data}" type="video/mp4">`);    
+        $('#videoSrcId')[0].load();    
         resolve();
       },
     });
