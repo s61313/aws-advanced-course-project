@@ -163,8 +163,8 @@ function getVideoHelper() {
 
     let hostname = $('#backendUrlId').val();
     // let videourl = $('#videourl').val();
-    let videourl = `${cf_distribution_dns}/aws_cloudfront_gcp_vpc_zh.mp4`;
-    var url_get_video = `${hostname}/api/cloudfront/coursevideo?videourl=${videourl}`;
+    // let videourl = `${cf_distribution_dns}/aws_cloudfront_gcp_vpc_zh.mp4`;
+    var url_get_video = `${hostname}/api/cloudfront/coursevideo?videourl=${videourlall}`;
     console.log("url_get_video: " , url_get_video);
 
     $.ajax({
