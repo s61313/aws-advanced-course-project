@@ -19,7 +19,7 @@ router.get("/cloudfront/coursevideo/signedcookie", async function (req, res) {
   const result = await awsCloudfrontService.getSignedCookies();
   console.log("result.signedCookies: " , result.signedCookies);
   for(var cookieId in result.signedCookies) {
-    res.cookie(cookieId, result.signedCookies[cookieId]);
+    res.cookie(cookieId, result.signedCookies[cookieId], { domain: '.learncodebypicture.com' });
   }
 
   res.send({"processed_time": myUtilService.get_process_time(start_time)});
