@@ -86,20 +86,25 @@ function getVideoBySignedCookie2Helper() {
       },
       success: function (res) {
         console.log("videourlByCookie - res: " , res);   
+        $('#videoSrcId').html("");
+        $('#videoSrcId').append(`<source src="data:video/mp4;${res}" type="video/mp4">`);    
+        $('#videoSrcId')[0].load();    
+        resolve();
+
         // var resBlob = res.blob();
-        var data = res;
-        var reader = new FileReader();
-        reader.onload = function() {                         
-          var b64 = reader.result;
-          console.log("This is base64", b64);
-          // document.getElementById("imagetoShow").src = b64
-          // var base64data = Buffer.from(res).toString('base64');
-          $('#videoSrcId').html("");
-          $('#videoSrcId').append(`<source src="data:video/mp4;base64,${b64}" type="video/mp4">`);    
-          $('#videoSrcId')[0].load();    
-          resolve();
-        }
-        reader.readAsDataURL(data);
+        // var data = res;
+        // var reader = new FileReader();
+        // reader.onload = function() {                         
+        //   var b64 = reader.result;
+        //   console.log("This is base64", b64);
+        //   // document.getElementById("imagetoShow").src = b64
+        //   // var base64data = Buffer.from(res).toString('base64');
+        //   $('#videoSrcId').html("");
+        //   $('#videoSrcId').append(`<source src="data:video/mp4;base64,${b64}" type="video/mp4">`);    
+        //   $('#videoSrcId')[0].load();    
+        //   resolve();
+        // }
+        // reader.readAsDataURL(data);
 
       },
     });
