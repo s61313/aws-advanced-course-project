@@ -21,6 +21,16 @@ class awsCloudfront {
       return awsCloudfront._instance;        
     }
 
+    generateArticle(creator) {
+
+      return new Promise(async (resolve, reject) => {
+        console.log("generateArticle() called");  
+        await myUtilService.wait_for_second(2000);
+        let article_vpc_eng = `<h5>AWS VPC by Researcher ${creator}</h5><p>This is an introduction about VPC that is AI-generated.</p>`;
+        resolve(article_vpc_eng);
+      })
+
+    }
     getSignedUrl(videopath) {
 
       return new Promise(async (resolve, reject) => {

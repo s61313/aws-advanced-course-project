@@ -40,8 +40,8 @@ router.get("/elasticache_exercise", (req, res) => {
   res.render("elasticache_exercise");
 });
 
-router.get("/cloudfront", (req, res) => {
-  res.render("cloudfront");
+router.get("/cloudfront_ec2", (req, res) => {
+  res.render("cloudfront_ec2");
 });
 
 router.get("/cloudfront_signedurl", (req, res) => {

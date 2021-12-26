@@ -5,6 +5,14 @@ const awsCloudfrontService = new awsCloudfront();
 const myUtil = require("../utils/myUtil")
 const myUtilService = new myUtil();
 
+router.get("/cloudfront/generatearticle", async function (req, res) {
+  console.log("/cloudfront/generatearticle called");
+  const start_time = new Date().getTime();
+  var creator = req.query.creator;
+  console.log("creator: " , creator);
+  const result = await awsCloudfrontService.generateArticle(creator);
+  res.send({"result": result,"processed_time": myUtilService.get_process_time(start_time)});
+});
 router.get("/cloudfront/coursevideo", async function (req, res) {
   console.log("/cloudfront/coursevideo called");
   const start_time = new Date().getTime();
