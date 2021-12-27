@@ -9,8 +9,11 @@ router.get("/cloudfront/generatearticle", async function (req, res) {
   console.log("/cloudfront/generatearticle called");
   const start_time = new Date().getTime();
   var creator = req.query.creator;
+  var cloudprovider = req.query.cloudprovider;
+  var language = req.query.language;
+  
   console.log("creator: " , creator);
-  const result = await awsCloudfrontService.generateArticle(creator);
+  const result = await awsCloudfrontService.generateArticle(creator, cloudprovider, language);
   res.send({"result": result,"processed_time": myUtilService.get_process_time(start_time)});
 });
 router.get("/cloudfront/coursevideo", async function (req, res) {

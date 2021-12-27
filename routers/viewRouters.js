@@ -44,6 +44,10 @@ router.get("/cloudfront_ec2", (req, res) => {
   res.render("cloudfront_ec2");
 });
 
+router.get("/cloudfront_ex", (req, res) => {
+  res.render("cloudfront_ex");
+});
+
 router.get("/cloudfront_signedurl", (req, res) => {
   res.render("cloudfront_signedurl");
 });

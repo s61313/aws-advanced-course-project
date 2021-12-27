@@ -21,13 +21,23 @@ class awsCloudfront {
       return awsCloudfront._instance;        
     }
 
-    generateArticle(creator) {
+    generateArticle(creator, cloudprovider, language) {
 
       return new Promise(async (resolve, reject) => {
         console.log("generateArticle() called");  
         await myUtilService.wait_for_second(2000);
-        let article_vpc_eng = `<h5>AWS VPC by Researcher ${creator}</h5><p>This is an introduction about VPC that is AI-generated.</p>`;
-        resolve(article_vpc_eng);
+        let article = '';
+        if (cloudprovider == "aws" && language == "eng") {
+          article = `<h5><span style="color:#FFA500">AWS VPC</span> by Researcher ${creator}</h5><p>This is an introduction about VPC that is AI-generated.</p>`;
+        }else if (cloudprovider == "aws" && language == "zh") {
+          article = `<h5><span style="color:#FFA500">AWS VPC</span> by 研究者 ${creator}</h5><p>這是一段由 AI 自動生成的 AWS VPC 介紹文章.</p>`;
+        }else if (cloudprovider == "gcp" && language == "eng") {
+          article = `<h5><span style="color:blue">GCP VPC</span> by Researcher ${creator}</h5><p>This is an introduction about VPC that is AI-generated.</p>`;
+        }else if (cloudprovider == "gcp" && language == "zh") {
+          article = `<h5><span style="color:blue">GCP VPC</span> by 研究者 ${creator}</h5><p>這是一段由 AI 自動生成的 VPC 介紹文章.</p>`;
+        }
+
+        resolve(article);
       })
 
     }
