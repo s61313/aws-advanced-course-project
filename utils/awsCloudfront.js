@@ -4,11 +4,11 @@ const cfUtil = require('aws-cloudfront-sign')
 const myUtil = require("./myUtil")
 const myUtilService = new myUtil()
 
-let keyPairId = process.env.CF_PUBLIC_KEY_PAIR_ID;
+let keyPairId = ``;
 console.log("keyPairId: " , keyPairId);
-let privateKey = process.env.CF_PRIVATE_KEY.replace(/\\n/g, '\n');
+let privateKey = ``;
 console.log("privateKey: " , privateKey);
-let cfUrl = process.env.CF_URL;
+let cfUrl = ``;
 console.log("cfUrl: " , cfUrl);
 let expiry = Date.now() + 86400000;
 
