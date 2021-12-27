@@ -42,7 +42,7 @@ async function generateArticle(){
 
 function generateArticleHelper() {
   return new Promise(async (resolve, reject) => {
-
+    const start_time = new Date().getTime();
     let hostname = $('#backendUrlId').val();
     let userName = $('#userNameId').val();
     let cloudprovider = $('#cloudprovider').val();
@@ -56,9 +56,7 @@ function generateArticleHelper() {
       success: function (res) {
         console.log("url_generate_article - res: " , res);   
         $('#articleId').html(res.result);
-        if (res && res.processed_time) {
-          $("#generateArticleId").html(`Generate Article (${res.processed_time}s)`);
-        }
+        $("#generateArticleId").html(`Generate Article (${get_process_time(start_time)}s)`);
         resolve();
       },
     });
@@ -69,4 +67,8 @@ function getCookie(name) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+function get_process_time(start_time) {
+  return ((new Date().getTime() - start_time) / 1000);
 }
