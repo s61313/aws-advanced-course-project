@@ -56,6 +56,9 @@ function generateArticleHelper() {
       success: function (res) {
         console.log("url_generate_article - res: " , res);   
         $('#articleId').html(res.result);
+        if (res && res.processed_time) {
+          $("#generateArticleId").html(`Generate Article (${res.processed_time}s)`);
+        }
         resolve();
       },
     });
