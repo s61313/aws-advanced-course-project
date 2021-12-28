@@ -41,7 +41,7 @@ function getVideoHelper() {
   return new Promise(async (resolve, reject) => {
 
     let hostname = $('#backendUrlId').val();
-    let videopath = '/production/aws_cloudfront_gcp_vpc_zh.mp4';
+    let videopath = '/aws_cloudfront_gcp_vpc_zh.mp4';
     let studentstatus = $('#studentstatus').find(":selected").val();
     var url_get_video = `${hostname}/api/cloudfront/coursevideo?videopath=${videopath}&studentstatus=${studentstatus}`;
     console.log("url_get_video: " , url_get_video);
