@@ -78,16 +78,16 @@ function getSignedCookieHelper() {
         console.log("url_get_signed_cookie - res: " , res);   
         const cookie_array = res.cookie_array;
         console.log("cookie_array: ", cookie_array);
-        for (let i = 0; i < cookie_array.length; i++) {
-          const cookie_to_add = cookie_array[i]; 
-          const key = cookie_to_add.key;
-          const val = cookie_to_add.val;
-          // const domain = '.learncodebypicture.com';
-          const expire = new Date().getTime() + 86400000;
-          const cookie_str = `${key}=${val};expires=${expire};domain=${domain};path=/`;
-          console.log("cookie_str: ", cookie_str);
-          document.cookie = cookie_str;
-        }
+        // for (let i = 0; i < cookie_array.length; i++) {
+        //   const cookie_to_add = cookie_array[i]; 
+        //   const key = cookie_to_add.key;
+        //   const val = cookie_to_add.val;
+        //   // const domain = '.learncodebypicture.com';
+        //   const expire = new Date().getTime() + 86400000;
+        //   const cookie_str = `${key}=${val};expires=${expire};domain=${domain};path=/`;
+        //   console.log("cookie_str: ", cookie_str);
+        //   document.cookie = cookie_str;
+        // }
         resolve();
       },
     });
