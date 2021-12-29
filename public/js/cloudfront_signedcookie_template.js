@@ -20,7 +20,8 @@ async function clearData() {
 }
 
 function setUpDefault() {
-  $('#backendUrlId').val('http://xxx.example.com');  
+  $('#backendUrlId').val('http://xxx.example.com'); 
+  $('#domainId').val('.example.com');
 }
 
 function setupEvent(){  
@@ -65,6 +66,8 @@ function getSignedCookieHelper() {
   return new Promise(async (resolve, reject) => {
 
     let hostname = $('#backendUrlId').val();
+    let domain = $('#domainId').val();
+
     var url_get_signed_cookie = `${hostname}/api/cloudfront/coursevideo/signedcookie`;
     console.log("url_get_signed_cookie: " , url_get_signed_cookie);
 
@@ -79,7 +82,7 @@ function getSignedCookieHelper() {
           const cookie_to_add = cookie_array[i]; 
           const key = cookie_to_add.key;
           const val = cookie_to_add.val;
-          const domain = '.learncodebypicture.com';
+          // const domain = '.learncodebypicture.com';
           const expire = new Date().getTime() + 86400000;
           const cookie_str = `${key}=${val};expires=${expire};domain=${domain};path=/`;
           console.log("cookie_str: ", cookie_str);
