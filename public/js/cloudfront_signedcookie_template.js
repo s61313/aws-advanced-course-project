@@ -66,7 +66,7 @@ function getSignedCookieHelper() {
   return new Promise(async (resolve, reject) => {
 
     let hostname = $('#backendUrlId').val();
-    let domain = $('#domainId').val();
+    // let domain = $('#domainId').val();
 
     var url_get_signed_cookie = `${hostname}/api/cloudfront/coursevideo/signedcookie`;
     console.log("url_get_signed_cookie: " , url_get_signed_cookie);
@@ -76,8 +76,8 @@ function getSignedCookieHelper() {
       type: "GET",
       success: function (res) {
         console.log("url_get_signed_cookie - res: " , res);   
-        const cookie_array = res.cookie_array;
-        console.log("cookie_array: ", cookie_array);
+        // const cookie_array = res.cookie_array;
+        // console.log("cookie_array: ", cookie_array);
         // for (let i = 0; i < cookie_array.length; i++) {
         //   const cookie_to_add = cookie_array[i]; 
         //   const key = cookie_to_add.key;
