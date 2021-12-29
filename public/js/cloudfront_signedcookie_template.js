@@ -20,6 +20,7 @@ async function clearData() {
 }
 
 function setUpDefault() {
+  $('#backendUrlId').val('http://xxx.example.com');  
 }
 
 function setupEvent(){  
