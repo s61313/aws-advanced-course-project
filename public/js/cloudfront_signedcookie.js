@@ -6,8 +6,8 @@ var passed_color_bg = "#22a2b8";
 var notpassed_toolong_color_bg = "rgb(191, 62, 92)";
 var color_bg_default = "rgb(36, 48, 64)";
 // var cf_url = "http://"+cfUrl;
-var cf_url = "http://" + "mycf11.learncodebypicture.com";
-console.log("cf_url: ", cf_url);
+// var cf_url = "https://" + "undefined";
+// console.log("cf_url: ", cf_url);
 
 $(document).ready(() => {
   console.log("sqs_lambda_tempalte.js loaded");
@@ -20,7 +20,8 @@ async function clearData() {
 }
 
 function setUpDefault() {
-  $('#backendUrlId').val('https://mycf11.learncodebypicture.com');
+  $('#backendUrlId').val('http://xxx.example.com'); 
+  $('#domainId').val('.example.com');
 }
 
 function setupEvent(){  
@@ -65,6 +66,8 @@ function getSignedCookieHelper() {
   return new Promise(async (resolve, reject) => {
 
     let hostname = $('#backendUrlId').val();
+    // let domain = $('#domainId').val();
+
     var url_get_signed_cookie = `${hostname}/api/cloudfront/coursevideo/signedcookie`;
     console.log("url_get_signed_cookie: " , url_get_signed_cookie);
 
@@ -73,22 +76,18 @@ function getSignedCookieHelper() {
       type: "GET",
       success: function (res) {
         console.log("url_get_signed_cookie - res: " , res);   
-        const cookie_array = res.cookie_array;
-        console.log("cookie_array: ", cookie_array);
-        for (let i = 0; i < cookie_array.length; i++) {
-          const cookie_to_add = cookie_array[i]; 
-          const key = cookie_to_add.key;
-          const val = cookie_to_add.val;
-          const domain = '.learncodebypicture.com';
-          const expire = new Date().getTime() + 86400000;
-          const cookie_str = `${key}=${val};expires=${expire};domain=${domain};path=/`;
-          console.log("cookie_str: ", cookie_str);
-          document.cookie = cookie_str;
-        }
-        // appendEmployeeRows(res.result);     
-        // $('#videoSrcId').html("");
-        // $('#videoSrcId').append(`<source src=${res.result.signedUrl} type="video/mp4">`);       
-        // $('#videoSrcId')[0].load(); 
+        // const cookie_array = res.cookie_array;
+        // console.log("cookie_array: ", cookie_array);
+        // for (let i = 0; i < cookie_array.length; i++) {
+        //   const cookie_to_add = cookie_array[i]; 
+        //   const key = cookie_to_add.key;
+        //   const val = cookie_to_add.val;
+        //   // const domain = '.learncodebypicture.com';
+        //   const expire = new Date().getTime() + 86400000;
+        //   const cookie_str = `${key}=${val};expires=${expire};domain=${domain};path=/`;
+        //   console.log("cookie_str: ", cookie_str);
+        //   document.cookie = cookie_str;
+        // }
         resolve();
       },
     });
