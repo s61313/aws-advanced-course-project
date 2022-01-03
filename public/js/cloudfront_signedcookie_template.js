@@ -49,7 +49,7 @@ async function getSignedCookie(){
 function getVideoBySignedCookie2Helper() {
   return new Promise(async (resolve, reject) => {
     console.log("getVideoBySignedCookie2Helper() called");
-    let hostname = window.location.origin;
+    let hostname = $('#backendUrlId').val();
     let videopath = '/production/aws_cloudfront_gcp_vpc_zh.mp4';
     let videourl = hostname + videopath;
     console.log("videourl: ", videourl);
@@ -65,7 +65,7 @@ function getVideoBySignedCookie2Helper() {
 function getSignedCookieHelper() {
   return new Promise(async (resolve, reject) => {
 
-    let hostname = window.location.origin;
+    let hostname = $('#backendUrlId').val();
     // let domain = $('#domainId').val();
 
     var url_get_signed_cookie = `${hostname}/api/cloudfront/coursevideo/signedcookie`;
