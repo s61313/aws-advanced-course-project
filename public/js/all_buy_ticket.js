@@ -28,7 +28,6 @@ function setUpDefault() {
   // $('#backendUrlId').val('http://localhost:8080') 
   getAgendaPovider();
   clearTicketData();
-  $('#ticketNoId').val('1');
 }
 
 function setupEvent(){  
