@@ -109,17 +109,17 @@ class awsElasticache {
         if (stdout_json) {
           let stdout_obj = stdout_json.split(/\r?\n/);
           console.log("cmd_hgetall list: ", stdout_obj);  
-          let emp_list = [];
+          // let emp_list = [];
           let key_list = [];
           for (let i = 0; i < stdout_obj.length ;i+=2) {
             let emp_no = stdout_obj[i];
             if (emp_no == '') continue;
-            let emp_json = stdout_obj[i+1];
+            // let emp_json = stdout_obj[i+1];
             // console.log("emp_no: ", emp_no);  
             // console.log("emp_json: ", emp_json);  
-            let emp = JSON.parse(emp_json);
+            // let emp = JSON.parse(emp_json);
             key_list.push(emp_no);
-            emp_list.push(emp);
+            // emp_list.push(emp);
           }
           
           if (key_list.length > 0) {
