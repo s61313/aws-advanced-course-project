@@ -73,7 +73,7 @@ class awsElasticache {
 
       return new Promise(async (resolve, reject) => {
         console.log("hget() called");  
-        var cmd_hget = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hget '${this.hash}' ${key}`;
+        var cmd_hget = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hget ${this.hash} '${key}'`;
         console.log("hget() cmd: ", cmd_hget);
         let stdout_json = await this.execute_child_process(cmd_hget);        
         var result = null;
