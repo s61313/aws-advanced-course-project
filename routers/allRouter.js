@@ -50,6 +50,9 @@ router.get("/all/buyticket", async function (req, res) {
   console.log("result_buy_ticket: ", result_buy_ticket);
 
   // DO-THIS: send to sqs 
+  
+
+
   var end_time = new Date().getTime();
   var process_time_sec = (end_time - req.query.req_issued_time)/1000;
   res.send({
