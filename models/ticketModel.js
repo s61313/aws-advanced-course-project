@@ -39,7 +39,18 @@ class TicketModel {
       ;
       `
       return sql;
-    }      
+    }
+
+    insert_bought_ticket_sql(agendaProvider) {
+      const sql = 
+      `
+      INSERT INTO ticket (ticket_type) 
+      VALUES (${agendaProvider})
+      ;
+      `
+      return sql;
+    }
+
 
     get_wait_sql(seconds) {
       const sql = 

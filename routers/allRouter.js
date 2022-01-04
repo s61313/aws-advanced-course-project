@@ -41,7 +41,9 @@ router.get("/all/cleanall", async function (req, res) {
 
 router.get("/all/buyticket", async function (req, res) {
   console.log("/all/buyticket called");
-  let resBuyTicket = await elbController.buyTicket(3000);
+  var agendaPovider = req.query.agendaPovider;
+
+  let resBuyTicket = await elbController.buyTicket(3000, agendaPovider);
   var end_time = new Date().getTime();
   var process_time_sec = (end_time - req.query.req_issued_time)/1000;
   res.send({

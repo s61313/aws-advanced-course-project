@@ -12,8 +12,7 @@ DROP TABLE IF EXISTS ticket, agenda;
 
 CREATE TABLE ticket (
     ticket_id      INT             NOT NULL AUTO_INCREMENT,
-    ticket_type  VARCHAR(256)            NOT NULL,
-    ticket_no_remained  INT(14)     NOT NULL,
+    ticket_type  VARCHAR(256)            NOT NULL
     PRIMARY KEY (ticket_id)
 );
 
@@ -25,10 +24,6 @@ CREATE TABLE agenda (
     agenda_speaker  VARCHAR(256)            NOT NULL,
     PRIMARY KEY (agenda_id)
 );
-
-SELECT 'LOADING ticket' as 'INFO';
-source ticket.dump ;
-SELECT * FROM ticket;
 
 SELECT 'LOADING agenda' as 'INFO';
 source agenda.dump ;
