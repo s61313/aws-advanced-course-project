@@ -69,10 +69,10 @@ async function getAdenda() {
   return new Promise(async (resolve, reject) => {
     console.log("getAdenda() called");
     $("#agendaId").html("");
-    let agendaPovider = $('#agendaPovider').val();
+    let agendaProvider = $('#agendaProvider').val();
 
     // var agenda_list_tmp = [];
-    // if (agendaPovider == "ithome") {
+    // if (agendaProvider == "ithome") {
     //   agenda_list_tmp.push({startendtime: "09:00-10:00", topic: "雲端的趨勢", speaker: "Tom Cruise"});
     //   agenda_list_tmp.push({startendtime: "10:00-13:00", topic: "AWS 與 GCP 踩雷分享談", speaker: "Kelly Lui"});
     //   agenda_list_tmp.push({startendtime: "13:00-15:00", topic: "雲端工作坊 (需自備筆電)", speaker: "Catherine"});
@@ -84,7 +84,7 @@ async function getAdenda() {
     // appendAgendaRows(agenda_list_tmp);
     // resolve();
     
-    var url_get_agenda = `${backend_url}/api/all/agenda?agendaPovider=${agendaPovider}`;
+    var url_get_agenda = `${backend_url}/api/all/agenda?agendaProvider=${agendaProvider}`;
     console.log("url_get_agenda: " , url_get_agenda);
   
     $.ajax({

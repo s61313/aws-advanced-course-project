@@ -21,7 +21,7 @@ class all {
       return all._instance;        
     }
 
-    getAgenda(agendaPovider) {
+    getAgenda(agendaProvider) {
 
       return new Promise(async (resolve, reject) => {
         console.log("getAgenda() called");  

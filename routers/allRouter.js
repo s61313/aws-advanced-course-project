@@ -15,21 +15,21 @@ const awsSQSService = new awsSQS();
 router.get("/all/agenda", async function (req, res) {
   console.log("/all/agenda called");
   const start_time = new Date().getTime();
-  var agendaPovider = req.query.agendaPovider;
-  var agendaPovider_cache_key = agendaPovider;
+  var agendaProvider = req.query.agendaProvider;
+  var agendaProvider_cache_key = agendaProvider;
 
   // get cache 
-  const result_cached = await awsElasticacheService.hget(agendaPovider_cache_key);
+  const result_cached = await awsElasticacheService.hget(agendaProvider_cache_key);
   if (result_cached) {
-    console.log("agendaPovider_cache_key exists");
+    console.log("agendaProvider_cache_key exists");
     res.send({"result": result_cached,"processed_time": myUtilService.get_process_time(start_time)});
     return;
   }
 
   // main logic
-  const result = await ticketModelService.get_agenda_by_agenda_provider(agendaPovider);
+  const result = await ticketModelService.get_agenda_by_agenda_provider(agendaProvider);
   // set cache 
-  await awsElasticacheService.hset(agendaPovider_cache_key, result);
+  await awsElasticacheService.hset(agendaProvider_cache_key, result);
 
   res.send({"result": result,"processed_time": myUtilService.get_process_time(start_time)});
 });
@@ -42,18 +42,18 @@ router.get("/all/cleanall", async function (req, res) {
 
 router.get("/all/buyticket", async function (req, res) {
   console.log("/all/buyticket called");
-  var agendaPovider = req.query.agendaPovider;
+  var agendaProvider = req.query.agendaProvider;
 
   let resBuyTicket = await elbController.buyTicket(3000);
 
   // insert to database 
-  let result_buy_ticket = await ticketModelService.get_insert_bought_ticket(agendaPovider); 
+  let result_buy_ticket = await ticketModelService.get_insert_bought_ticket(agendaProvider); 
   console.log("result_buy_ticket: ", result_buy_ticket);
 
   // send a msg to queue  
   const boughtTicketId = result_buy_ticket.insertId;
   const sqs_queue_url = process.env.SQS_QUEUE_URL;
-  let send_msg_result = await awsSQSService.send_msg(sqs_queue_url, boughtTicketId, agendaPovider);
+  let send_msg_result = await awsSQSService.send_msg(sqs_queue_url, boughtTicketId, agendaProvider);
   console.log("send_msg_result: ", send_msg_result);
 
   var end_time = new Date().getTime();

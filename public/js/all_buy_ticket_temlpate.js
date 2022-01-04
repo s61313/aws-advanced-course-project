@@ -84,9 +84,9 @@ function buyTicket(event) {
   console.log("buyTicket called");
   console.log("buyTicket called event.data.level: " , event.data.level);
   const req_issued_time = new Date().getTime();
-  let agendaPovider = $('#agendaPovider').val();
+  let agendaProvider = $('#agendaProvider').val();
 
-  var url_buyticket = `${buy_ticket_backend_url}/api/all/buyticket?req_issued_time=${req_issued_time}&agendaPovider=${agendaPovider}`; // DO-THIS: add api 
+  var url_buyticket = `${buy_ticket_backend_url}/api/all/buyticket?req_issued_time=${req_issued_time}&agendaProvider=${agendaProvider}`; // DO-THIS: add api 
 
   $.ajax({
     url: url_buyticket,

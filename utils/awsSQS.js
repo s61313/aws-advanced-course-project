@@ -39,10 +39,10 @@ class awsSQS {
   }    
 
 
-    send_msg(sqs_queue_url, boughtTicketId, agendaPovider) {
+    send_msg(sqs_queue_url, boughtTicketId, agendaProvider) {
         return new Promise((resolve, reject) => {
             console.log("send_msg() called");
-            var params = this.get_sqs_params(sqs_queue_url, boughtTicketId, agendaPovider);
+            var params = this.get_sqs_params(sqs_queue_url, boughtTicketId, agendaProvider);
             console.log("send_msg params: ", params);
             this.sqs.sendMessage(params, function(err, data) {
                if (err) {
@@ -57,11 +57,11 @@ class awsSQS {
         })        
     }
 
-    get_sqs_params(sqs_queue_url, boughtTicketId, agendaPovider) {
+    get_sqs_params(sqs_queue_url, boughtTicketId, agendaProvider) {
 
         var message_body = {
           "boughtTicketId": boughtTicketId,
-          "agendaPovider": agendaPovider
+          "agendaProvider": agendaProvider
          };
 
          var params = {
