@@ -9,9 +9,9 @@ var rows_per_page = 500;
 var processed_time_total = 0;
 var cached_checker = new Set();
 
-const backend_url = "http://localhost:8080"; 
+const backend_url = "http://ec2-3-145-111-106.us-east-2.compute.amazonaws.com:8080";  
 // const backend_url = "http://localhost:8080";
-const resource_url = "http://localhost:8080"; 
+const resource_url = "https://dq4qybh1c4o5p.cloudfront.net"; 
 // const resource_url = "http://localhost:8080";
 
 $(document).ready(() => {
@@ -31,13 +31,37 @@ function setUpDefault() {
 
 function setupEvent(){  
   // $('#getVideoId').click({"input1": "value1"}, getVideo);
-  $('#getAdendaId').click({"input1": "value1"}, getAdenda);
+  $('#getAgendaId').click({"input1": "value1"}, getAdenda);
 
   $('#goToBuyTicketPageId').click({"input1": "value1"}, goToBuyTicketPage);
+
+  $('#cleanAgendaCacheId').click({"input1": "value1"}, cleanAgendaCache);
+  
 }
 
 function goToBuyTicketPage() {
   window.location.pathname = '/all_buy_ticket';
+}
+
+
+async function cleanAgendaCache() {
+
+  return new Promise(async (resolve, reject) => {
+    console.log("cleanAgendaCache() called");
+    $("#agendaId").html("");
+    var url_cleanall = `${backend_url}/api/all/cleanall`;
+    console.log("url_cleanall: " , url_cleanall);
+  
+    $.ajax({
+      url: url_cleanall,
+      type: "GET",
+      success: function (res) {
+        console.log("url_cleanall - res: " , res);
+        resolve();
+      },
+    });
+  })   
+
 }
 
 async function getAdenda() {

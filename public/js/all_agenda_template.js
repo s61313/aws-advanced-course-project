@@ -31,13 +31,37 @@ function setUpDefault() {
 
 function setupEvent(){  
   // $('#getVideoId').click({"input1": "value1"}, getVideo);
-  $('#getAdendaId').click({"input1": "value1"}, getAdenda);
+  $('#getAgendaId').click({"input1": "value1"}, getAdenda);
 
   $('#goToBuyTicketPageId').click({"input1": "value1"}, goToBuyTicketPage);
+
+  $('#cleanAgendaCacheId').click({"input1": "value1"}, cleanAgendaCache);
+  
 }
 
 function goToBuyTicketPage() {
   window.location.pathname = '/all_buy_ticket';
+}
+
+
+async function cleanAgendaCache() {
+
+  return new Promise(async (resolve, reject) => {
+    console.log("cleanAgendaCache() called");
+    $("#agendaId").html("");
+    var url_cleanall = `${backend_url}/api/all/cleanall`;
+    console.log("url_cleanall: " , url_cleanall);
+  
+    $.ajax({
+      url: url_cleanall,
+      type: "GET",
+      success: function (res) {
+        console.log("url_cleanall - res: " , res);
+        resolve();
+      },
+    });
+  })   
+
 }
 
 async function getAdenda() {

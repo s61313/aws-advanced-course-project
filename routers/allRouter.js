@@ -32,4 +32,10 @@ router.get("/all/agenda", async function (req, res) {
   res.send({"result": result,"processed_time": myUtilService.get_process_time(start_time)});
 });
 
+router.get("/all/cleanall", async function (req, res) {
+  console.log("/all/cleanall called");
+  await awsElasticacheService.cleanallcache();
+  res.send({});
+});
+
 module.exports = router;
