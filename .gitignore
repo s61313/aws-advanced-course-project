@@ -4,3 +4,6 @@ coverage/
 settings.json
 public/js/elb.js
 public/js/elbex1.js
+public/js/all_agenda.js
+public/js/all_homepage.js
+public/js/elasticache_ex.js
