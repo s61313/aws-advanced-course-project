@@ -90,7 +90,7 @@ class awsElasticache {
 
       return new Promise(async (resolve, reject) => {
         console.log("del() called");  
-        var cmd_hdel = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hdel ${this.hash} ${key}`;
+        var cmd_hdel = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} hdel ${this.hash} '${key}'`;
         console.log("del() cmd: ", cmd_hdel);
         const result_hdel = await this.execute_child_process(cmd_hdel);
         resolve(result_hdel);
