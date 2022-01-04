@@ -26,7 +26,6 @@ async function clearData() {
 
 function setUpDefault() {
   // $('#backendUrlId').val('http://localhost:8080') 
-  getAgendaPovider();
   clearTicketData();
 }
 
@@ -98,16 +97,6 @@ function buyTicket(event) {
 
 function addDatapointToCanvas(_x, _y){
   canvas_dataPoints.push({ x: _x, y: _y })
-}
-
-
-async function getAgendaPovider(){
-  
-  $('#agendaPovider').html("");
-  $('#agendaPovider').append(`<option value="ithome">iThome 雲端大會</option>`);       
-  $('#agendaPovider').append(`<option value="jcconf">JCCONF</option>`);       
-  $('#agendaPovider').append(`<option value="jsdc">JSDC</option>`);       
-
 }
 
 function appendAgendaRows(agenda_list) {
