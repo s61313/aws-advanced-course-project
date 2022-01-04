@@ -28,7 +28,7 @@ replaceMultipleEnvVarInFile('./public/js/all_agenda_template.js', './public/js/a
 
 
 // cors 
-app.use(cors());
+app.use(cors({credentials: true, origin: true}));
 
 // cookie
 app.use(cookieParser());
@@ -48,11 +48,11 @@ app.use(express.urlencoded({ extended: false }));
 
 //Establish router
 //app.use("/", main_router); /*replace index with name of router,js*/
-app.all('/api', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+// app.all('/api', function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
 
 
 app.use("/api", require("./routers/elbRouter.js"));
