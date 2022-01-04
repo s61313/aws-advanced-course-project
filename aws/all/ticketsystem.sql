@@ -30,6 +30,10 @@ SELECT 'LOADING agenda' as 'INFO';
 source agenda.dump ;
 SELECT * FROM agenda;
 
+SELECT 'LOADING ticket' as 'INFO';
+SELECT * FROM ticket;
+
+
 flush /*!50503 binary */ logs;
 
 -- source show_elapsed.sql ;
