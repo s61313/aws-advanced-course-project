@@ -11,7 +11,7 @@ var cached_checker = new Set();
 var canvas_dataPoints = [];
 var ticket_req_count = 0;
 
-const buy_ticket_backend_url = "http://ec2-3-145-111-106.us-east-2.compute.amazonaws.com:8080";
+const buy_ticket_backend_url = "${BUY_TICKET_BACKEND_HOST_URL}";
 // const buy_ticket_backend_url = "http://localhost:8080";
 
 $(document).ready(() => {

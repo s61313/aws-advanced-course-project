@@ -24,6 +24,7 @@ myenv_list.push({src_env_name: '${BACKEND_HOST_URL}', target_env_name: process.e
 myenv_list.push({src_env_name: '${CF_RESOURCE_HOST_URL}', target_env_name: process.env.CF_RESOURCE_HOST_URL});
 replaceMultipleEnvVarInFile('./public/js/all_homepage_template.js', './public/js/all_homepage.js', myenv_list);
 replaceMultipleEnvVarInFile('./public/js/all_agenda_template.js', './public/js/all_agenda.js', myenv_list);
+replaceEnvVarInFile('./public/js/all_buy_ticket_temlpate.js', './public/js/all_buy_ticket.js', '${BUY_TICKET_BACKEND_HOST_URL}', process.env.BUY_TICKET_BACKEND_HOST_URL);
 
 
 

@@ -8,6 +8,7 @@ const ticketModel = require("../models/ticketModel.js");
 const ticketModelService = new ticketModel();
 const awsElasticache = require("../utils/awsElasticache");
 const awsElasticacheService = new awsElasticache();
+const elbController = require("../controllers/elbController.js");
 
 
 router.get("/all/agenda", async function (req, res) {
@@ -37,5 +38,18 @@ router.get("/all/cleanall", async function (req, res) {
   await awsElasticacheService.cleanallcache();
   res.send({});
 });
+
+router.get("/all/buyticket", async function (req, res) {
+  console.log("/all/buyticket called");
+  let resBuyTicket = await elbController.buyTicket(3000);
+  var end_time = new Date().getTime();
+  var process_time_sec = (end_time - req.query.req_issued_time)/1000;
+  res.send({
+    "ticket_id": resBuyTicket.ticket_id,
+    "process_time": process_time_sec
+  });
+});
+
+
 
 module.exports = router;
