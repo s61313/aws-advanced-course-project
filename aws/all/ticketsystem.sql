@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS ticket, agenda;
 
 CREATE TABLE ticket (
     ticket_id      INT             NOT NULL AUTO_INCREMENT,
-    ticket_type  VARCHAR(256)            NOT NULL
+    ticket_type  VARCHAR(256)            NOT NULL,
     PRIMARY KEY (ticket_id)
 );
 
