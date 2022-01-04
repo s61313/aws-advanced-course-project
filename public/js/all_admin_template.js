@@ -50,7 +50,7 @@ function trackSQSmsg(event){
 function get_sqs_queue_msg_count() {
   console.log("get_sqs_queue_msg_count() called");
 
-  var url_sqs_attrtibute = `${backend_url}/api/sqs/attrtibute?sqs_queue_url=${sqs_queue_url}`;
+  var url_sqs_attrtibute = `${backend_url}/api/all/sqs/attrtibute?sqs_queue_url=${sqs_queue_url}`;
   console.log("url_sqs_attrtibute: " , url_sqs_attrtibute);
 
   $.ajax({

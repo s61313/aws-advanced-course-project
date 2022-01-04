@@ -65,5 +65,11 @@ router.get("/all/buyticket", async function (req, res) {
 });
 
 
+router.get("/all/sqs/attrtibute", async function (req, res) {
+  console.log("/all/sqs/attrtibute called");
+  var sqs_queue_url = req.query.sqs_queue_url;
+  const queue_attr = await awsSQSService.get_queue_attr(sqs_queue_url)
+  res.send(queue_attr)
+});
 
 module.exports = router;
