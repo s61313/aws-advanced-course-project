@@ -43,7 +43,13 @@ router.get("/all/buyticket", async function (req, res) {
   console.log("/all/buyticket called");
   var agendaPovider = req.query.agendaPovider;
 
-  let resBuyTicket = await elbController.buyTicket(3000, agendaPovider);
+  let resBuyTicket = await elbController.buyTicket(3000);
+
+  // insert to database 
+  let result_buy_ticket = await ticketModelService.get_insert_bought_ticket(agendaPovider); 
+  console.log("result_buy_ticket: ", result_buy_ticket);
+
+  // DO-THIS: send to sqs 
   var end_time = new Date().getTime();
   var process_time_sec = (end_time - req.query.req_issued_time)/1000;
   res.send({

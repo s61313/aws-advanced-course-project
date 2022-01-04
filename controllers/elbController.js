@@ -6,7 +6,7 @@
 var lock_available = true;
 var ticket_id = 0;
 
-async function buyTicket(ms, agendaPovider) {
+async function buyTicket(ms) {
   console.log("controller - buyTicket() called")
 
   while(true) {
@@ -18,11 +18,6 @@ async function buyTicket(ms, agendaPovider) {
   await sleep(ms);
   ticket_id++;
   lock_available = true;
-
-  // DO-THIS: insert to database 
-  
-  // DO-THIS: send to sqs 
-
   return {
     "ticket_id": ticket_id
   };
