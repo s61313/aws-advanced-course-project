@@ -5,7 +5,7 @@ USE ticketsystem;
 
 SELECT 'CREATING DATABASE STRUCTURE' as 'INFO';
 
-DROP TABLE IF EXISTS ticket, activity;
+DROP TABLE IF EXISTS ticket, agenda;
 
 /*!50503 set default_storage_engine = InnoDB */;
 /*!50503 select CONCAT('storage engine: ', @@default_storage_engine) as INFO */;
