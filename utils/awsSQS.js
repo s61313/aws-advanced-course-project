@@ -41,8 +41,9 @@ class awsSQS {
 
     send_msg(sqs_queue_url, boughtTicketId, agendaPovider) {
         return new Promise((resolve, reject) => {
-            
-            var params = this.get_sqs_params(sqs_queue_url, boughtTicketId, agendaPovider)
+            console.log("send_msg() called");
+            var params = this.get_sqs_params(sqs_queue_url, boughtTicketId, agendaPovider);
+            console.log("send_msg params: ", params);
             this.sqs.sendMessage(params, function(err, data) {
                if (err) {
                  console.log("Error", err);
@@ -61,7 +62,7 @@ class awsSQS {
         var message_body = {
           "boughtTicketId": boughtTicketId,
           "agendaPovider": agendaPovider
-         }
+         };
 
          var params = {
             // Remove DelaySeconds parameter and value for FIFO queues
