@@ -32,7 +32,14 @@ function setUpDefault() {
 function setupEvent(){  
   $('#buyTicketId').click({level: "normal"}, buyTicket);
   $('#clearTicketDataId').click(clearTicketData);
+  $('#goToAdminPageId').click(goToAdminPage);
+
 }
+
+function goToAdminPage() {
+  window.location.pathname = '/all_admin';
+}
+
 
 function clearTicketData() {
   clearDatapointToCanvas();

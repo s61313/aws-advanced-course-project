@@ -64,6 +64,11 @@ router.get("/all_buy_ticket", (req, res) => {
   res.render("all_buy_ticket");
 });
 
+router.get("/all_admin", (req, res) => {
+  res.render("all_admin");
+});
+
+
 
 
 module.exports = router;
