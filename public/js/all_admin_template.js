@@ -9,8 +9,8 @@ var axisX_max = 100;
 var refreshIntervalId;
 var interval_ms = 3000
 
-const backend_url = "http://ec2-3-145-111-106.us-east-2.compute.amazonaws.com:8080";  
-const sqs_queue_url = "replaced_this_with_a_sqs_queue_url";
+const backend_url = "${BACKEND_HOST_URL}";  
+const sqs_queue_url = "${SQS_QUEUE_URL}";
 
 $(document).ready(() => {
   console.log("sqs_lambda_tempalte.js loaded");
