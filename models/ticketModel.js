@@ -60,7 +60,7 @@ class TicketModel {
       const sql = 
       `
       INSERT INTO ticket (ticket_type) 
-      VALUES (${agendaProvider})
+      VALUES ('${agendaProvider}')
       ;
       `
       return sql;
