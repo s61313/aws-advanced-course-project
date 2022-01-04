@@ -44,35 +44,35 @@ async function getAdenda() {
 
   return new Promise(async (resolve, reject) => {
     console.log("getAdenda() called");
-
+    $("#agendaId").html("");
     let agendaPovider = $('#agendaPovider').val();
 
-    var agenda_list_tmp = [];
-    if (agendaPovider == "ithome") {
-      agenda_list_tmp.push({startendtime: "09:00-10:00", topic: "雲端的趨勢", speaker: "Tom Cruise"});
-      agenda_list_tmp.push({startendtime: "10:00-13:00", topic: "AWS 與 GCP 踩雷分享談", speaker: "Kelly Lui"});
-      agenda_list_tmp.push({startendtime: "13:00-15:00", topic: "雲端工作坊 (需自備筆電)", speaker: "Catherine"});
-      agenda_list_tmp.push({startendtime: "15:00-16:00", topic: "重定義：雲端運算新常態", speaker: "Matthew"});
-      // agenda_list_tmp.push({ticket_id: 2, ticket_type: "JCConf", ticket_no_remained: 23});
-      // agenda_list_tmp.push({ticket_id: 3, ticket_type: "JSDC", ticket_no_remained: 10});
-      // agenda_list_tmp.push({ticket_id: 4, ticket_type: "開發者年會", ticket_no_remained: 66});  
-    }
-    appendAgendaRows(agenda_list_tmp);
-    resolve();
+    // var agenda_list_tmp = [];
+    // if (agendaPovider == "ithome") {
+    //   agenda_list_tmp.push({startendtime: "09:00-10:00", topic: "雲端的趨勢", speaker: "Tom Cruise"});
+    //   agenda_list_tmp.push({startendtime: "10:00-13:00", topic: "AWS 與 GCP 踩雷分享談", speaker: "Kelly Lui"});
+    //   agenda_list_tmp.push({startendtime: "13:00-15:00", topic: "雲端工作坊 (需自備筆電)", speaker: "Catherine"});
+    //   agenda_list_tmp.push({startendtime: "15:00-16:00", topic: "重定義：雲端運算新常態", speaker: "Matthew"});
+    //   // agenda_list_tmp.push({ticket_id: 2, ticket_type: "JCConf", ticket_no_remained: 23});
+    //   // agenda_list_tmp.push({ticket_id: 3, ticket_type: "JSDC", ticket_no_remained: 10});
+    //   // agenda_list_tmp.push({ticket_id: 4, ticket_type: "開發者年會", ticket_no_remained: 66});  
+    // }
+    // appendAgendaRows(agenda_list_tmp);
+    // resolve();
     
     // DO-THIS: use this for formal env 
-    // var url_get_agenda = `${backend_url}/api/all/aganda`;
-    // console.log("url_get_agenda: " , url_get_agenda);
+    var url_get_agenda = `${backend_url}/api/all/agenda?agendaPovider=${agendaPovider}`;
+    console.log("url_get_agenda: " , url_get_agenda);
   
-    // $.ajax({
-    //   url: url_get_agenda,
-    //   type: "GET",
-    //   success: function (res) {
-    //     console.log("url_get_agenda - res: " , res);
-    //     appendAgendaRows(res.result);
-    //     resolve();
-    //   },
-    // });
+    $.ajax({
+      url: url_get_agenda,
+      type: "GET",
+      success: function (res) {
+        console.log("url_get_agenda - res: " , res);
+        appendAgendaRows(res.result);
+        resolve();
+      },
+    });
   })   
 
 }
@@ -81,7 +81,7 @@ function appendAgendaRows(agenda_list) {
   $("#agendaId").html("");
   for (var i = 0; i < agenda_list.length ;i++) {
     const agenda = agenda_list[i];
-    $("#agendaId").append(getAgendaRowView(agenda.startendtime, agenda.topic, agenda.speaker));
+    $("#agendaId").append(getAgendaRowView(agenda.agenda_startendtime, agenda.agenda_topic, agenda.agenda_speaker));
   }
 } 
 

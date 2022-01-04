@@ -28,10 +28,10 @@ CREATE TABLE agenda (
 
 SELECT 'LOADING ticket' as 'INFO';
 source ticket.dump ;
+SELECT * FROM ticket;
+
 SELECT 'LOADING agenda' as 'INFO';
 source agenda.dump ;
-
-SELECT * FROM ticket;
 SELECT * FROM agenda;
 
 flush /*!50503 binary */ logs;
