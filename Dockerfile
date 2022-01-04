@@ -1,5 +1,5 @@
 FROM node:12
-ARG serverid
+ARG sqs_queue_url is_queue_on
 # Create app directory
 WORKDIR /usr/src/app
 # Install app dependencies
@@ -14,6 +14,8 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-RUN sed -i "s/replaced_this_with_a_server_id/${serverid}/g" views/elb_stickiness.ejs
+RUN sed -i "s|replaced_this_with_a_sqs_queue_url|${sqs_queue_url}|g" .env
+RUN sed -i "s|replaced_this_with_is_queue_on|${is_queue_on}|g" .env
+RUN cat .env
 EXPOSE 8080
 CMD [ "node", "start.js" ]
