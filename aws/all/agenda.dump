@@ -1,6 +1,6 @@
 INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('iThome Summit', "09:00-10:00", "The future of Cloud", "Tom Cruise");
 INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('iThome Summit', "10:00-13:00", "AWS and GCP tips", "Kelly Lui");
-INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('iThome Summit', "13:00-15:00", "What's next in Big Data", "Petty Charry");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('iThome Summit', "13:00-15:00", "What is next in Big Data", "Petty Charry");
 INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('iThome Summit', "15:00-16:00", "Redefine: DeOps Career", "Matthew");
 
 INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('JCConf', "08:00-09:30", "Spring in progress", "Michael");
