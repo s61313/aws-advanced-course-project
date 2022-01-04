@@ -6,7 +6,7 @@ var passed_color_bg = "#22a2b8";
 var notpassed_toolong_color_bg = "rgb(191, 62, 92)";
 var color_bg_default = "rgb(36, 48, 64)";
 // var cf_url = "http://"+cfUrl;
-var cf_url = "https://" + "mycf11.learncodebypicture.com";
+var cf_url = "https://" + "undefined";
 console.log("cf_url: ", cf_url);
 
 $(document).ready(() => {

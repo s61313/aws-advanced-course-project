@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+        <title>XYZ 購票平台</title>
+
+        <!-- import 3rd-party js files -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="js/libs/canvasjs.min.js"></script>
+
+        <!-- import shared js files -->
+        <script src="js/common/nav.js"></script>
+        <script src="js/common/bottomNav.js"></script>
+
+        <!-- import js files -->
+        <!-- <script type="module" src="/js/sqs_lambda_template.js"></script> -->
+        <script type="module" src="/js/all_homepage.js"></script>
+
+        <!-- import 3rd-party css files -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        
+        <!-- import css files -->
+        <!-- <link rel="stylesheet" type="text/css" href="/styles/cloudfront_signedurl.css">   -->
+        <link rel="stylesheet" type="text/css" href="/styles/common.css">   
+        
+        <!-- Boostrap -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    </head>
+    <body>
+        <div class="d-flex" id="wrapper">
+            <div id="page-content-wrapper">
+                <div id="nav-template"></div>
+
+                <div id="ELByViewId">
+                    <div class="d-flex justify-content-center flex-column align-items-center">
+                        <h3 class="mb-4 mt-4"> XYZ 購票平台 </h3>
+                        <!-- <button id="buyTicketId" class="mt-4 mb-4 btn btn-primary btn-lg active" style="width: 80%;">Buy Ticket</button> -->
+                        <!-- <div class="row mb-3" style="width: 100%;">
+                            <div class="col-2"><button class="btn btnBasic btn-lg active" style="width: 100%; height: 100%;">backend URL</button></div>
+                            <div class="col-10"><input id="backendUrlId" type="text" class="form-control" style="width: 100%; height: 100%;"></div>
+                        </div> -->
+                        <!-- <div class="row mb-3" style="width: 100%;">
+                            <div class="col-2"><button class="btn btnBasic btn-lg active" style="width: 100%; height: 100%;">Status</button></div>
+                            <div class="col-10">
+                                <select id="studentstatus" class="selectpicker" style="width: 100%; height: 100%;">
+                                    <option value="unpaid">尚未購課學員</option>
+                                    <option value="paid">已購課學員</option>
+                                </select>  
+                            </div>
+                        </div> -->
+                        <!-- <div class="row mb-3" style="width: 100%;">
+                            <div class="col-12"><button id="goToBuyTicketPageId" class="btn btnBasic btn-lg active" style="width: 100%; height: 100%;">前往購票 ➜</button></div>
+                        </div>  -->
+                        <div class="row mb-3" style="width: 100%;">
+                            <div class="col-12"><button id="goToSeeAgendaPageId" class="btn btnBasic btn-lg active" style="width: 100%; height: 100%;">查看各大活動議程 ➜</button></div>
+                        </div> 
+
+                    </div>
+                </div>
+
+                <!-- <div class="d-flex justify-content-center flex-column align-items-center">
+                <video id="videoSrcId" width="50%" height="50%" controls>
+                    Your browser does not support the video tag.
+                </video>                    
+                </div> -->
+                <div class="d-flex justify-content-center flex-column align-items-center">
+                    <div id="bannersId" class="row mb-3" style="width: 100%;">
+                    </div>
+                </div>
+                <!-- <div id="chartContainer" style="height: 370px; width: 100%;"></div> -->
+
+                <div id="bottom-nav-template"></div>                  
+            </div>
+        </div>
+
+    </body>
+
+</html>

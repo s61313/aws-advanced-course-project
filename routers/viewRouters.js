@@ -52,6 +52,18 @@ router.get("/cloudfront_signedcookie", (req, res) => {
   res.render("cloudfront_signedcookie");
 });
 
+router.get("/all", (req, res) => {
+  res.render("all_homepage");
+});
+
+router.get("/all_agenda", (req, res) => {
+  res.render("all_agenda");
+});
+
+router.get("/all_buy_ticket", (req, res) => {
+  res.render("all_buy_ticket");
+});
+
 
 
 module.exports = router;

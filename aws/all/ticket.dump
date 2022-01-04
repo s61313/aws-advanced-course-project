@@ -1,0 +1,4 @@
+INSERT INTO ticket (ticket_type, ticket_no_remained) VALUES ('iThome 雲端大會', 5);
+INSERT INTO ticket (ticket_type, ticket_no_remained) VALUES ('JCConf', 23);
+INSERT INTO ticket (ticket_type, ticket_no_remained) VALUES ('JSDC', 10);
+INSERT INTO ticket (ticket_type, ticket_no_remained) VALUES ('開發者年會', 86);

@@ -1,0 +1,10 @@
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('iThome 雲端大會', "09:00-10:00", "雲端的趨勢", "Tom Cruise");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('iThome 雲端大會', "10:00-13:00", "AWS 與 GCP 踩雷分享談", "Kelly Lui");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('iThome 雲端大會', "13:00-15:00", "雲端的趨勢", "雲端工作坊 (需自備筆電)");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('iThome 雲端大會', "15:00-16:00", "重定義：雲端運算新常態", "Matthew");
+
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('JCConf', "15:00-16:00", "重定義：雲端運算新常態", "Matthew");
+
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('JSDC', "15:00-16:00", "重定義：雲端運算新常態", "Matthew");
+
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('開發者年會', "15:00-16:00", "重定義：雲端運算新常態", "Matthew");
