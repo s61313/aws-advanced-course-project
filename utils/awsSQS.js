@@ -124,12 +124,13 @@ class awsSQS {
           QueueUrl: sqs_queue_url,
           AttributeNames : ['ApproximateNumberOfMessages'],
          };
+         console.log("get_queue_attr params: ", params);
 
          this.sqs.getQueueAttributes(params, function(err, data){
           if (err) {
-                //  console.log("Error", err);
+                 console.log("Error", err);
                } else {
-                //  console.log(data);
+                 console.log(data);
                  resolve(data);
                }
           });         
