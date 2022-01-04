@@ -1,0 +1,4 @@
+INSERT INTO ticket (ticket_type, ticket_no_remained) VALUES ('iThome Summit', 5);
+INSERT INTO ticket (ticket_type, ticket_no_remained) VALUES ('JCConf', 23);
+INSERT INTO ticket (ticket_type, ticket_no_remained) VALUES ('JSDC', 10);
+INSERT INTO ticket (ticket_type, ticket_no_remained) VALUES ('Open Source Conference', 86);

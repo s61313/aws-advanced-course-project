@@ -1,0 +1,21 @@
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('iThome Summit', "09:00-10:00", "The future of Cloud", "Tom Cruise");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('iThome Summit', "10:00-13:00", "AWS and GCP tips", "Kelly Lui");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('iThome Summit', "13:00-15:00", "What is next in Big Data", "Petty Charry");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('iThome Summit', "15:00-16:00", "Redefine: DeOps Career", "Matthew");
+
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('JCConf', "08:00-09:30", "Spring in progress", "Michael");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('JCConf', "09:30-13:30", "Java11: explore", "Linda");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('JCConf', "13:30-15:20", "Is Java losing its popularity?", "Joseph Ken");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('JCConf', "15:20-16:00", "Project Demo: build chatbot with Java", "Jessica Lua");
+
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('JSDC', "09:00-10:30", "JS in 2019", "Karen");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('JSDC', "10:30-13:30", "When JS meets DeOps", "Anthony");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('JSDC', "13:30-15:00", "The future of Javascript", "Donald Trump");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('JSDC', "15:00-16:00", "Deno: worth learning?", "Donna Que");
+
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('Open Source Conference', "09:00-10:25", "Mindset in Open Source", "Amanda");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('Open Source Conference', "10:25-13:10", "Projects you can contribute", "Ronald Don");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('Open Source Conference', "13:10-14:00", "My Story of becoming a contributor", "Karen");
+INSERT INTO agenda (agenda_type, agenda_startendtime, agenda_topic, agenda_speaker) VALUES ('Open Source Conference', "14:00-16:00", "Log4j: the dilemma of Open Source", "Jonathan JoJo");
+
+

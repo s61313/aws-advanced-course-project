@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+        <title>AWS ELB + ASG</title>
+
+        <!-- import 3rd-party js files -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="js/libs/canvasjs.min.js"></script>
+
+        <!-- import shared js files -->
+        <script src="js/common/nav.js"></script>
+        <script src="js/common/bottomNav.js"></script>
+
+        <!-- import js files -->
+        <script type="module" src="/js/elbex1.js"></script>
+
+        <!-- import 3rd-party css files -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        
+        <!-- import css files -->
+        <link rel="stylesheet" type="text/css" href="/styles/elbex1.css">  
+        <link rel="stylesheet" type="text/css" href="/styles/common.css">   
+        
+    </head>
+    <body>
+        <div class="d-flex" id="wrapper">
+            <div id="page-content-wrapper">
+                <div id="nav-template"></div>
+
+                <div id="ELByViewId">
+                    <div class="d-flex justify-content-center flex-column align-items-center">
+                        <h3 class="mb-4 mt-4"> AWS ELB + ASG exercise </h3>
+                        <!-- <button id="buyTicketId" class="mt-4 mb-4 btn btn-primary btn-lg active" style="width: 80%;">Buy Ticket</button> -->
+                        <div class="row mb-3" style="width: 100%;">
+                            <div class="col-10"><button id="case1Id" class="btn btnBasic btn-lg active" style="width: 100%; height: 100%;">Simulate Case 1</button></div>
+                            <div class="col-2 pl-1"><button id="case1StopId" class="btn btnBasic btn-lg active btn-text-center" style="width: 100%; height: 100%">X</button></div>
+                        </div>                        
+
+                        <div class="row mb-3" style="width: 100%;">
+                            <div class="col-10"><button id="case2Id" class="btn btnBasic btn-lg active" style="width: 100%; height: 100%;">Simulate Case 2</button></div>
+                            <div class="col-2 pl-1"><button id="case2StopId" class="btn btnBasic btn-lg active btn-text-center" style="width: 100%; height: 100%">X</button></div>
+                        </div>
+
+                        <div class="row mb-3" style="width: 100%;">
+                            <div class="col-10"><button id="case3Id" class="btn btnBasic btn-lg active" style="width: 100%; height: 100%;">Simulate Case 3</button></div>
+                            <div class="col-2 pl-1"><button id="case3StopId" class="btn btnBasic btn-lg active btn-text-center" style="width: 100%; height: 100%">X</button></div>
+                        </div>                        
+
+                    </div>
+                    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                </div>
+
+                <div id="bottom-nav-template"></div>                  
+            </div>
+        </div>
+
+    </body>
+
+</html>

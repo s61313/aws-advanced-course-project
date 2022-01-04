@@ -1,0 +1,11 @@
+.table-vertical-scrollable {
+    max-height: 300px;
+    overflow: auto;
+    display:inline-block;
+}
+
+.btn-text-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
