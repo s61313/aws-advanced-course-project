@@ -9,9 +9,9 @@ var rows_per_page = 500;
 var processed_time_total = 0;
 var cached_checker = new Set();
 
-const backend_url = "http://localhost:8080"; 
+const backend_url = "${BACKEND_HOST_URL}";  
 // const backend_url = "http://localhost:8080";
-const resource_url = "http://localhost:8080"; 
+const resource_url = "${CF_RESOURCE_HOST_URL}"; 
 // const resource_url = "http://localhost:8080";
 
 $(document).ready(() => {

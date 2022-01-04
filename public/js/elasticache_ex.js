@@ -8,7 +8,7 @@ var color_bg_default = "rgb(36, 48, 64)";
 var rows_per_page = 500;
 var processed_time_total = 0;
 var cached_checker = new Set();
-const hostname = "http://XXXXX.XXXXXX.XXX:8080";
+const hostname = "http://localhost:8080";
 
 $(document).ready(() => {
   console.log("sqs_lambda_tempalte.js loaded");

@@ -19,6 +19,13 @@ replaceEnvVarInFile('./public/js/elb_template.js', './public/js/elb.js', '${BACK
 replaceEnvVarInFile('./public/js/elbex1_template.js', './public/js/elbex1.js', '${BACKEND_HOST_URL}', process.env.BACKEND_HOST_URL);
 replaceEnvVarInFile('./public/js/elasticache_ex_template.js', './public/js/elasticache_ex.js', '${BACKEND_HOST_URL}', process.env.BACKEND_HOST_URL);
 replaceEnvVarInFile('./public/js/cloudfront_signedcookie_template.js', './public/js/cloudfront_signedcookie.js', '${CF_URL}', process.env.CF_URL);
+let myenv_list = [];
+myenv_list.push({src_env_name: '${BACKEND_HOST_URL}', target_env_name: process.env.BACKEND_HOST_URL});
+myenv_list.push({src_env_name: '${CF_RESOURCE_HOST_URL}', target_env_name: process.env.CF_RESOURCE_HOST_URL});
+replaceMultipleEnvVarInFile('./public/js/all_homepage_template.js', './public/js/all_homepage.js', myenv_list);
+replaceMultipleEnvVarInFile('./public/js/all_agenda_template.js', './public/js/all_agenda.js', myenv_list);
+
+
 
 // cors 
 app.use(cors());
@@ -59,6 +66,15 @@ app.use("/", require("./routers/viewRouters.js"));
 const http = require("http");
 const server = http.createServer(app);
 const socketioService = new SocketioService(server);
+
+function replaceMultipleEnvVarInFile(src_file_name, target_file_name, env_list) {
+    let fileBuffer = fs.readFileSync(src_file_name, 'utf-8');
+    for (let i = 0; i < env_list.length; i++) {
+        let myenv = env_list[i];
+        fileBuffer = fileBuffer.replace(myenv.src_env_name, myenv.target_env_name);
+    }
+    fs.writeFileSync(target_file_name, fileBuffer);    
+}
 
 function replaceEnvVarInFile(src_file_name, target_file_name, src_env_name, target_env_name) {
     let fileBuffer = fs.readFileSync(src_file_name, 'utf-8');

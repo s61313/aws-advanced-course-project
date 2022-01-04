@@ -11,9 +11,9 @@ var cached_checker = new Set();
 var canvas_dataPoints = [];
 var ticket_req_count = 0;
 
-// const backend_url = "${BACKEND_HOST_URL}"; // DO-THIS: use it for formal env 
+// const backend_url = "${BACKEND_HOST_URL}";
 const backend_url = "http://localhost:8080";
-// const resource_url = "${RESOURCE_HOST_URL}"; // DO-THIS: use it for formal env 
+// const resource_url = "${RESOURCE_HOST_URL}";
 const resource_url = "http://localhost:8080";
 
 $(document).ready(() => {
