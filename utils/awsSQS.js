@@ -39,10 +39,10 @@ class awsSQS {
   }    
 
 
-    send_msg(sqs_queue_url) {
+    send_msg(sqs_queue_url, boughtTicketId, agendaPovider) {
         return new Promise((resolve, reject) => {
             
-            var params = this.get_sqs_params(sqs_queue_url)
+            var params = this.get_sqs_params(sqs_queue_url, boughtTicketId, agendaPovider)
             this.sqs.sendMessage(params, function(err, data) {
                if (err) {
                  console.log("Error", err);
@@ -56,10 +56,11 @@ class awsSQS {
         })        
     }
 
-    get_sqs_params(sqs_queue_url) {
+    get_sqs_params(sqs_queue_url, boughtTicketId, agendaPovider) {
 
         var message_body = {
-          "process_time_ms": 1301
+          "boughtTicketId": boughtTicketId,
+          "agendaPovider": agendaPovider
          }
 
          var params = {

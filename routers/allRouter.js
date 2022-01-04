@@ -9,7 +9,8 @@ const ticketModelService = new ticketModel();
 const awsElasticache = require("../utils/awsElasticache");
 const awsElasticacheService = new awsElasticache();
 const elbController = require("../controllers/elbController.js");
-
+const awsSQS = require("../utils/awsSQS")
+const awsSQSService = new awsSQS();
 
 router.get("/all/agenda", async function (req, res) {
   console.log("/all/agenda called");
@@ -49,9 +50,11 @@ router.get("/all/buyticket", async function (req, res) {
   let result_buy_ticket = await ticketModelService.get_insert_bought_ticket(agendaPovider); 
   console.log("result_buy_ticket: ", result_buy_ticket);
 
-  // DO-THIS: send to sqs 
-  
-
+  // send a msg to queue  
+  const boughtTicketId = result_buy_ticket.insertId;
+  const sqs_queue_url = process.env.SQS_QUEUE_URL;
+  let send_msg_result = await awsSQSService.send_msg(sqs_queue_url, boughtTicketId, agendaPovider);
+  console.log("send_msg_result: ", send_msg_result);
 
   var end_time = new Date().getTime();
   var process_time_sec = (end_time - req.query.req_issued_time)/1000;
