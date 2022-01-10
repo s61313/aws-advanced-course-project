@@ -70,15 +70,34 @@ function generateArticleHelper(random_suffix) {
     
     console.log("url_generate_article: " , url_generate_article);
 
+    // $.ajax({
+    //   url: url_generate_article,
+    //   type: "GET",
+    //   success: function (res) {
+    //     console.log("url_generate_article - res: " , res);   
+    //     $('#articleId').html(res.result);
+    //     resolve();
+    //   },
+    // });
+
     $.ajax({
       url: url_generate_article,
-      type: "GET",
-      success: function (res) {
-        console.log("url_generate_article - res: " , res);   
-        $('#articleId').html(res.result);
-        resolve();
-      },
-    });
+      type: "GET"
+    }).done(function(res) {
+      console.log("url_generate_article - res: " , res);   
+      $('#articleId').html(res.result);
+      resolve();
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+      console.log("url_generate_article - jqXHR: " , jqXHR);   
+      console.log("url_generate_article - textStatus: " , textStatus);   
+      console.log("url_generate_article - errorThrown: " , errorThrown);   
+      resolve();
+    }).always(function() {
+      
+    });    
+    ;
+
+
   })
 }
 
