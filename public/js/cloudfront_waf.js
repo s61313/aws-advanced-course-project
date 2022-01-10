@@ -10,6 +10,7 @@ var processed_time_total = 0;
 var cached_checker = new Set();
 var cf_distribution_dns = "http://mycf11.learncodebypicture.com"
 let videourlall = `${cf_distribution_dns}/production/aws_cloudfront_gcp_vpc_zh.mp4`;
+let is_blocked = false;
 // const hostname = "${BACKEND_HOST_URL}";
 
 $(document).ready(() => {
@@ -38,8 +39,10 @@ async function generateArticleDDoS(){
   console.log("generateArticleDDoS() called");
   $('#generateArticleDDoSId').prop('disabled', true);
   $("#generateArticleDDoSId").html(`DDoS: Generate Article`);
+  is_blocked = false;
   let round = 10001;
   for (;round >= 0; round--) {
+    if (is_blocked) break;
     await generateArticleHelper(uuidv4()); 
   }
   $('#generateArticleDDoSId').prop('disabled', false);
@@ -92,8 +95,9 @@ function generateArticleHelper(random_suffix) {
       console.log("url_generate_article - textStatus: " , textStatus);   
       console.log("url_generate_article - errorThrown: " , errorThrown);  
       if (jqXHR.status == 403) {
+        is_blocked = true;
         $("#generateArticleDDoSId").html(`DDoS: Generate Article (Blocked)`);
-        $("#generateArticleId").css("background-color", notpassed_toolong_color_bg); 
+        $("#generateArticleDDoSId").css("background-color", notpassed_toolong_color_bg); 
       } 
       resolve();
     }).always(function() {
