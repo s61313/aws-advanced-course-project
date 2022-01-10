@@ -37,7 +37,7 @@ function setupEvent(){
 async function generateArticleDDoS(){
   console.log("generateArticleDDoS() called");
   $('#generateArticleDDoSId').prop('disabled', true);
-  $("#generateArticleDDoSId").html(`Generate Article`);
+  $("#generateArticleDDoSId").html(`DDoS: Generate Article`);
   let round = 10001;
   for (;round >= 0; round--) {
     await generateArticleHelper(uuidv4()); 
