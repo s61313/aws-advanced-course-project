@@ -98,6 +98,8 @@ function generateArticleHelper(random_suffix) {
         is_blocked = true;
         $("#generateArticleDDoSId").html(`DDoS: Generate Article (Blocked)`);
         $("#generateArticleDDoSId").css("background-color", notpassed_toolong_color_bg); 
+        $("#generateArticleId").html(`Generate Article (Blocked)`);
+        $("#generateArticleId").css("background-color", notpassed_toolong_color_bg); 
       } 
       resolve();
     }).always(function() {
