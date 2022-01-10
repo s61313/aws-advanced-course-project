@@ -40,7 +40,7 @@ async function generateArticleDDoS(){
   $("#generateArticleDDoSId").html(`Generate Article`);
   let round = 101;
   for (;round >= 0; round--) {
-    await generateArticleHelper(); 
+    await generateArticleHelper(uuidv4()); 
   }
   $('#generateArticleDDoSId').prop('disabled', false);
 }
@@ -56,12 +56,18 @@ async function generateArticle(){
   $('#generateArticleId').prop('disabled', false);
 }
 
-function generateArticleHelper() {
+function generateArticleHelper(random_suffix) {
   return new Promise(async (resolve, reject) => {
 
     let hostname = $('#backendUrlId').val();
     let userName = $('#userNameId').val();
-    var url_generate_article = `${hostname}/api/cloudfront/generatearticle?creator=${userName}`;
+    var url_generate_article = '';
+    if (random_suffix) {
+      url_generate_article = `${hostname}/api/cloudfront/generatearticle?creator=${userName}_${random_suffix}`;
+    }else {
+      url_generate_article = `${hostname}/api/cloudfront/generatearticle?creator=${userName}`;
+    }
+    
     console.log("url_generate_article: " , url_generate_article);
 
     $.ajax({
@@ -80,4 +86,11 @@ function getCookie(name) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
 }
