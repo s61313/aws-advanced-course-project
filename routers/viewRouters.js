@@ -68,6 +68,10 @@ router.get("/all_admin", (req, res) => {
   res.render("all_admin");
 });
 
+router.get("/cloudfront_waf", (req, res) => {
+  res.render("cloudfront_waf");
+});
+
 
 
 
