@@ -51,7 +51,7 @@ async function generateArticle(){
   $('#generateArticleId').prop('disabled', true);
   $("#generateArticleId").html(`Generate Article`);
   $('#articleId').html('');
-  // $("#simulation01Id").css("background-color", color_bg_default); 
+  $("#generateArticleId").css("background-color", color_bg_default); 
   await generateArticleHelper();  
   $('#generateArticleId').prop('disabled', false);
 }
@@ -90,7 +90,11 @@ function generateArticleHelper(random_suffix) {
     }).fail(function(jqXHR, textStatus, errorThrown) {
       console.log("url_generate_article - jqXHR: " , jqXHR);   
       console.log("url_generate_article - textStatus: " , textStatus);   
-      console.log("url_generate_article - errorThrown: " , errorThrown);   
+      console.log("url_generate_article - errorThrown: " , errorThrown);  
+      if (jqXHR.status == 403) {
+        $("#generateArticleDDoSId").html(`DDoS: Generate Article (Blocked)`);
+        $("#generateArticleId").css("background-color", notpassed_toolong_color_bg); 
+      } 
       resolve();
     }).always(function() {
       
