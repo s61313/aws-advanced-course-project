@@ -28,7 +28,23 @@ function setUpDefault() {
 
 function setupEvent(){  
   $('#generateArticleId').click({"input1": "value1"}, generateArticle);
+
+  $('#generateArticleDDoSId').click({"input1": "value1"}, generateArticleDDoS);
+  
 }
+
+
+async function generateArticleDDoS(){
+  console.log("generateArticleDDoS() called");
+  $('#generateArticleDDoSId').prop('disabled', true);
+  $("#generateArticleDDoSId").html(`Generate Article`);
+  let round = 101;
+  for (;round >= 0; round--) {
+    await generateArticleHelper(); 
+  }
+  $('#generateArticleDDoSId').prop('disabled', false);
+}
+
 
 async function generateArticle(){
   console.log("generateArticle() called");
